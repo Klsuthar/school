@@ -1,0 +1,38 @@
+school-website/
+├── home.html
+├── services.html
+├── gallery.html
+├── about.html
+├── contact.html
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+└── images/
+    ├── banner.jpg          // Placeholder for home banner
+    ├── student1.jpg        // Placeholder
+    ├── student2.jpg        // Placeholder
+    ├── student3.jpg        // Placeholder
+    ├── student4.jpg        // Placeholder
+    ├── facility-teacher.png // Placeholder icon
+    ├── facility-playground.png // Placeholder icon
+    ├── facility-lab.png    // Placeholder icon
+    ├── facility-bus.png    // Placeholder icon
+    ├── gallery/
+    │   ├── annual/
+    │   │   ├── 1.jpg
+    │   │   ├── 2.jpg
+    │   │   └── 3.jpg
+    │   ├── sports/
+    │   │   ├── 1.jpg
+    │   │   ├── 2.jpg
+    │   │   └── 3.jpg
+    │   ├── classrooms/
+    │   │   ├── 1.jpg
+    │   │   ├── 2.jpg
+    │   │   └── 3.jpg
+    │   └── events/
+    │   │   ├── 1.jpg
+    │   │   ├── 2.jpg
+    │   │   └── 3.jpg
+    └── logo.png            // Placeholder school logo
