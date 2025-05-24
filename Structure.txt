@@ -18,6 +18,7 @@ school-website/
     ├── facility-playground.png // Placeholder icon
     ├── facility-lab.png    // Placeholder icon
     ├── facility-bus.png    // Placeholder icon
+    ├── principal.jpg    
     ├── gallery/
     │   ├── annual/
     │   │   ├── 1.jpg
