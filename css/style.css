@@ -770,6 +770,8 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* ... (your existing 768px styles) ... */
+
     .logo {
         font-size: 1.5rem;
     }
@@ -788,7 +790,7 @@ footer {
         width: 100%;
         background-color: var(--dark-grey-logo);
         position: absolute;
-        top: 70px;
+        top: 70px; /* Ensure this matches header height */
         left: 0;
         padding: 10px 0;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -825,7 +827,7 @@ footer {
 
     .home-banner {
         height: 60vh;
-        min-height: 400px;
+        min-height: 400px; /* Added min-height for very short viewports */
     }
 
     .banner-content h1 {
@@ -837,11 +839,10 @@ footer {
     }
 
     .result-card {
-        width: 250px;
+        width: 250px; /* Or consider width: 80%; max-width: 280px; for more flexibility */
     }
 
     .facility-card img.icon {
-        /* Adjust facility icon size for medium screens */
         width: 80px;
         height: 80px;
     }
@@ -877,64 +878,157 @@ footer {
 
 @media (max-width: 480px) {
     .banner-content h1 {
-        font-size: 2.2rem;
+        font-size: 2.0rem; /* Further reduced for very small screens */
     }
 
     .banner-content p {
-        font-size: 1.1rem;
+        font-size: 1.0rem; /* Further reduced */
     }
 
     .result-card {
-        width: calc(90% - 30px);
-        margin: 0 15px;
+        width: calc(90% - 20px); /* Adjusted slightly for less aggressive subtraction */
+        margin: 0 10px;         /* Adjusted margin to match */
     }
+    /* JS for results slider should correctly pick up offsetWidth for calculations */
+
 
     .logo img {
         height: 30px;
     }
 
     .logo {
-        font-size: 1.3rem;
+        font-size: 1.2rem; /* Slightly smaller logo text */
     }
 
+    /* Hamburger menu button adjustments if needed */
+    .menu-toggle {
+        font-size: 1.6rem; /* If it feels too large */
+        padding: 5px;      /* Ensure it's easy to tap */
+    }
+
+
     nav ul li {
-        margin-left: 20px;
+        margin-left: 0; /* Centered items don't need left margin from desktop */
+    }
+    
+    nav ul li a {
+        padding: 10px; /* Slightly reduce padding inside mobile nav links if needed */
     }
 
     header .container {
-        padding: 0 15px;
+        padding: 0 10px; /* Reduce container padding */
     }
 
     .section-title {
-        font-size: 1.8rem;
+        font-size: 1.7rem; /* Further reduce section titles */
+        margin-bottom: 30px; /* Adjust margin */
+    }
+    .section-title::after {
+        width: 60px; /* Shorter underline */
+        height: 3px;
+        margin-top: 8px;
     }
 
+
     .facility-card img.icon {
-        /* Adjust facility icon size for small screens */
-        width: 70px;
-        height: 70px;
-        margin-bottom: 15px;
+        width: 60px; /* Smaller icons */
+        height: 60px;
+        margin-bottom: 10px;
     }
 
     .facility-card h3 {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
     }
 
     .facility-card p {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 
     .gallery-section h3 {
-        font-size: 1.4rem;
+        font-size: 1.3rem; /* Further reduce gallery sub-titles */
     }
+    
+    .image-grid-container {
+        height: 180px; /* Adjust gallery image container height */
+    }
+
+    /* Modal Controls on small screens */
+    .close-modal,
+    .prev-modal,
+    .next-modal {
+        font-size: 28px; /* Slightly smaller control icons */
+        padding: 8px;    /* Smaller padding, thus smaller touch target but less intrusive */
+    }
+    .close-modal {
+        top: 10px;       /* Adjust position */
+        right: 15px;
+    }
+    .prev-modal {
+        left: 10px;      /* Adjust position */
+    }
+    .next-modal {
+        right: 10px;     /* Adjust position */
+    }
+    .modal-content {
+        max-width: 95%; /* Allow a bit more width for image */
+    }
+
 
     .form-group input,
     .form-group textarea,
     .submit-btn {
-        font-size: 0.95rem;
+        font-size: 0.9rem; /* Smaller form text */
+    }
+    .form-group label {
+        font-size: 0.85rem;
     }
 
     .submit-btn {
-        padding: 10px 20px;
+        padding: 10px 18px; /* Adjust button padding */
+        width: 100%; /* Make button full width for easier tapping */
     }
+    
+    .contact-form-section,
+    .contact-info-section {
+        padding: 20px; /* Reduce padding in contact sections */
+    }
+
+    #map-embed {
+        height: 250px; /* Reduce map height */
+    }
+    
+    .contact-info-section p {
+        font-size: 0.9rem; /* Smaller contact info text */
+    }
+    .contact-info-section p i {
+        font-size: 1rem; /* Smaller icons in contact info */
+    }
+
+    /* Footer adjustments for very small screens */
+    .footer-section h4 {
+        font-size: 1.1rem;
+    }
+    .footer-section p, .footer-section ul li a {
+        font-size: 0.85rem;
+    }
+    .social-links a {
+        font-size: 1.5rem; /* Smaller social icons */
+        width: 32px;       /* Adjust size */
+        height: 32px;
+    }
+    .footer-bottom p {
+        font-size: 0.8rem;
+    }
+
+    .principal-message img {
+        width: 150px;
+        height: 150px;
+    }
+    .about-section h2 {
+        font-size: 1.5rem;
+    }
+    .about-section p, .about-section ul li {
+        font-size: 0.9rem;
+    }
+
 }
