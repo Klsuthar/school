@@ -2,7 +2,7 @@
   {
     "id": 4,
     "title": "Mid-Term Examination Schedule",
-    "date": "2023-11-10",
+    "date": "2024-11-10",
     "description": "The schedule for the upcoming Mid-Term examinations (Classes VI-X) has been released. Please find the detailed timetable on the school website's download section and on the main notice board. Examinations will commence from November 25th, 2023.",
     "image": "images/notice/exam_schedule.jpg",
     "isNew": true
@@ -10,7 +10,7 @@
   {
     "id": 3,
     "title": "Annual Sports Day Postponed",
-    "date": "2023-10-25",
+    "date": "2024-10-25",
     "description": "Due to inclement weather, the Annual Sports Day scheduled for October 28th has been postponed. New dates will be announced shortly. We regret any inconvenience caused.",
     "image": "images/notice/sports_day_postponed.jpg",
     "isNew": false
@@ -18,7 +18,7 @@
   {
     "id": 2,
     "title": "Parent-Teacher Meeting Schedule",
-    "date": "2023-10-20",
+    "date": "2024-10-20",
     "description": "The upcoming Parent-Teacher meeting will be held on November 5th, 2023, from 9:00 AM to 1:00 PM. Please book your slots with the respective class teachers.",
     "image": null,
     "isNew": false
@@ -26,7 +26,7 @@
   {
     "id": 1,
     "title": "Science Exhibition Winners Announced",
-    "date": "2023-10-15",
+    "date": "2024-10-15",
     "description": "Congratulations to all participants and winners of the Inter-House Science Exhibition! The results have been posted on the main school board and prizes will be distributed during the morning assembly on Monday.",
     "image": "images/notice/science_exhibition.jpg",
     "isNew": false
