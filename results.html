@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results - Springfield Academy</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#3A3A3A"> 
-    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png"> 
+    <meta name="theme-color" content="#3A3A3A">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Springfield">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -63,12 +63,22 @@
                     </div>
                 </div>
 
+                <!-- START: Added Refresh Button Section -->
+                <div class="refresh-section">
+                    <button id="refresh-results-button" class="btn-refresh-data">
+                        <i class="fas fa-sync-alt"></i> Refresh Results
+                    </button>
+                    <span id="results-refresh-status" class="refresh-status-message"></span>
+                </div>
+                <!-- END: Added Refresh Button Section -->
+
                 <div id="results-table-container">
                     <p class="no-results-message">Please select a class and test to view results.</p>
                 </div>
             </div>
         </section>
     </main>
+
 
     <footer>
         <div class="container">

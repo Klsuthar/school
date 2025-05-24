@@ -116,7 +116,8 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    -webkit-app-region: drag; /* PWA: Make the entire header draggable */
+    -webkit-app-region: drag;
+    /* PWA: Make the entire header draggable */
 }
 
 header .container {
@@ -131,13 +132,15 @@ header .container {
     font-weight: bold;
     display: flex;
     align-items: center;
-    -webkit-app-region: no-drag; /* PWA: Make logo clickable */
+    -webkit-app-region: no-drag;
+    /* PWA: Make logo clickable */
 }
 
 .logo img {
     height: 45px;
     margin-right: 12px;
-    -webkit-app-region: no-drag; /* PWA: Make logo image clickable */
+    -webkit-app-region: no-drag;
+    /* PWA: Make logo image clickable */
 }
 
 header nav ul {
@@ -147,7 +150,8 @@ header nav ul {
 
 header nav ul li {
     margin-left: 30px;
-    -webkit-app-region: no-drag; /* PWA: Make nav items clickable */
+    -webkit-app-region: no-drag;
+    /* PWA: Make nav items clickable */
 }
 
 header nav ul li a {
@@ -157,8 +161,10 @@ header nav ul li a {
     padding: 8px 15px;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
-    position: relative; /* For notice indicator positioning */
-    -webkit-app-region: no-drag; /* PWA: Make nav links clickable */
+    position: relative;
+    /* For notice indicator positioning */
+    -webkit-app-region: no-drag;
+    /* PWA: Make nav links clickable */
 }
 
 header nav ul li a:hover {
@@ -181,7 +187,8 @@ header nav ul li a.active {
     background: none;
     border: none;
     cursor: pointer;
-    -webkit-app-region: no-drag; /* PWA: Make menu toggle clickable */
+    -webkit-app-region: no-drag;
+    /* PWA: Make menu toggle clickable */
 }
 
 /* PWA: Window Controls Overlay Active Styles */
@@ -208,17 +215,21 @@ body.window-controls-overlay-active header {
 }
 
 /* Notice Indicator Badge in Header Nav */
-#nav-notice-link { /* ID for the specific <a> tag wrapping "Notice" */
+#nav-notice-link {
+    /* ID for the specific <a> tag wrapping "Notice" */
     position: relative;
 }
+
 .notice-indicator-badge {
-    display: inline-block; /* Initially hidden by JS */
+    display: inline-block;
+    /* Initially hidden by JS */
     position: absolute;
     width: 10px;
     height: 10px;
     background-color: red;
     border-radius: 50%;
-    border: 1px solid white; /* Optional for better visibility against dark header */
+    border: 1px solid white;
+    /* Optional for better visibility against dark header */
     /* Adjust positioning to look good next to the text "Notice" */
     top: 6px;
     right: 0px;
@@ -325,9 +336,11 @@ footer {
 
 /* Home Page Specific */
 .home-banner {
-    height: calc(100vh - 70px); /* 70px is a typical header height */
+    height: calc(100vh - 70px);
+    /* 70px is a typical header height */
     min-height: 450px;
-    background-image: url('../images/banner.jpg'); /* Make sure path is relative to CSS */
+    background-image: url('../images/banner.jpg');
+    /* Make sure path is relative to CSS */
     background-size: cover;
     background-position: center;
     display: flex;
@@ -442,7 +455,8 @@ footer {
     width: 100px;
     height: 100px;
     margin: 0 auto 20px;
-    object-fit: cover; /* Changed from contain for better fill if icons vary */
+    object-fit: cover;
+    /* Changed from contain for better fill if icons vary */
     border-radius: 8px;
 }
 
@@ -467,22 +481,27 @@ footer {
     margin-top: 30px;
 }
 
-.service-card { /* This already has .card class, so some styles are inherited */
+.service-card {
+    /* This already has .card class, so some styles are inherited */
     display: flex;
     flex-direction: column;
     text-align: left;
-    padding: 0; /* Override general card padding if image is edge-to-edge */
+    padding: 0;
+    /* Override general card padding if image is edge-to-edge */
 }
 
 .service-card-image-container {
     width: 100%;
-    height: 180px; /* Or aspect-ratio: 16/9; */
+    height: 180px;
+    /* Or aspect-ratio: 16/9; */
     overflow: hidden;
-    border-top-left-radius: 10px; /* Match card's border-radius */
+    border-top-left-radius: 10px;
+    /* Match card's border-radius */
     border-top-right-radius: 10px;
 }
 
-.service-card img.icon { /* Renamed from facility-card img.icon to avoid conflict */
+.service-card img.icon {
+    /* Renamed from facility-card img.icon to avoid conflict */
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -490,7 +509,8 @@ footer {
 }
 
 .service-card-content {
-    padding: 20px; /* Padding for the text content below image */
+    padding: 20px;
+    /* Padding for the text content below image */
 }
 
 .service-card-content h3 {
@@ -523,7 +543,8 @@ footer {
 .image-grid-container {
     overflow: hidden;
     position: relative;
-    height: 280px; /* Adjust as needed */
+    height: 280px;
+    /* Adjust as needed */
     border-radius: 8px;
     box-shadow: 0 4px 12px var(--shadow-color);
 }
@@ -535,18 +556,21 @@ footer {
 }
 
 .image-grid img {
-    width: 100%; /* Each image takes full width of container for slide */
+    width: 100%;
+    /* Each image takes full width of container for slide */
     height: 100%;
     object-fit: cover;
     cursor: pointer;
-    flex-shrink: 0; /* Prevent images from shrinking */
+    flex-shrink: 0;
+    /* Prevent images from shrinking */
 }
 
 /* Modal for Fullscreen Image */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1001; /* Higher than header */
+    z-index: 1001;
+    /* Higher than header */
     left: 0;
     top: 0;
     width: 100%;
@@ -558,9 +582,11 @@ footer {
 .modal-content {
     margin: auto;
     display: block;
-    width: auto; /* Let image determine width up to max */
+    width: auto;
+    /* Let image determine width up to max */
     max-width: 90%;
-    max-height: 90vh; /* Ensure it fits vertically */
+    max-height: 90vh;
+    /* Ensure it fits vertically */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -592,7 +618,8 @@ footer {
 .close-modal {
     top: 20px;
     right: 30px;
-    line-height: 0.5; /* Helps align '×' better */
+    line-height: 0.5;
+    /* Helps align '×' better */
 }
 
 .prev-modal {
@@ -629,7 +656,8 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    align-items: center; /* Vertically align items if they wrap */
+    align-items: center;
+    /* Vertically align items if they wrap */
 }
 
 .principal-message img {
@@ -638,14 +666,18 @@ footer {
     object-fit: cover;
     border-radius: 50%;
     border: 5px solid var(--primary-orange);
-    margin-right: 30px; /* Only applies if not wrapped */
-    flex-shrink: 0; /* Prevent image from shrinking */
+    margin-right: 30px;
+    /* Only applies if not wrapped */
+    flex-shrink: 0;
+    /* Prevent image from shrinking */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .principal-message-text {
-    flex: 1; /* Allow text to take remaining space */
-    min-width: 250px; /* Ensure text block has some width if image is large */
+    flex: 1;
+    /* Allow text to take remaining space */
+    min-width: 250px;
+    /* Ensure text block has some width if image is large */
 }
 
 /* Contact Us Page */
@@ -658,7 +690,8 @@ footer {
 .contact-form-section,
 .contact-info-section {
     flex: 1;
-    min-width: 300px; /* Ensure sections don't get too narrow */
+    min-width: 300px;
+    /* Ensure sections don't get too narrow */
     padding: 30px;
     background-color: var(--background-card);
     border-radius: 10px;
@@ -696,7 +729,8 @@ footer {
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: var(--primary-orange);
-    box-shadow: 0 0 0 0.2rem rgba(245, 124, 0, 0.25); /* Bootstrap-like focus */
+    box-shadow: 0 0 0 0.2rem rgba(245, 124, 0, 0.25);
+    /* Bootstrap-like focus */
     outline: none;
 }
 
@@ -726,7 +760,8 @@ footer {
 
 .contact-info-section p {
     margin-bottom: 15px;
-    display: flex; /* For aligning icon and text */
+    display: flex;
+    /* For aligning icon and text */
     align-items: center;
     font-size: 1.05rem;
 }
@@ -734,8 +769,10 @@ footer {
 .contact-info-section p i {
     margin-right: 12px;
     color: var(--primary-orange);
-    width: 24px; /* Give icon a fixed width for alignment */
-    font-size: 1.2rem; /* Icon size */
+    width: 24px;
+    /* Give icon a fixed width for alignment */
+    font-size: 1.2rem;
+    /* Icon size */
 }
 
 .contact-info-section p strong {
@@ -748,7 +785,8 @@ footer {
     border: 0;
     border-radius: 8px;
     margin-top: 25px;
-    filter: grayscale(30%) contrast(1.1) brightness(0.95); /* Subtle map styling */
+    filter: grayscale(30%) contrast(1.1) brightness(0.95);
+    /* Subtle map styling */
 }
 
 /* Results Page Specific Styles */
@@ -764,8 +802,10 @@ footer {
     box-shadow: 0 2px 10px var(--shadow-color);
 }
 
-.results-filter-container .form-group { /* Reusing form-group for consistency */
-    margin-bottom: 0; /* Override default form-group margin */
+.results-filter-container .form-group {
+    /* Reusing form-group for consistency */
+    margin-bottom: 0;
+    /* Override default form-group margin */
     flex: 1;
     min-width: 200px;
 }
@@ -788,13 +828,15 @@ footer {
 }
 
 .results-filter-container select:disabled {
-    background-color: #e9ecef; /* Bootstrap disabled style */
+    background-color: #e9ecef;
+    /* Bootstrap disabled style */
     cursor: not-allowed;
 }
 
 #results-table-container {
     margin-top: 30px;
-    overflow-x: auto; /* Important for responsiveness of table */
+    overflow-x: auto;
+    /* Important for responsiveness of table */
     background-color: var(--background-card);
     padding: 20px;
     border-radius: 8px;
@@ -805,7 +847,8 @@ footer {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-size: 0.9rem; /* Slightly smaller for more data */
+    font-size: 0.9rem;
+    /* Slightly smaller for more data */
 }
 
 .results-table th,
@@ -819,15 +862,18 @@ footer {
     background-color: var(--primary-orange);
     color: var(--text-light);
     font-weight: 600;
-    text-transform: capitalize; /* Capitalize header text */
+    text-transform: capitalize;
+    /* Capitalize header text */
 }
 
 .results-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa; /* Light zebra striping */
+    background-color: #f8f9fa;
+    /* Light zebra striping */
 }
 
 .results-table tbody tr:hover {
-    background-color: #e9ecef; /* Hover effect */
+    background-color: #e9ecef;
+    /* Hover effect */
 }
 
 /* Specific column styling */
@@ -835,16 +881,20 @@ footer {
     text-align: center;
     font-weight: bold;
 }
+
 .results-table .percentage-column {
     font-weight: bold;
     text-align: right;
 }
+
 .results-table .total-column {
     font-weight: bold;
     text-align: right;
 }
+
 .results-table .name-column {
-    min-width: 150px; /* Ensure name column has enough space */
+    min-width: 150px;
+    /* Ensure name column has enough space */
 }
 
 
@@ -852,7 +902,8 @@ footer {
     padding: 20px;
     text-align: center;
     font-style: italic;
-    color: #6c757d; /* Muted color */
+    color: #6c757d;
+    /* Muted color */
 }
 
 /* Notice Page Styles */
@@ -875,20 +926,24 @@ footer {
     font-weight: 600;
     font-size: 1rem;
     transition: background-color 0.3s, transform 0.2s;
-    min-width: 150px; /* Ensure buttons have a decent width */
+    min-width: 150px;
+    /* Ensure buttons have a decent width */
 }
 
 .btn-notice-page-link:hover {
     background-color: var(--button-primary-hover-bg);
-    color: var(--text-light); /* Ensure text color remains on hover */
+    color: var(--text-light);
+    /* Ensure text color remains on hover */
     text-decoration: none;
     transform: translateY(-2px);
 }
 
 #notices-container {
-    display: grid; /* Using grid for easy single column layout */
+    display: grid;
+    /* Using grid for easy single column layout */
     gap: 30px;
-    grid-template-columns: 1fr; /* Single column */
+    grid-template-columns: 1fr;
+    /* Single column */
 }
 
 .notice-card {
@@ -897,24 +952,29 @@ footer {
     box-shadow: 0 5px 15px var(--shadow-color);
     padding: 25px;
     text-align: left;
-    border-left: 6px solid var(--primary-orange); /* Accent border */
-    position: relative; /* For the 'NEW' badge positioning */
+    border-left: 6px solid var(--primary-orange);
+    /* Accent border */
+    position: relative;
+    /* For the 'NEW' badge positioning */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .notice-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .notice-card.new-notice {
-    border-left-color: var(--accent-yellow-orange); /* Different border for new notices */
+    border-left-color: var(--accent-yellow-orange);
+    /* Different border for new notices */
 }
 
 .new-badge {
     position: absolute;
     top: 15px;
     right: 15px;
-    background-color: #dc3545; /* Bootstrap danger red */
+    background-color: #dc3545;
+    /* Bootstrap danger red */
     color: white;
     padding: 4px 10px;
     font-size: 0.8rem;
@@ -927,7 +987,8 @@ footer {
 .notice-card h3 {
     font-size: 1.6rem;
     color: var(--text-dark);
-    margin-top: 0; /* Reset margin if needed */
+    margin-top: 0;
+    /* Reset margin if needed */
     margin-bottom: 8px;
 }
 
@@ -938,6 +999,7 @@ footer {
     display: block;
     font-style: italic;
 }
+
 .notice-card .notice-date i {
     margin-right: 5px;
 }
@@ -945,31 +1007,41 @@ footer {
 .notice-card .notice-description {
     font-size: 1rem;
     line-height: 1.7;
-    color: #333; /* Darker grey for readability */
-    margin-bottom: 15px; /* Space before image if present */
+    color: #333;
+    /* Darker grey for readability */
+    margin-bottom: 15px;
+    /* Space before image if present */
 }
-.notice-card .notice-description p { /* If description contains <p> tags */
+
+.notice-card .notice-description p {
+    /* If description contains <p> tags */
     margin-bottom: 1em;
 }
+
 .notice-card .notice-description p:last-child {
     margin-bottom: 0;
 }
 
 .notice-card .notice-image-container {
     margin-top: 20px;
-    text-align: center; /* Center image within its container */
+    text-align: center;
+    /* Center image within its container */
 }
 
 .notice-card .notice-image {
     max-width: 100%;
     height: auto;
-    max-height: 300px; /* Limit image height */
-    object-fit: contain; /* Ensure whole image is visible */
+    max-height: 300px;
+    /* Limit image height */
+    object-fit: contain;
+    /* Ensure whole image is visible */
     border-radius: 6px;
-    border: 1px solid var(--border-color); /* Subtle border around image */
+    border: 1px solid var(--border-color);
+    /* Subtle border around image */
 }
 
-.loading-notices, .no-notices-message {
+.loading-notices,
+.no-notices-message {
     text-align: center;
     font-style: italic;
     color: #6c757d;
@@ -980,48 +1052,63 @@ footer {
 
 /* Bottom Navigation Bar for Mobile */
 .bottom-nav-bar {
-    display: none; /* Hidden by default, shown in media query */
+    display: none;
+    /* Hidden by default, shown in media query */
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: var(--header-bg); /* Match header for consistency */
+    background-color: var(--header-bg);
+    /* Match header for consistency */
     color: var(--header-text);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-    z-index: 999; /* Below header, above page content */
-    height: 65px; /* Standard height */
-    align-items: stretch; /* Ensure links stretch to fill height */
+    z-index: 999;
+    /* Below header, above page content */
+    height: 65px;
+    /* Standard height */
+    align-items: stretch;
+    /* Ensure links stretch to fill height */
 }
 
 .bottom-nav-link {
-    flex-grow: 1; /* Distribute space equally */
+    flex-grow: 1;
+    /* Distribute space equally */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 8px 5px; /* Vertical and horizontal padding */
+    padding: 8px 5px;
+    /* Vertical and horizontal padding */
     color: var(--header-text);
     text-decoration: none;
-    font-size: 0.7rem; /* Small text for labels */
+    font-size: 0.7rem;
+    /* Small text for labels */
     transition: background-color 0.2s, color 0.2s;
-    border-top: 3px solid transparent; /* For active state indication */
-    position: relative; /* For notice indicator */
+    border-top: 3px solid transparent;
+    /* For active state indication */
+    position: relative;
+    /* For notice indicator */
 }
 
 .bottom-nav-link i {
-    font-size: 1.4rem; /* Icon size */
-    margin-bottom: 4px; /* Space between icon and text */
+    font-size: 1.4rem;
+    /* Icon size */
+    margin-bottom: 4px;
+    /* Space between icon and text */
 }
 
 .bottom-nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover */
-    color: var(--text-light); /* Ensure text remains light */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Subtle hover */
+    color: var(--text-light);
+    /* Ensure text remains light */
     text-decoration: none;
 }
 
 .bottom-nav-link.active {
     /* border-top-color: var(--primary-orange); Remove top border for color change */
-    color: var(--primary-orange); /* Active link color */
+    color: var(--primary-orange);
+    /* Active link color */
 }
 
 /* Ensure icon and text also get the active color */
@@ -1031,17 +1118,22 @@ footer {
 }
 
 /* Notice Indicator for Bottom Nav */
-.bottom-nav-link .notice-indicator-badge { /* More specific for bottom nav */
-    display: inline-block; /* Controlled by JS, same as header one */
+.bottom-nav-link .notice-indicator-badge {
+    /* More specific for bottom nav */
+    display: inline-block;
+    /* Controlled by JS, same as header one */
     position: absolute;
-    top: 6px;  /* Adjust for optimal placement above/near icon */
-    right: 18px; /* Adjust based on icon and text layout */
+    top: 6px;
+    /* Adjust for optimal placement above/near icon */
+    right: 18px;
+    /* Adjust based on icon and text layout */
     /* If text is wider, might need to be further left (larger right value) */
     width: 8px;
     height: 8px;
     background-color: red;
     border-radius: 50%;
-    border: 1px solid var(--header-bg); /* Match bottom nav bg for contrast */
+    border: 1px solid var(--header-bg);
+    /* Match bottom nav bg for contrast */
 }
 
 
@@ -1057,21 +1149,29 @@ footer {
 
     /* Hide top navigation and menu toggle when bottom nav is active */
     header nav ul {
-        display: none !important; /* Force hide */
+        display: none !important;
+        /* Force hide */
     }
+
     header .menu-toggle {
-        display: none !important; /* Force hide */
+        display: none !important;
+        /* Force hide */
     }
 
     .bottom-nav-bar {
-        display: flex; /* Show bottom nav on smaller screens */
+        display: flex;
+        /* Show bottom nav on smaller screens */
     }
+
     body {
-        padding-bottom: 65px; /* Add padding to body to prevent content overlap by bottom nav */
+        padding-bottom: 65px;
+        /* Add padding to body to prevent content overlap by bottom nav */
     }
+
     /* Adjust header layout if needed when top nav is hidden */
     header .container {
-        justify-content: flex-start; /* Align logo to the left */
+        justify-content: flex-start;
+        /* Align logo to the left */
     }
 
 
@@ -1085,7 +1185,8 @@ footer {
     }
 
     .home-banner {
-        height: 60vh; /* Adjust banner height */
+        height: 60vh;
+        /* Adjust banner height */
         min-height: 400px;
     }
 
@@ -1098,7 +1199,8 @@ footer {
     }
 
     .result-card {
-        width: 250px; /* Smaller result cards */
+        width: 250px;
+        /* Smaller result cards */
     }
 
     .facility-card img.icon {
@@ -1111,19 +1213,23 @@ footer {
     }
 
     .principal-message {
-        flex-direction: column; /* Stack image and text */
+        flex-direction: column;
+        /* Stack image and text */
         text-align: center;
     }
 
     .principal-message img {
-        margin-right: 0; /* Remove right margin when stacked */
-        margin-bottom: 20px; /* Add space below image */
+        margin-right: 0;
+        /* Remove right margin when stacked */
+        margin-bottom: 20px;
+        /* Add space below image */
         width: 180px;
         height: 180px;
     }
 
     .contact-container {
-        flex-direction: column; /* Stack contact sections */
+        flex-direction: column;
+        /* Stack contact sections */
     }
 
     .section-title {
@@ -1133,29 +1239,38 @@ footer {
     .gallery-section h3 {
         font-size: 1.6rem;
     }
+
     .notice-card h3 {
         font-size: 1.4rem;
     }
+
     .notice-card .notice-description {
         font-size: 0.95rem;
     }
 }
 
 @media (max-width: 576px) {
+
     /* Further adjustments for very small screens */
     .results-filter-container {
         flex-direction: column;
         gap: 15px;
     }
+
     .results-filter-container .form-group {
-        min-width: 100%; /* Full width filters */
+        min-width: 100%;
+        /* Full width filters */
     }
+
     .results-table {
-        font-size: 0.8rem; /* Even smaller table font */
+        font-size: 0.8rem;
+        /* Even smaller table font */
     }
+
     .results-table th,
     .results-table td {
-        padding: 8px; /* Reduce padding in table cells */
+        padding: 8px;
+        /* Reduce padding in table cells */
     }
 }
 
@@ -1169,7 +1284,8 @@ footer {
     }
 
     .result-card {
-        width: calc(90% - 20px); /* Make result cards take most of the width */
+        width: calc(90% - 20px);
+        /* Make result cards take most of the width */
         margin: 0 10px;
     }
 
@@ -1189,13 +1305,15 @@ footer {
     */
 
     header .container {
-        padding: 0 10px; /* Reduce header padding */
+        padding: 0 10px;
+        /* Reduce header padding */
     }
 
     .section-title {
         font-size: 1.7rem;
         margin-bottom: 30px;
     }
+
     .section-title::after {
         width: 60px;
         height: 3px;
@@ -1230,16 +1348,20 @@ footer {
         font-size: 28px;
         padding: 8px;
     }
+
     .close-modal {
         top: 10px;
         right: 15px;
     }
+
     .prev-modal {
         left: 10px;
     }
+
     .next-modal {
         right: 10px;
     }
+
     .modal-content {
         max-width: 95%;
     }
@@ -1249,13 +1371,15 @@ footer {
     .submit-btn {
         font-size: 0.9rem;
     }
+
     .form-group label {
         font-size: 0.85rem;
     }
 
     .submit-btn {
         padding: 10px 18px;
-        width: 100%; /* Full width submit button */
+        width: 100%;
+        /* Full width submit button */
     }
 
     .contact-form-section,
@@ -1270,6 +1394,7 @@ footer {
     .contact-info-section p {
         font-size: 0.9rem;
     }
+
     .contact-info-section p i {
         font-size: 1rem;
     }
@@ -1277,14 +1402,18 @@ footer {
     .footer-section h4 {
         font-size: 1.1rem;
     }
-    .footer-section p, .footer-section ul li a {
+
+    .footer-section p,
+    .footer-section ul li a {
         font-size: 0.85rem;
     }
+
     .social-links a {
         font-size: 1.5rem;
         width: 32px;
         height: 32px;
     }
+
     .footer-bottom p {
         font-size: 0.8rem;
     }
@@ -1293,25 +1422,35 @@ footer {
         width: 150px;
         height: 150px;
     }
+
     .about-section h2 {
         font-size: 1.5rem;
     }
-    .about-section p, .about-section ul li {
+
+    .about-section p,
+    .about-section ul li {
         font-size: 0.9rem;
     }
 
     /* Bottom Nav specific adjustments for very small screens */
     .bottom-nav-link {
-        font-size: 0.65rem; /* Even smaller text for bottom nav */
+        font-size: 0.65rem;
+        /* Even smaller text for bottom nav */
     }
+
     .bottom-nav-link i {
-        font-size: 1.3rem; /* Slightly smaller icons */
+        font-size: 1.3rem;
+        /* Slightly smaller icons */
     }
+
     .bottom-nav-bar {
-        height: 60px; /* Slightly shorter bottom nav */
+        height: 60px;
+        /* Slightly shorter bottom nav */
     }
+
     body {
-        padding-bottom: 60px; /* Match height if changed */
+        padding-bottom: 60px;
+        /* Match height if changed */
     }
 
     /* Notice Page Small Screen Adjustments */
@@ -1319,28 +1458,112 @@ footer {
         flex-direction: column;
         gap: 15px;
     }
+
     .btn-notice-page-link {
-        width: 100%; /* Full width notice page links */
+        width: 100%;
+        /* Full width notice page links */
     }
+
     .notice-card h3 {
         font-size: 1.25rem;
     }
-     .new-badge {
+
+    .new-badge {
         font-size: 0.7rem;
         padding: 3px 7px;
         top: 10px;
         right: 10px;
     }
-    .notice-indicator-badge { /* Header notice indicator on small screens */
+
+    .notice-indicator-badge {
+        /* Header notice indicator on small screens */
         top: 4px;
         right: -4px;
         width: 8px;
         height: 8px;
     }
-    .bottom-nav-link .notice-indicator-badge { /* Bottom nav indicator on small screens */
+
+    .bottom-nav-link .notice-indicator-badge {
+        /* Bottom nav indicator on small screens */
         top: 5px;
         right: 15px;
         width: 7px;
         height: 7px;
+    }
+}
+
+/* Refresh Button and Status Styles */
+.refresh-section {
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    /* Add some top margin */
+}
+
+.btn-refresh-data {
+    display: inline-flex;
+    /* To align icon and text */
+    align-items: center;
+    gap: 8px;
+    /* Space between icon and text */
+    padding: 10px 20px;
+    background-color: var(--accent-yellow-orange);
+    color: var(--text-dark);
+    border: 1px solid var(--primary-orange);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
+}
+
+.btn-refresh-data:hover {
+    background-color: var(--primary-orange);
+    color: var(--text-light);
+    text-decoration: none;
+    /* Ensure no underline on hover */
+    transform: translateY(-2px);
+}
+
+.btn-refresh-data:disabled {
+    background-color: #ffcc80;
+    /* Lighter shade of accent yellow */
+    border-color: #ffa726;
+    color: #757575;
+    /* Muted text color */
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: translateY(0);
+}
+
+.btn-refresh-data i {
+    font-size: 0.9em;
+    /* Slightly smaller icon */
+}
+
+.refresh-status-message {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--text-dark);
+    min-height: 1.2em;
+    /* Prevent layout shift */
+    font-style: italic;
+}
+
+/* Responsive adjustments for refresh button if needed */
+@media (max-width: 480px) {
+    .btn-refresh-data {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+        width: auto;
+        /* Allow to size based on content */
+        max-width: 80%;
+        /* Prevent it from becoming too wide */
+    }
+
+    .refresh-section {
+        margin-bottom: 20px;
     }
 }
