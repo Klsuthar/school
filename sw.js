@@ -1,15 +1,16 @@
 // sw.js
-const CACHE_NAME = 'springfield-academy-v2'; // Increment version if you change cached files
+const CACHE_NAME = 'springfield-academy-v3'; // <<< IMPORTANT: Incremented version
+const OFFLINE_URL = 'offline.html';
 const urlsToCache = [
-    '/', // Alias for index.html
-    'index.html',
+    '/', // This is our start_url, make sure it's cached!
+    'index.html', // Cache explicitly too, for direct access or if server doesn't map / to index.html
     'services.html',
     'gallery.html',
     'results.html',
     'notice.html',
     'about.html',
     'contact.html',
-    'offline.html',
+    OFFLINE_URL,
     'css/style.css',
     'js/script.js',
     'manifest.json',
@@ -21,7 +22,7 @@ const urlsToCache = [
     'images/facility-playground.png',
     'images/facility-lab.png',
     'images/facility-bus.png',
-    // PWA Icons (ensure these paths are correct and files exist)
+    // PWA Icons
     'images/icons/icon-72x72.png',
     'images/icons/icon-96x96.png',
     'images/icons/icon-128x128.png',
@@ -32,30 +33,38 @@ const urlsToCache = [
     'images/icons/icon-384x384.png',
     'images/icons/icon-512x512.png',
     'images/icons/icon-maskable-512x512.png',
-    // Data files (These will be cached on install. For live updates, a network-first or stale-while-revalidate strategy would be better)
+    'images/icons/apple-touch-icon.png', // Make sure this file exists
+    // Data files
     'data/notices.json',
     'results/results.json',
-    // Font Awesome (CDN link - caching external resources like this can be tricky with opaque responses, but let's try)
+    // Font Awesome
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
-    // Note: Font files loaded by all.min.css are usually handled by the browser's cache or would need specific caching strategies if issues arise.
 ];
 
 // Install service worker
 self.addEventListener('install', event => {
+    console.log('[SW] Install event, Caching App Shell');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                console.log('Opened cache');
-                // AddAll can fail if any single request fails.
-                // For robustness, one might cache critical assets first, then non-critical.
-                return cache.addAll(urlsToCache.map(url => new Request(url, { mode: 'cors' }))) // Use CORS for CDN
+                console.log('[SW] Opened cache:', CACHE_NAME);
+                const cachePromises = urlsToCache.map(urlToCache => {
+                    const request = (urlToCache.startsWith('http'))
+                        ? new Request(urlToCache, { mode: 'cors' }) // For CDN resources
+                        : new Request(urlToCache); // For local resources
+
+                    return cache.add(request).catch(err => {
+                        // Log error for individual file caching failure
+                        console.error(`[SW] Failed to cache ${urlToCache}:`, err);
+                        // Optionally, rethrow or handle, but Promise.all will still reject if one fails.
+                        // For now, just logging, so we know which URL failed.
+                    });
+                });
+                return Promise.all(cachePromises)
+                    .then(() => console.log('[SW] All assets cached successfully.'))
                     .catch(error => {
-                        console.error('Failed to cache one or more resources during install:', error);
-                        // Log which URLs failed if possible, or specific error.
-                        // This helps debug missing icons or other assets.
-                        // Example: urlsToCache.forEach(url => {
-                        //    fetch(new Request(url, { mode: 'cors' })).catch(err => console.error(`Failed to fetch ${url}`, err));
-                        // });
+                        console.error('[SW] Caching failed for one or more assets during install:', error);
+                        // This indicates a critical problem if essential files like '/' or 'index.html' failed.
                     });
             })
     );
@@ -64,29 +73,36 @@ self.addEventListener('install', event => {
 
 // Activate service worker - clean up old caches
 self.addEventListener('activate', event => {
+    console.log('[SW] Activate event');
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cacheName => {
                     if (cacheName !== CACHE_NAME) {
-                        console.log('Deleting old cache:', cacheName);
+                        console.log('[SW] Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
             );
+        }).then(() => {
+            console.log('[SW] Clients claimed.');
+            return self.clients.claim(); // Ensure new SW takes control of all clients
         })
     );
-    return self.clients.claim(); // Ensure new SW takes control of all clients
 });
 
 // Fetch event - serve cached content or fetch from network
 self.addEventListener('fetch', event => {
-    // For navigation requests, try network first, then cache, then offline page.
+    const url = new URL(event.request.url);
+    // console.log(`[SW] Fetching: ${url.pathname}${url.search} (Mode: ${event.request.mode})`);
+
+    // Handle navigation requests (HTML documents)
     if (event.request.mode === 'navigate') {
+        console.log(`[SW] Handling NAVIGATE request for: ${event.request.url}`);
         event.respondWith(
             fetch(event.request)
                 .then(response => {
-                    // If successful, clone and cache it for future offline use
+                    console.log(`[SW] NAVIGATE - Network success for: ${event.request.url}`);
                     if (response.ok) {
                         const responseToCache = response.clone();
                         caches.open(CACHE_NAME)
@@ -96,11 +112,29 @@ self.addEventListener('fetch', event => {
                     }
                     return response;
                 })
-                .catch(() => {
-                    // Network failed, try to serve from cache
-                    return caches.match(event.request)
+                .catch(error => {
+                    console.warn(`[SW] NAVIGATE - Network FAILED for: ${event.request.url}. Error: ${error}. Trying cache.`);
+                    return caches.match(event.request) // Try to match the original request (e.g., for '/')
                         .then(cachedResponse => {
-                            return cachedResponse || caches.match('offline.html');
+                            if (cachedResponse) {
+                                console.log(`[SW] NAVIGATE - Serving from CACHE: ${event.request.url}`);
+                                return cachedResponse;
+                            }
+                            // If the start URL itself isn't in cache, this is a problem.
+                            // Fallback to offline page for any failed navigation.
+                            console.warn(`[SW] NAVIGATE - ${event.request.url} NOT IN CACHE. Serving offline page.`);
+                            return caches.match(OFFLINE_URL).then(offlineResponse => {
+                                if (!offlineResponse) {
+                                    console.error("[SW] CRITICAL: offline.html not found in cache!");
+                                    // As an absolute last resort, construct a simple 404 response
+                                    return new Response("<h1>Service Unavailable</h1><p>The app is offline and the offline page is also missing.</p>", {
+                                        headers: { 'Content-Type': 'text/html' },
+                                        status: 404,
+                                        statusText: "Not Found - Offline Page Missing"
+                                    });
+                                }
+                                return offlineResponse;
+                            });
                         });
                 })
         );
@@ -112,36 +146,30 @@ self.addEventListener('fetch', event => {
         caches.match(event.request)
             .then(cachedResponse => {
                 if (cachedResponse) {
+                    // console.log(`[SW] ASSET - Serving from CACHE: ${event.request.url}`);
                     return cachedResponse;
                 }
-                // Not in cache, fetch from network
+                // console.log(`[SW] ASSET - Not in cache, fetching from NETWORK: ${event.request.url}`);
                 return fetch(event.request).then(networkResponse => {
-                    // If successful, clone and cache for future offline use
                     if (networkResponse && networkResponse.ok) {
-                        // Only cache GET requests and responses from http/https schemes
-                        // and ensure it's not an opaque response unless you are sure (like for CDNs sometimes)
-                        if (event.request.method === 'GET' && 
-                            (event.request.url.startsWith('http') || event.request.url.startsWith('https'))) {
-                            
-                            // Be careful caching opaque responses as you can't tell if they were successful (status 0)
-                            // and they can take up large amounts of space.
-                            // For CDN resources like font-awesome, this is often necessary.
+                        if (event.request.method === 'GET' &&
+                            (url.protocol.startsWith('http'))) { // Check if URL is http/https
                             const responseToCache = networkResponse.clone();
                             caches.open(CACHE_NAME)
                                 .then(cache => {
                                     cache.put(event.request, responseToCache);
                                 });
                         }
+                    } else if (networkResponse && !networkResponse.ok) {
+                        console.warn(`[SW] ASSET - Network fetch for ${event.request.url} was NOT OK: Status ${networkResponse.status}`);
                     }
                     return networkResponse;
-                }).catch(() => {
-                    // For assets like images that might not be critical for offline page functionality
-                    // you might return a placeholder or just let it fail.
-                    // If request is for an image, could return a placeholder image.
-                    if (event.request.headers.get('accept')?.includes('image')) {
-                        // return caches.match('images/placeholder.png'); // If you have one
-                    }
-                    // For other assets, returning nothing (undefined) will let the browser handle the error.
+                }).catch(error => {
+                    console.warn(`[SW] ASSET - Network fetch FAILED for ${event.request.url}:`, error);
+                    // Optionally return a placeholder for images or specific asset types
+                    // if (event.request.headers.get('accept')?.includes('image')) {
+                    //     return caches.match('images/placeholder.png');
+                    // }
                 });
             })
     );
