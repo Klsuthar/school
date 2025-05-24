@@ -11,20 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Active Nav Link Logic
     const pathSegments = window.location.pathname.split('/');
-    let currentPageFile = pathSegments.pop() || 'index.html'; // Get the last segment (file name) or default
-    // Handles cases like /folder/ which results in "" for pop(), or root /
-    if (currentPageFile === '' && pathSegments.length > 0 && pathSegments[pathSegments.length - 1] !== '') {
+    let currentPageFile = pathSegments.pop() || 'index.html';
+    if (currentPageFile === '' && pathSegments.length > 0 && pathSegments[pathSegments.length -1] !== '') {
         currentPageFile = 'index.html';
-    } else if (currentPageFile === '') { // handles root path / explicitly making it index.html
-        currentPageFile = 'index.html';
+    } else if (currentPageFile === '') {
+         currentPageFile = 'index.html';
     }
-
 
     // For Top Header Navigation
     const topNavLinks = document.querySelectorAll('header nav ul li a');
     topNavLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
-        // Check if the link's href ends with the current page file name
         if (linkHref && (linkHref === currentPageFile || linkHref.endsWith('/' + currentPageFile))) {
             link.classList.add('active');
         } else {
@@ -35,13 +32,67 @@ document.addEventListener('DOMContentLoaded', () => {
     // For Bottom Mobile Navigation
     const bottomNavLinks = document.querySelectorAll('.bottom-nav-bar .bottom-nav-link');
     bottomNavLinks.forEach(link => {
-        const linkPage = link.dataset.page; // Using data-page attribute
+        const linkPage = link.dataset.page;
         if (linkPage && (linkPage === currentPageFile || linkPage.endsWith('/' + currentPageFile))) {
             link.classList.add('active');
         } else {
             link.classList.remove('active');
         }
     });
+
+    // --- Global Notice Indicator Logic ---
+    const navNoticeLinkAnchor = document.getElementById('nav-notice-link'); // The <a> tag
+    let noticeIndicator = null;
+    if (navNoticeLinkAnchor) { // Check if the anchor itself exists
+        noticeIndicator = navNoticeLinkAnchor.querySelector('.notice-indicator-badge'); // Find badge inside it
+    }
+    
+    const bottomNavNoticeLink = document.querySelector('.bottom-nav-link[data-page="notice.html"]');
+    let bottomNoticeIndicator = null;
+
+    if (bottomNavNoticeLink) {
+        bottomNoticeIndicator = bottomNavNoticeLink.querySelector('.notice-indicator-badge');
+        if (!bottomNoticeIndicator) {
+            bottomNoticeIndicator = document.createElement('span');
+            bottomNoticeIndicator.className = 'notice-indicator-badge';
+            bottomNoticeIndicator.style.display = 'none';
+            bottomNavNoticeLink.appendChild(bottomNoticeIndicator);
+        }
+    }
+
+    async function checkForNewNotices() {
+        // Only proceed if at least one indicator element is present
+        if (!noticeIndicator && !bottomNoticeIndicator) {
+            // console.log("No notice indicators found on this page.");
+            return;
+        }
+        try {
+            const response = await fetch('data/notices.json');
+            if (!response.ok) {
+                console.warn("Could not fetch notices.json to check for new items. Status:", response.status);
+                return;
+            }
+            const notices = await response.json();
+            if (!Array.isArray(notices)) {
+                console.warn("Notices data is not an array.");
+                return;
+            }
+            const hasNewNotices = notices.some(notice => notice.isNew === true);
+
+            if (hasNewNotices) {
+                if (noticeIndicator) noticeIndicator.style.display = 'inline-block';
+                if (bottomNoticeIndicator) bottomNoticeIndicator.style.display = 'inline-block';
+            } else {
+                if (noticeIndicator) noticeIndicator.style.display = 'none';
+                if (bottomNoticeIndicator) bottomNoticeIndicator.style.display = 'none';
+            }
+        } catch (error) {
+            console.warn("Error checking for new notices:", error);
+        }
+    }
+    checkForNewNotices(); // Call on every page load
+    // --- End of Global Notice Indicator Logic ---
+
 
     // --- Home Page Specific ---
     const resultsSliderContainer = document.querySelector('.results-slider');
@@ -64,10 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (resultsSliderContainer.offsetWidth > 0 && cardWidth > 0) {
                         visibleCards = Math.floor(resultsSliderContainer.offsetWidth / cardWidth);
                     } else {
-                        visibleCards = originalCards.length; // Default to all if calc fails
+                        visibleCards = originalCards.length;
                     }
                 } else {
-                    visibleCards = 0; // No cards, no visible cards
+                    visibleCards = 0;
                 }
             }
             calculateCardWidthAndVisible();
@@ -132,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryGrids = document.querySelectorAll('.image-grid-container');
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
-    const closeModalBtn = document.querySelector('.close-modal');
+    const closeModalBtnGallery = document.querySelector('.close-modal'); // Renamed to avoid conflict if other modals exist
     const prevModalBtn = document.querySelector('.prev-modal');
     const nextModalBtn = document.querySelector('.next-modal');
 
@@ -180,8 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (closeModalBtn) {
-        closeModalBtn.onclick = () => {
+    if (closeModalBtnGallery) { // Using the renamed variable
+        closeModalBtnGallery.onclick = () => {
             if (modal) modal.style.display = "none";
         }
     }
@@ -249,16 +300,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadResultsData() {
         try {
-            const response = await fetch('results/results.json'); // Path to results JSON
+            const response = await fetch('results/results.json');
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status} - Could not fetch results.json. Check path and file existence.`);
+                throw new Error(`HTTP error! status: ${response.status} - Could not fetch results.json.`);
             }
             resultsData = await response.json();
             populateClassSelector();
         } catch (error) {
             console.error("Could not load results data:", error);
             if (resultsTableContainer) {
-                resultsTableContainer.innerHTML = `<p class="no-results-message">Error loading results data. Please check the console for details. Ensure 'results/results.json' is in the 'results' folder and correctly formatted.</p>`;
+                 resultsTableContainer.innerHTML = `<p class="no-results-message">Error loading results data. Please check console.</p>`;
             }
         }
     }
@@ -283,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!resultsData || !selectTestDropdown || !resultsData[selectedClassKey]) {
             selectTestDropdown.length = 1;
             selectTestDropdown.disabled = true;
-            if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">No data found for the selected class.</p>`;
+            if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">No data for selected class.</p>`;
             return;
         }
 
@@ -300,19 +351,19 @@ document.addEventListener('DOMContentLoaded', () => {
             selectTestDropdown.disabled = false;
         } else {
             selectTestDropdown.disabled = true;
-            if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">No tests found for the selected class.</p>`;
+            if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">No tests for selected class.</p>`;
         }
     }
 
     function displayResultsTable(classKey, testKey) {
         if (!resultsData || !resultsTableContainer || !resultsData[classKey] || !resultsData[classKey][testKey]) {
-            resultsTableContainer.innerHTML = `<p class="no-results-message">No results data found for the selected criteria.</p>`;
+            resultsTableContainer.innerHTML = `<p class="no-results-message">No results data for criteria.</p>`;
             return;
         }
 
         const students = resultsData[classKey][testKey];
         if (!Array.isArray(students) || students.length === 0) {
-            resultsTableContainer.innerHTML = `<p class="no-results-message">No students in this result set or data is not an array.</p>`;
+            resultsTableContainer.innerHTML = `<p class="no-results-message">No students in result set or data not array.</p>`;
             return;
         }
 
@@ -348,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (selectClassDropdown) {
-        selectClassDropdown.addEventListener('change', function () {
+        selectClassDropdown.addEventListener('change', function() {
             const selectedClass = this.value;
             if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">Please select a test to view results.</p>`;
             selectTestDropdown.length = 1;
@@ -361,13 +412,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (selectTestDropdown) {
-        selectTestDropdown.addEventListener('change', function () {
+        selectTestDropdown.addEventListener('change', function() {
             const selectedClass = selectClassDropdown.value;
             const selectedTest = this.value;
             if (selectedClass && selectedTest) {
                 displayResultsTable(selectedClass, selectedTest);
             } else {
-                if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">Please select a class and test to view results.</p>`;
+                if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">Select class and test.</p>`;
             }
         });
     }
@@ -382,18 +433,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const noticesContainer = document.getElementById('notices-container');
 
     async function loadNotices() {
-        if (!noticesContainer) return; // Only run if the container exists on the current page
+        if (!noticesContainer) return;
 
         try {
-            const response = await fetch('data/notices.json'); // Path to your notices JSON
+            const response = await fetch('data/notices.json');
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}. Check if 'data/notices.json' exists and path is correct.`);
+                throw new Error(`HTTP error! status: ${response.status}. Check 'data/notices.json'.`);
             }
             const notices = await response.json();
             displayNotices(notices);
         } catch (error) {
             console.error("Could not load notices:", error);
-            noticesContainer.innerHTML = `<p class="no-notices-message">Error loading notices. Please check the console for details.</p>`;
+            noticesContainer.innerHTML = `<p class="no-notices-message">Error loading notices. Check console.</p>`;
         }
     }
 
@@ -401,11 +452,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!noticesContainer) return;
 
         if (!Array.isArray(notices) || notices.length === 0) {
-            noticesContainer.innerHTML = `<p class="no-notices-message">No notices to display at the moment.</p>`;
+            noticesContainer.innerHTML = `<p class="no-notices-message">No notices to display.</p>`;
             return;
         }
 
-        // Sort notices by date (newest first, assuming "YYYY-MM-DD" format)
         notices.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         let noticesHTML = '';
@@ -414,8 +464,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const formattedDate = noticeDate.toLocaleDateString('en-GB', {
                 day: 'numeric', month: 'long', year: 'numeric'
             });
-
-            // Sanitize description (simple newline to <br>)
             const descriptionHTML = notice.description.replace(/\n/g, '<br>');
 
             noticesHTML += `
@@ -437,7 +485,6 @@ document.addEventListener('DOMContentLoaded', () => {
         noticesContainer.innerHTML = noticesHTML;
     }
 
-    // Load notices if on the notice board page
     if (document.getElementById('notice-board-page')) {
         loadNotices();
     }

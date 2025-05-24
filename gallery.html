@@ -21,13 +21,17 @@
             <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
             <nav>
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li> <!-- Active on index.html -->
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="results.html">Results</a></li>
-                    <li><a href="notice.html">Notice</a></li> <!-- NEW -->
-                    <li><a href="about.html">About Us</a></li> <!-- Kept for now -->
-                    <!-- Contact Us link removed from main nav -->
+                    <li>
+                        <a href="notice.html" id="nav-notice-link">
+                            Notice
+                            <span id="notice-indicator" class="notice-indicator-badge" style="display: none;"></span>
+                        </a>
+                    </li>
+                    <li><a href="about.html">About Us</a></li>
                 </ul>
             </nav>
         </div>
