@@ -86,6 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Recalculate on resize
+            const currentCard = resultsTrack.children[0];
+            const computedStyle = window.getComputedStyle(currentCard);
+            const marginLeft = parseFloat(computedStyle.marginLeft);
+            const marginRight = parseFloat(computedStyle.marginRight);
+            cardWidth = currentCard.offsetWidth + marginLeft + marginRight;
             window.addEventListener('resize', () => {
                 visibleCards = Math.floor(resultsSliderContainer.offsetWidth / cardWidth);
                 // Potentially re-initialize or adjust slider logic if needed on resize,
