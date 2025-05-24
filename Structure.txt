@@ -1,11 +1,13 @@
 https://klsuthar.github.io/school/
+├── manifest.json         // New: PWA Web App Manifest
+├── sw.js                 // New: PWA Service Worker
 ├── index.html
 ├── services.html
 ├── gallery.html
-├── results.html        
-├── notice.html         
+├── results.html
+├── notice.html
 ├── about.html
-├── contact.html        // Still exists, but linked differently (e.g., from notice page, footer)
+├── contact.html
 ├── css/
 │   └── style.css
 ├── js/
@@ -39,13 +41,23 @@ https://klsuthar.github.io/school/
 │   │   │   ├── 1.jpg
 │   │   │   ├── 2.jpg
 │   │   │   └── 3.jpg
-│   └── notice/           
-│       ├── exam_schedule.jpg      
-│       ├── sports_day_postponed.jpg 
-│       └── science_exhibition.jpg 
+│   ├── notice/
+│   │   ├── exam_schedule.jpg
+│   │   ├── sports_day_postponed.jpg
+│   │   └── science_exhibition.jpg
+│   └── icons/                // New: PWA Icons
+│       ├── icon-72x72.png
+│       ├── icon-96x96.png
+│       ├── icon-128x128.png
+│       ├── icon-144x144.png
+│       ├── icon-152x152.png
+│       ├── icon-192x192.png  
+│       ├── icon-384x384.png
+│       ├── icon-512x512.png
+│       └── apple-touch-icon.png 
 │
-├── results/                
-│   └── results.json        // JSON file for student results
+├── results/
+│   └── results.json
 │
-└── data/                   
-    └── notices.json        // JSON file for notices
+└── data/
+    └── notices.json
