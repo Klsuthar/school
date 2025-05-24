@@ -1349,18 +1349,21 @@ footer {
     background: none;
     border: none;
     color: var(--header-text);
-    font-size: 1.2rem; /* Adjust size as needed */
-    padding: 8px 10px;
-    margin-left: 15px; /* Space from logo or other elements */
+    font-size: 0.9rem; /* Adjusted for text, make it similar to nav link font size */
+    font-weight: 500; /* Similar to nav links */
+    padding: 8px 15px; /* Adjust padding for text */
+    margin-left: 15px;
     cursor: pointer;
-    transition: color 0.3s, transform 0.2s;
-    -webkit-app-region: no-drag; /* PWA: Make button clickable */
+    transition: color 0.3s, background-color 0.3s; /* Changed transition properties */
+    -webkit-app-region: no-drag;
     display: none; /* Initially hidden, shown by JS */
+    border-radius: 5px; /* Optional: give it a similar feel to nav links */
 }
 
 .header-action-button:hover {
-    color: var(--primary-orange); /* Highlight on hover */
-    transform: rotate(90deg);
+    color: var(--nav-link-hover-text); /* Match nav link hover text */
+    background-color: var(--nav-link-hover-bg); /* Match nav link hover background */
+    /* transform: rotate(90deg); */ /* Removed icon-specific rotation */
 }
 
 /* Adjust positioning if menu-toggle is visible or other elements are present */
