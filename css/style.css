@@ -1495,75 +1495,71 @@ footer {
 /* Refresh Button and Status Styles */
 .refresh-section {
     text-align: center;
-    margin-bottom: 25px;
-    margin-top: 15px;
-    /* Add some top margin */
+    margin-bottom: 30px; /* Increased bottom margin */
+    margin-top: 20px; /* Increased top margin */
 }
 
 .btn-refresh-data {
-    display: inline-flex;
-    /* To align icon and text */
+    display: inline-flex; /* To align icon and text */
     align-items: center;
-    gap: 8px;
-    /* Space between icon and text */
-    padding: 10px 20px;
-    background-color: var(--accent-yellow-orange);
-    color: var(--text-dark);
-    border: 1px solid var(--primary-orange);
+    justify-content: center; /* Helps center content if width is constrained */
+    gap: 10px; /* Space between icon and text */
+    padding: 12px 28px; /* Increased padding for a larger button */
+    background-color: var(--primary-orange); /* Using your primary orange */
+    color: var(--text-light); /* Light text for good contrast */
+    border: none; /* Removing default border */
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.05rem; /* Slightly larger font */
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+    min-width: 180px; /* Give it a decent minimum width */
 }
 
 .btn-refresh-data:hover {
-    background-color: var(--primary-orange);
+    background-color: var(--button-primary-hover-bg); /* Your defined hover color */
     color: var(--text-light);
     text-decoration: none;
-    /* Ensure no underline on hover */
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 .btn-refresh-data:disabled {
-    background-color: #ffcc80;
-    /* Lighter shade of accent yellow */
-    border-color: #ffa726;
-    color: #757575;
-    /* Muted text color */
-    opacity: 0.7;
+    background-color: #FFCC80; /* A lighter, muted orange for disabled state (var(--accent-yellow-orange) might be too bright) */
+    color: #A1887F; /* Muted text color for disabled state */
+    opacity: 0.8; /* Slightly more opaque than default */
     cursor: not-allowed;
     transform: translateY(0);
+    box-shadow: none; /* No shadow when disabled */
 }
 
 .btn-refresh-data i {
-    font-size: 0.9em;
-    /* Slightly smaller icon */
+    font-size: 1em; /* Icon size relative to button font size */
+    line-height: 1; /* Ensure icon aligns well vertically */
 }
 
 .refresh-status-message {
     display: block;
-    margin-top: 10px;
-    font-size: 0.9em;
+    margin-top: 12px; /* Increased space for status message */
+    font-size: 0.95em; /* Slightly larger status message */
     color: var(--text-dark);
-    min-height: 1.2em;
-    /* Prevent layout shift */
+    min-height: 1.3em; /* Prevent layout shift */
     font-style: italic;
+    font-weight: 500; /* Make it a bit more prominent */
 }
 
 /* Responsive adjustments for refresh button if needed */
 @media (max-width: 480px) {
     .btn-refresh-data {
-        font-size: 0.9rem;
-        padding: 8px 15px;
-        width: auto;
-        /* Allow to size based on content */
-        max-width: 80%;
-        /* Prevent it from becoming too wide */
+        font-size: 0.95rem; /* Adjusted for smaller screens */
+        padding: 10px 20px; /* Adjusted padding */
+        min-width: 160px;
+        gap: 8px;
     }
-
     .refresh-section {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        margin-top: 15px;
     }
 }
