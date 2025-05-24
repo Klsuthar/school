@@ -1,9 +1,9 @@
-school-website/
+https://klsuthar.github.io/school/
 ├── index.html
 ├── services.html
 ├── gallery.html
-├── results.html        // New results page
-├── notice.html         // New notice page
+├── results.html        
+├── notice.html         
 ├── about.html
 ├── contact.html        // Still exists, but linked differently (e.g., from notice page, footer)
 ├── css/
@@ -39,13 +39,13 @@ school-website/
 │   │   │   ├── 1.jpg
 │   │   │   ├── 2.jpg
 │   │   │   └── 3.jpg
-│   └── notice/           // New folder for notice images
-│       ├── exam_schedule.jpg      // Example placeholder
-│       ├── sports_day_postponed.jpg // Example placeholder
-│       └── science_exhibition.jpg // Example placeholder
+│   └── notice/           
+│       ├── exam_schedule.jpg      
+│       ├── sports_day_postponed.jpg 
+│       └── science_exhibition.jpg 
 │
-├── results/                // New folder for results data
+├── results/                
 │   └── results.json        // JSON file for student results
 │
-└── data/                   // New folder for general data files
+└── data/                   
     └── notices.json        // JSON file for notices

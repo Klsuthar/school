@@ -1,176 +1,145 @@
-// sw.js
-const CACHE_NAME = 'springfield-academy-v3'; // <<< IMPORTANT: Incremented version
-const OFFLINE_URL = 'offline.html';
-const urlsToCache = [
-    '/', // This is our start_url, make sure it's cached!
-    'index.html', // Cache explicitly too, for direct access or if server doesn't map / to index.html
-    'services.html',
-    'gallery.html',
-    'results.html',
-    'notice.html',
-    'about.html',
-    'contact.html',
-    OFFLINE_URL,
-    'css/style.css',
-    'js/script.js',
-    'manifest.json',
-    // Key Images
-    'images/logo.png',
-    'images/banner.jpg',
-    'images/principal.jpg',
-    'images/facility-teacher.png',
-    'images/facility-playground.png',
-    'images/facility-lab.png',
-    'images/facility-bus.png',
-    // PWA Icons
-    'images/icons/icon-72x72.png',
-    'images/icons/icon-96x96.png',
-    'images/icons/icon-128x128.png',
-    'images/icons/icon-144x144.png',
-    'images/icons/icon-152x152.png',
-    'images/icons/icon-192x192.png',
-    'images/icons/icon-maskable-192x192.png',
-    'images/icons/icon-384x384.png',
-    'images/icons/icon-512x512.png',
-    'images/icons/icon-maskable-512x512.png',
-    'images/icons/apple-touch-icon.png', // Make sure this file exists
-    // Data files
-    'data/notices.json',
-    'results/results.json',
-    // Font Awesome
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
+const CACHE_PREFIX = 'springfield-academy-cache';
+const CACHE_VERSION = 'v1.3'; // Increment this version to trigger SW update & recache
+const CACHE_NAME = `${CACHE_PREFIX}-${CACHE_VERSION}`;
+
+// Adjust the /school/ prefix if your GitHub Pages repo name is different
+// or if you are deploying to a different base path.
+const GH_PAGES_PREFIX = '/school';
+
+const URLS_TO_CACHE = [
+    `${GH_PAGES_PREFIX}/`,
+    `${GH_PAGES_PREFIX}/index.html`,
+    `${GH_PAGES_PREFIX}/services.html`,
+    `${GH_PAGES_PREFIX}/gallery.html`,
+    `${GH_PAGES_PREFIX}/results.html`,
+    `${GH_PAGES_PREFIX}/notice.html`,
+    `${GH_PAGES_PREFIX}/about.html`,
+    `${GH_PAGES_PREFIX}/contact.html`,
+    `${GH_PAGES_PREFIX}/css/style.css`,
+    `${GH_PAGES_PREFIX}/js/script.js`,
+    `${GH_PAGES_PREFIX}/data/notices.json`,
+    `${GH_PAGES_PREFIX}/results/results.json`,
+    // Core Images
+    `${GH_PAGES_PREFIX}/images/logo.png`,
+    `${GH_PAGES_PREFIX}/images/banner.jpg`,
+    `${GH_PAGES_PREFIX}/images/principal.jpg`,
+    `${GH_PAGES_PREFIX}/images/student1.jpg`,
+    `${GH_PAGES_PREFIX}/images/student2.jpg`,
+    `${GH_PAGES_PREFIX}/images/student3.jpg`,
+    `${GH_PAGES_PREFIX}/images/student4.jpg`,
+    `${GH_PAGES_PREFIX}/images/facility-teacher.png`,
+    `${GH_PAGES_PREFIX}/images/facility-playground.png`,
+    `${GH_PAGES_PREFIX}/images/facility-lab.png`,
+    `${GH_PAGES_PREFIX}/images/facility-bus.png`,
+    // PWA Icons (must match manifest.json paths, relative to root)
+    `${GH_PAGES_PREFIX}/images/icons/icon-72x72.png`,
+    `${GH_PAGES_PREFIX}/images/icons/icon-96x96.png`,
+    `${GH_PAGES_PREFIX}/images/icons/icon-128x128.png`,
+    `${GH_PAGES_PREFIX}/images/icons/icon-144x144.png`,
+    `${GH_PAGES_PREFIX}/images/icons/icon-152x152.png`,
+    `${GH_PAGES_PREFIX}/images/icons/icon-192x192.png`,
+    `${GH_PAGES_PREFIX}/images/icons/icon-384x384.png`,
+    `${GH_PAGES_PREFIX}/images/icons/icon-512x512.png`,
+    `${GH_PAGES_PREFIX}/images/icons/apple-touch-icon.png`, // If you add one
+    // Limited gallery/notice images for pre-cache. Consider runtime caching for more.
+    `${GH_PAGES_PREFIX}/images/gallery/annual/1.jpg`,
+    `${GH_PAGES_PREFIX}/images/notice/exam_schedule.jpg`
 ];
 
-// Install service worker
-self.addEventListener('install', event => {
-    console.log('[SW] Install event, Caching App Shell');
+self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('[SW] Opened cache:', CACHE_NAME);
-                const cachePromises = urlsToCache.map(urlToCache => {
-                    const request = (urlToCache.startsWith('http'))
-                        ? new Request(urlToCache, { mode: 'cors' }) // For CDN resources
-                        : new Request(urlToCache); // For local resources
-
-                    return cache.add(request).catch(err => {
-                        // Log error for individual file caching failure
-                        console.error(`[SW] Failed to cache ${urlToCache}:`, err);
-                        // Optionally, rethrow or handle, but Promise.all will still reject if one fails.
-                        // For now, just logging, so we know which URL failed.
-                    });
+            .then((cache) => {
+                console.log('Opened cache:', CACHE_NAME);
+                return cache.addAll(URLS_TO_CACHE.map(url => new Request(url, { cache: 'reload' }))); // Force reload from network for initial cache
+            })
+            .catch(err => {
+                console.error('Failed to cache resources during install:', err);
+                // Log which specific resource failed if possible
+                URLS_TO_CACHE.forEach(url => {
+                    fetch(new Request(url, { cache: 'reload' })).catch(() => console.error('Failed to fetch for caching:', url));
                 });
-                return Promise.all(cachePromises)
-                    .then(() => console.log('[SW] All assets cached successfully.'))
-                    .catch(error => {
-                        console.error('[SW] Caching failed for one or more assets during install:', error);
-                        // This indicates a critical problem if essential files like '/' or 'index.html' failed.
-                    });
             })
     );
-    self.skipWaiting(); // Activate new SW immediately
 });
 
-// Activate service worker - clean up old caches
-self.addEventListener('activate', event => {
-    console.log('[SW] Activate event');
+self.addEventListener('activate', (event) => {
     event.waitUntil(
-        caches.keys().then(cacheNames => {
+        caches.keys().then((cacheNames) => {
             return Promise.all(
-                cacheNames.map(cacheName => {
-                    if (cacheName !== CACHE_NAME) {
-                        console.log('[SW] Deleting old cache:', cacheName);
+                cacheNames.map((cacheName) => {
+                    if (cacheName.startsWith(CACHE_PREFIX) && cacheName !== CACHE_NAME) {
+                        console.log('Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
             );
-        }).then(() => {
-            console.log('[SW] Clients claimed.');
-            return self.clients.claim(); // Ensure new SW takes control of all clients
         })
     );
+    return self.clients.claim(); // Ensure new SW takes control immediately
 });
 
-// Fetch event - serve cached content or fetch from network
-self.addEventListener('fetch', event => {
-    const url = new URL(event.request.url);
-    // console.log(`[SW] Fetching: ${url.pathname}${url.search} (Mode: ${event.request.mode})`);
-
-    // Handle navigation requests (HTML documents)
+self.addEventListener('fetch', (event) => {
+    // For navigation requests, use a network-first strategy to ensure users get the latest HTML.
     if (event.request.mode === 'navigate') {
-        console.log(`[SW] Handling NAVIGATE request for: ${event.request.url}`);
         event.respondWith(
             fetch(event.request)
                 .then(response => {
-                    console.log(`[SW] NAVIGATE - Network success for: ${event.request.url}`);
+                    // If successful, cache the fetched page (optional, but good for subsequent offline access)
                     if (response.ok) {
                         const responseToCache = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then(cache => {
-                                cache.put(event.request, responseToCache);
-                            });
+                        caches.open(CACHE_NAME).then(cache => {
+                            cache.put(event.request, responseToCache);
+                        });
                     }
                     return response;
                 })
-                .catch(error => {
-                    console.warn(`[SW] NAVIGATE - Network FAILED for: ${event.request.url}. Error: ${error}. Trying cache.`);
-                    return caches.match(event.request) // Try to match the original request (e.g., for '/')
+                .catch(() => {
+                    // If network fails, try to serve from cache
+                    return caches.match(event.request)
                         .then(cachedResponse => {
-                            if (cachedResponse) {
-                                console.log(`[SW] NAVIGATE - Serving from CACHE: ${event.request.url}`);
-                                return cachedResponse;
-                            }
-                            // If the start URL itself isn't in cache, this is a problem.
-                            // Fallback to offline page for any failed navigation.
-                            console.warn(`[SW] NAVIGATE - ${event.request.url} NOT IN CACHE. Serving offline page.`);
-                            return caches.match(OFFLINE_URL).then(offlineResponse => {
-                                if (!offlineResponse) {
-                                    console.error("[SW] CRITICAL: offline.html not found in cache!");
-                                    // As an absolute last resort, construct a simple 404 response
-                                    return new Response("<h1>Service Unavailable</h1><p>The app is offline and the offline page is also missing.</p>", {
-                                        headers: { 'Content-Type': 'text/html' },
-                                        status: 404,
-                                        statusText: "Not Found - Offline Page Missing"
-                                    });
-                                }
-                                return offlineResponse;
-                            });
+                            return cachedResponse || caches.match(`${GH_PAGES_PREFIX}/index.html`); // Fallback to home or an offline page
                         });
                 })
         );
         return;
     }
 
-    // For non-navigation requests (assets like CSS, JS, images), use cache-first strategy
+    // For other requests (CSS, JS, images), use a cache-first strategy.
     event.respondWith(
         caches.match(event.request)
-            .then(cachedResponse => {
+            .then((cachedResponse) => {
                 if (cachedResponse) {
-                    // console.log(`[SW] ASSET - Serving from CACHE: ${event.request.url}`);
                     return cachedResponse;
                 }
-                // console.log(`[SW] ASSET - Not in cache, fetching from NETWORK: ${event.request.url}`);
-                return fetch(event.request).then(networkResponse => {
-                    if (networkResponse && networkResponse.ok) {
-                        if (event.request.method === 'GET' &&
-                            (url.protocol.startsWith('http'))) { // Check if URL is http/https
+                return fetch(event.request).then((networkResponse) => {
+                    if (networkResponse && networkResponse.status === 200 && event.request.method === 'GET') {
+                        // Cache new resources dynamically if they are not cross-origin or are CORS-safe
+                        // Be careful with caching opaque responses (cross-origin without CORS) as they can take up space.
+                        const requestUrl = new URL(event.request.url);
+                        if (requestUrl.origin === self.location.origin) { // Only cache same-origin resources by default
                             const responseToCache = networkResponse.clone();
                             caches.open(CACHE_NAME)
-                                .then(cache => {
+                                .then((cache) => {
                                     cache.put(event.request, responseToCache);
                                 });
                         }
-                    } else if (networkResponse && !networkResponse.ok) {
-                        console.warn(`[SW] ASSET - Network fetch for ${event.request.url} was NOT OK: Status ${networkResponse.status}`);
                     }
                     return networkResponse;
                 }).catch(error => {
-                    console.warn(`[SW] ASSET - Network fetch FAILED for ${event.request.url}:`, error);
-                    // Optionally return a placeholder for images or specific asset types
-                    // if (event.request.headers.get('accept')?.includes('image')) {
-                    //     return caches.match('images/placeholder.png');
+                    console.warn('Fetch failed; returning offline fallback or error for:', event.request.url, error);
+                    // You could return a placeholder for images if they fail, e.g.
+                    // if (event.request.destination === 'image') {
+                    //   return caches.match(`${GH_PAGES_PREFIX}/images/placeholder.png`);
                     // }
                 });
             })
     );
+});
+
+// Optional: Listen for messages from clients to skip waiting
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
 });
