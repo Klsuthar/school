@@ -1,57 +1,47 @@
+// school-website/manifest.json
 {
   "name": "Springfield Academy",
   "short_name": "Springfield",
-  "description": "Official website of Springfield Academy - Nurturing Minds, Shaping Futures.",
+  "description": "Official website of Springfield Academy, Dhadheru Godaran, Churu.",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#3A3A3A", 
-  "theme_color": "#F57C00",    
+  "background_color": "#ffffff",
+  "theme_color": "#F57C00",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/images/logo_72.png",
+      "src": "images/logo.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo.png",
       "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable" 
+      "type": "image/png"
     },
     {
-      "src": "/images/logo_96.png",
+      "src": "images/logo.png",
       "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "/images/logo_128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/images/logo_144.png",
+      "src": "images/logo.png",
       "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "/images/logo_152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "images/logo.png",
+      "sizes": "168x168",
+      "type": "image/png"
     },
     {
-      "src": "/images/logo_192.png",
+      "src": "images/logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/logo_384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/images/logo_512.png",
+      "src": "images/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
