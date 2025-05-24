@@ -47,6 +47,12 @@
         <section id="results-page">
             <div class="container">
                 <h1 class="section-title">Student Results</h1>
+                <div class="refresh-section">
+                    <button id="refresh-results-button" class="btn-refresh-data">
+                        <i class="fas fa-sync-alt"></i> Refresh Results
+                    </button>
+                    <span id="results-refresh-status" class="refresh-status-message"></span>
+                </div>
 
                 <div class="results-filter-container">
                     <div class="form-group">
@@ -63,14 +69,7 @@
                     </div>
                 </div>
 
-                <!-- START: Added Refresh Button Section -->
-                <div class="refresh-section">
-                    <button id="refresh-results-button" class="btn-refresh-data">
-                        <i class="fas fa-sync-alt"></i> Refresh Results
-                    </button>
-                    <span id="results-refresh-status" class="refresh-status-message"></span>
-                </div>
-                <!-- END: Added Refresh Button Section -->
+                
 
                 <div id="results-table-container">
                     <p class="no-results-message">Please select a class and test to view results.</p>
