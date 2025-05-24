@@ -137,6 +137,13 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        console.log('Service Worker: SKIP_WAITING message received. Activating new SW.');
+        self.skipWaiting();
+    }
+});
+
 // Optional: Listen for messages from clients to skip waiting
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'SKIP_WAITING') {
