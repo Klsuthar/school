@@ -191,29 +191,6 @@ header nav ul li a.active {
     /* PWA: Make menu toggle clickable */
 }
 
-/* PWA: Window Controls Overlay Active Styles */
-/* This class is added by JS when windowControlsOverlay is active */
-body.window-controls-overlay-active header {
-    /*
-       The browser provides system-level window controls (minimize, maximize, close).
-       The header becomes the title bar area. You might need to adjust padding/margins
-       if your header content overlaps with these native controls.
-       CSS `env()` variables are the most robust way to handle this.
-    */
-    /* Example: Add padding to the top of the header container to clear controls */
-    /*
-    padding-top: env(titlebar-area-height, 45px);
-    padding-left: env(titlebar-area-x, 0px);
-    padding-right: env(titlebar-area-width, 0px) - env(titlebar-area-x, 0px) - <your_content_width>;
-    */
-    /* For simpler cases, if your header has fixed height, you might just need top padding.
-       Test on Windows PWA to see if adjustments are needed.
-       The default behavior with -webkit-app-region: drag might be sufficient if
-       your header content is already well-padded.
-    */
-    /* If the header is short, you might not need any changes */
-}
-
 /* Notice Indicator Badge in Header Nav */
 #nav-notice-link {
     /* ID for the specific <a> tag wrapping "Notice" */
