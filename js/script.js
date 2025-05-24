@@ -13,18 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const pathSegments = window.location.pathname.split('/');
     let currentPageFile = pathSegments.pop() || 'index.html'; // Get the last segment (file name) or default
     // Handles cases like /folder/ which results in "" for pop(), or root /
-    if (currentPageFile === '' && pathSegments.length > 0 && pathSegments[pathSegments.length -1] !== '') {
-        // This case implies a path like /folder/ where pop() gives "", but it's not the root.
-        // For a flat structure, we generally default to index.html if the pop is empty or not a file.
+    if (currentPageFile === '' && pathSegments.length > 0 && pathSegments[pathSegments.length - 1] !== '') {
         currentPageFile = 'index.html';
-    } else if (currentPageFile === '') { // Handles root path / explicitly making it index.html
-         currentPageFile = 'index.html';
+    } else if (currentPageFile === '') { // handles root path / explicitly making it index.html
+        currentPageFile = 'index.html';
     }
-    // Ensure it has .html if it's a page name without extension (less common for static sites but for safety)
-    // For this project, all links are explicit .html files, so this might not be strictly needed.
-    // if (!currentPageFile.endsWith('.html') && currentPageFile !== 'index.html') {
-    //     currentPageFile = 'index.html'; // Default if no .html and not already index
-    // }
 
 
     // For Top Header Navigation
@@ -56,9 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const resultsTrack = resultsSliderContainer.querySelector('.results-track');
         if (resultsTrack && resultsTrack.children.length > 0) {
             const originalCards = Array.from(resultsTrack.children);
-            let cardWidth; // To be calculated
+            let cardWidth;
             let visibleCards;
-            // let totalCardsInView = originalCards.length; // This variable wasn't strictly used later for cloning logic
             let currentIndex = 0;
             let intervalId;
 
@@ -72,24 +64,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (resultsSliderContainer.offsetWidth > 0 && cardWidth > 0) {
                         visibleCards = Math.floor(resultsSliderContainer.offsetWidth / cardWidth);
                     } else {
-                        visibleCards = originalCards.length; // Default to all if calculation fails
+                        visibleCards = originalCards.length; // Default to all if calc fails
                     }
+                } else {
+                    visibleCards = 0; // No cards, no visible cards
                 }
             }
-            calculateCardWidthAndVisible(); // Initial calculation
+            calculateCardWidthAndVisible();
 
 
-            // Clone cards for infinite loop only if needed
             if (originalCards.length > 0 && originalCards.length > visibleCards) {
                 originalCards.forEach(card => {
                     const clone = card.cloneNode(true);
                     resultsTrack.appendChild(clone);
                 });
-                // totalCardsInView = originalCards.length * 2; // After cloning
             }
 
             function slideResults() {
-                // Recalculate visibleCards in case of resize changes before slide execution
                 calculateCardWidthAndVisible();
                 if (originalCards.length === 0 || originalCards.length <= visibleCards) {
                     if (intervalId) clearInterval(intervalId);
@@ -101,25 +92,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultsTrack.style.transition = 'transform 0.5s ease-in-out';
                 resultsTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
 
-                // If we've slid past the original set and are now showing a clone that matches the start
                 if (currentIndex >= originalCards.length) {
-                    // After the transition ends, silently jump back to the beginning
                     setTimeout(() => {
-                        resultsTrack.style.transition = 'none'; // No transition for the jump
+                        resultsTrack.style.transition = 'none';
                         currentIndex = 0;
                         resultsTrack.style.transform = `translateX(0px)`;
-                        // Force reflow to apply the reset immediately
                         void resultsTrack.offsetWidth;
-                    }, 500); // Match transition duration
+                    }, 500);
                 }
             }
 
             if (originalCards.length > 0 && originalCards.length > visibleCards) {
-                intervalId = setInterval(slideResults, 3000); // Slide every 3 seconds
+                intervalId = setInterval(slideResults, 3000);
 
                 resultsSliderContainer.addEventListener('mouseenter', () => clearInterval(intervalId));
                 resultsSliderContainer.addEventListener('mouseleave', () => {
-                    // Re-check condition before restarting
                     if (originalCards.length > visibleCards) {
                         intervalId = setInterval(slideResults, 3000);
                     }
@@ -127,19 +114,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             window.addEventListener('resize', () => {
-                calculateCardWidthAndVisible(); // Recalculate on resize
-                // Stop or start interval based on new visibility
+                calculateCardWidthAndVisible();
                 if (originalCards.length <= visibleCards) {
                     if (intervalId) clearInterval(intervalId);
-                    intervalId = null; // Clear intervalId
+                    intervalId = null;
                     resultsTrack.style.transition = 'none';
                     resultsTrack.style.transform = `translateX(0px)`;
                     currentIndex = 0;
                 } else if (!intervalId && originalCards.length > 0 && originalCards.length > visibleCards) {
-                    // If it wasn't sliding (e.g., was cleared) but now should
                     intervalId = setInterval(slideResults, 3000);
                 }
-                // If it was already sliding and should continue, the existing interval will handle it or be recreated by mouseleave
             });
         }
     }
@@ -164,17 +148,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentImgIdx = 0;
 
         function slideGallery() {
-            if (images.length <= 1) return; // Don't slide if 1 or 0 images
+            if (images.length <= 1) return;
             currentImgIdx = (currentImgIdx + 1) % images.length;
             grid.style.transform = `translateX(-${currentImgIdx * 100}%)`;
         }
         if (images.length > 1) {
-            setInterval(slideGallery, 2000); // Auto slide every 2 seconds
+            setInterval(slideGallery, 2000);
         }
 
         images.forEach((img, index) => {
             img.addEventListener('click', () => {
-                currentGalleryImages = images.map(i => i.src); // Get sources from this specific gallery
+                currentGalleryImages = images.map(i => i.src);
                 currentImageIndex = index;
                 openModal(img.src);
             });
@@ -215,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Close modal on outside click or Escape key
     if (modal) {
         window.addEventListener('click', (event) => {
             if (event.target == modal) {
@@ -228,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
 
     // --- Contact Form ---
     const contactForm = document.getElementById('contactForm');
@@ -263,27 +245,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectClassDropdown = document.getElementById('select-class');
     const selectTestDropdown = document.getElementById('select-test');
     const resultsTableContainer = document.getElementById('results-table-container');
-    let resultsData = null; // To store loaded results data
+    let resultsData = null;
 
     async function loadResultsData() {
         try {
-            const response = await fetch('results/results.json');
+            const response = await fetch('results/results.json'); // Path to results JSON
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`HTTP error! status: ${response.status} - Could not fetch results.json. Check path and file existence.`);
             }
             resultsData = await response.json();
             populateClassSelector();
         } catch (error) {
             console.error("Could not load results data:", error);
             if (resultsTableContainer) {
-                 resultsTableContainer.innerHTML = `<p class="no-results-message">Error loading results data. Please check the console for details and ensure 'results/results.json' is accessible and correctly formatted.</p>`;
+                resultsTableContainer.innerHTML = `<p class="no-results-message">Error loading results data. Please check the console for details. Ensure 'results/results.json' is in the 'results' folder and correctly formatted.</p>`;
             }
         }
     }
 
     function populateClassSelector() {
         if (!resultsData || !selectClassDropdown) return;
-        selectClassDropdown.length = 1; // Keep "-- Select Class --"
+        selectClassDropdown.length = 1;
 
         const classes = Object.keys(resultsData).sort((a, b) => {
             return parseInt(a.replace('class', ''), 10) - parseInt(b.replace('class', ''), 10);
@@ -301,10 +283,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!resultsData || !selectTestDropdown || !resultsData[selectedClassKey]) {
             selectTestDropdown.length = 1;
             selectTestDropdown.disabled = true;
+            if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">No data found for the selected class.</p>`;
             return;
         }
 
-        selectTestDropdown.length = 1; // Keep "-- Select Test --"
+        selectTestDropdown.length = 1;
         const tests = Object.keys(resultsData[selectedClassKey]).sort();
 
         if (tests.length > 0) {
@@ -328,8 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const students = resultsData[classKey][testKey];
-        if (!students || students.length === 0) {
-            resultsTableContainer.innerHTML = `<p class="no-results-message">No students in this result set.</p>`;
+        if (!Array.isArray(students) || students.length === 0) {
+            resultsTableContainer.innerHTML = `<p class="no-results-message">No students in this result set or data is not an array.</p>`;
             return;
         }
 
@@ -365,10 +348,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (selectClassDropdown) {
-        selectClassDropdown.addEventListener('change', function() {
+        selectClassDropdown.addEventListener('change', function () {
             const selectedClass = this.value;
             if (resultsTableContainer) resultsTableContainer.innerHTML = `<p class="no-results-message">Please select a test to view results.</p>`;
-            selectTestDropdown.length = 1; // Reset test dropdown to "-- Select Test --"
+            selectTestDropdown.length = 1;
             selectTestDropdown.disabled = true;
 
             if (selectedClass) {
@@ -378,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (selectTestDropdown) {
-        selectTestDropdown.addEventListener('change', function() {
+        selectTestDropdown.addEventListener('change', function () {
             const selectedClass = selectClassDropdown.value;
             const selectedTest = this.value;
             if (selectedClass && selectedTest) {
@@ -393,5 +376,71 @@ document.addEventListener('DOMContentLoaded', () => {
         loadResultsData();
     }
     // --- End of Results Page Specific ---
+
+
+    // --- Notice Board Page Specific ---
+    const noticesContainer = document.getElementById('notices-container');
+
+    async function loadNotices() {
+        if (!noticesContainer) return; // Only run if the container exists on the current page
+
+        try {
+            const response = await fetch('data/notices.json'); // Path to your notices JSON
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}. Check if 'data/notices.json' exists and path is correct.`);
+            }
+            const notices = await response.json();
+            displayNotices(notices);
+        } catch (error) {
+            console.error("Could not load notices:", error);
+            noticesContainer.innerHTML = `<p class="no-notices-message">Error loading notices. Please check the console for details.</p>`;
+        }
+    }
+
+    function displayNotices(notices) {
+        if (!noticesContainer) return;
+
+        if (!Array.isArray(notices) || notices.length === 0) {
+            noticesContainer.innerHTML = `<p class="no-notices-message">No notices to display at the moment.</p>`;
+            return;
+        }
+
+        // Sort notices by date (newest first, assuming "YYYY-MM-DD" format)
+        notices.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        let noticesHTML = '';
+        notices.forEach(notice => {
+            const noticeDate = new Date(notice.date);
+            const formattedDate = noticeDate.toLocaleDateString('en-GB', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+
+            // Sanitize description (simple newline to <br>)
+            const descriptionHTML = notice.description.replace(/\n/g, '<br>');
+
+            noticesHTML += `
+                <div class="notice-card ${notice.isNew ? 'new-notice' : ''}">
+                    ${notice.isNew ? '<span class="new-badge">NEW</span>' : ''}
+                    <h3>${notice.title}</h3>
+                    <span class="notice-date"><i class="fas fa-calendar-alt"></i> Published: ${formattedDate}</span>
+                    <div class="notice-description">
+                        ${descriptionHTML}
+                    </div>
+                    ${notice.image ? `
+                        <div class="notice-image-container">
+                            <img src="${notice.image}" alt="${notice.title}" class="notice-image">
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        });
+        noticesContainer.innerHTML = noticesHTML;
+    }
+
+    // Load notices if on the notice board page
+    if (document.getElementById('notice-board-page')) {
+        loadNotices();
+    }
+    // --- End of Notice Board Page Specific ---
 
 }); // End of DOMContentLoaded
