@@ -137,16 +137,16 @@ header .container {
     margin-right: 12px;
 }
 
-nav ul {
+header nav ul { /* Changed from: nav ul */
     list-style: none;
     display: flex;
 }
 
-nav ul li {
+header nav ul li { /* Changed from: nav ul li */
     margin-left: 30px;
 }
 
-nav ul li a {
+header nav ul li a { /* Changed from: nav ul li a */
     color: var(--header-text);
     font-size: 1rem;
     font-weight: 500;
@@ -155,13 +155,13 @@ nav ul li a {
     transition: background-color 0.3s, color 0.3s;
 }
 
-nav ul li a:hover {
+header nav ul li a:hover { /* Changed from: nav ul li a:hover */
     background-color: var(--nav-link-hover-bg);
     color: var(--nav-link-hover-text);
     text-decoration: none;
 }
 
-nav ul li a.active {
+header nav ul li a.active { /* Changed from: nav ul li a.active */
     background-color: var(--nav-link-active-bg);
     color: var(--nav-link-active-text);
     text-decoration: none;
@@ -277,7 +277,7 @@ footer {
 
 /* Home Page Specific */
 .home-banner {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 70px); /* 70px is a typical header height */
     min-height: 450px;
     background-image: url('../images/banner.jpg');
     background-size: cover;
@@ -387,27 +387,15 @@ footer {
 
 .facility-card {
     text-align: center;
-    /* Inherits from .card for background, shadow, border-radius etc. */
-    /* We might want to ensure consistent padding if general .card padding changes */
     padding: 20px;
-    /* Consistent padding for facility cards */
 }
 
 .facility-card img.icon {
     width: 100px;
-    /* Increased width for a more prominent image */
     height: 100px;
-    /* Increased height to maintain 1:1 aspect ratio */
     margin: 0 auto 20px;
-    /* Center the image and add space below */
     object-fit: cover;
-    /* This will make the image fill the 100x100 box, cropping if necessary */
-    /* If you have icons that should not be cropped, use 'contain'
-                            and potentially add a background-color to the img element itself
-                            if the icons have transparent backgrounds. */
     border-radius: 8px;
-    /* Keep rounded corners for the image container */
-    /* border: 1px solid var(--border-color); /* Optional: subtle border around image */
 }
 
 .facility-card h3 {
@@ -415,70 +403,50 @@ footer {
     color: var(--text-dark);
     margin-bottom: 10px;
     font-weight: 600;
-    /* Ensure headings are bold */
 }
 
 .facility-card p {
     font-size: 0.9rem;
     color: #555;
     line-height: 1.5;
-    /* Improve readability of description */
 }
 
 /* Services Page */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* Adjust minmax for desired card width */
     gap: 30px;
     margin-top: 30px;
 }
 
 .service-card {
-    /* Inherits general .card styles for background, shadow, border-radius */
     display: flex;
-    /* Use flexbox for vertical layout */
     flex-direction: column;
-    /* Stack image container and content vertically */
     text-align: left;
-    /* Default text alignment for content */
     padding: 0;
-    /* Remove padding from .card, apply to inner containers if needed */
 }
 
 .service-card-image-container {
     width: 100%;
     height: 180px;
-    /* Define a fixed height for the image area, adjust as desired */
     overflow: hidden;
-    /* Clip images that are too big */
-    /* Optional: Add top border radius if the card has one */
     border-top-left-radius: var(--card-border-radius, 10px);
-    /* Match general card radius */
     border-top-right-radius: var(--card-border-radius, 10px);
-    /* Match general card radius */
-    /* background-color: #f0f0f0; /* Optional placeholder background */
 }
 
 .service-card img.icon {
-    /* Styling for the image itself */
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Make image cover the container, cropping if necessary */
     display: block;
-    /* Remove any extra space below image */
-    /* No float, no margin-right needed anymore */
 }
 
 .service-card-content {
     padding: 20px;
-    /* Add padding to the text content area */
 }
 
 .service-card-content h3 {
     font-size: 1.4rem;
-    /* Or your preferred size */
     color: var(--text-dark);
     margin-bottom: 10px;
     font-weight: 600;
@@ -486,42 +454,8 @@ footer {
 
 .service-card-content p {
     font-size: 0.95rem;
-    /* Or your preferred size */
     color: #555;
     line-height: 1.6;
-    /* No clear: both needed anymore */
-}
-
-/* Responsive adjustments for service cards if needed */
-@media (max-width: 768px) {
-    .services-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .service-card-image-container {
-        height: 160px;
-        /* Slightly smaller image container on medium screens */
-    }
-}
-
-@media (max-width: 480px) {
-    .services-grid {
-        /* For very small screens, you might want a single column */
-        /* grid-template-columns: 1fr; */
-    }
-
-    .service-card-image-container {
-        height: 140px;
-        /* Even smaller on very small screens */
-    }
-
-    .service-card-content h3 {
-        font-size: 1.3rem;
-    }
-
-    .service-card-content p {
-        font-size: 0.9rem;
-    }
 }
 
 /* Gallery Page */
@@ -768,10 +702,58 @@ footer {
     filter: grayscale(30%) contrast(1.1) brightness(0.95);
 }
 
+/* Bottom Navigation Bar for Mobile */
+.bottom-nav-bar {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--header-bg); 
+    color: var(--header-text);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 999; 
+    height: 65px; 
+    align-items: stretch; 
+}
+
+.bottom-nav-link {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 5px;
+    color: var(--header-text); 
+    text-decoration: none;
+    font-size: 0.7rem; 
+    transition: background-color 0.2s, color 0.2s;
+    border-top: 3px solid transparent; 
+}
+
+.bottom-nav-link i {
+    font-size: 1.4rem; 
+    margin-bottom: 4px;
+}
+
+.bottom-nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.bottom-nav-link.active {
+    color: var(--primary-orange); 
+}
+
+.bottom-nav-link.active i,
+.bottom-nav-link.active .bottom-nav-text {
+    color: var(--primary-orange);
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    /* ... (your existing 768px styles) ... */
-
     .logo {
         font-size: 1.5rem;
     }
@@ -780,41 +762,24 @@ footer {
         height: 35px;
     }
 
-    .menu-toggle {
-        display: block;
+    /* Hide top nav and hamburger for bottom nav */
+    header nav ul {
+        display: none !important; 
+    }
+    header .menu-toggle {
+        display: none !important; 
     }
 
-    nav ul {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: var(--dark-grey-logo);
-        position: absolute;
-        top: 70px; /* Ensure this matches header height */
-        left: 0;
-        padding: 10px 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .bottom-nav-bar {
+        display: flex; /* Show bottom nav on mobile */
+    }
+    body {
+        padding-bottom: 65px; /* Match .bottom-nav-bar height */
+    }
+    header .container {
+        justify-content: flex-start; /* Or center: justify-content: center; */
     }
 
-    nav ul.active {
-        display: flex;
-    }
-
-    nav ul li {
-        margin: 10px 0;
-        text-align: center;
-    }
-
-    nav ul li a {
-        display: block;
-        padding: 12px;
-    }
-
-    nav ul li a:hover,
-    nav ul li a.active {
-        background-color: var(--primary-orange);
-        color: var(--text-light);
-    }
 
     .footer-content {
         flex-direction: column;
@@ -827,7 +792,7 @@ footer {
 
     .home-banner {
         height: 60vh;
-        min-height: 400px; /* Added min-height for very short viewports */
+        min-height: 400px;
     }
 
     .banner-content h1 {
@@ -839,7 +804,7 @@ footer {
     }
 
     .result-card {
-        width: 250px; /* Or consider width: 80%; max-width: 280px; for more flexibility */
+        width: 250px;
     }
 
     .facility-card img.icon {
@@ -878,60 +843,56 @@ footer {
 
 @media (max-width: 480px) {
     .banner-content h1 {
-        font-size: 2.0rem; /* Further reduced for very small screens */
+        font-size: 2.0rem; 
     }
 
     .banner-content p {
-        font-size: 1.0rem; /* Further reduced */
+        font-size: 1.0rem; 
     }
 
     .result-card {
-        width: calc(90% - 20px); /* Adjusted slightly for less aggressive subtraction */
-        margin: 0 10px;         /* Adjusted margin to match */
+        width: calc(90% - 20px); 
+        margin: 0 10px;         
     }
-    /* JS for results slider should correctly pick up offsetWidth for calculations */
-
 
     .logo img {
         height: 30px;
     }
 
     .logo {
-        font-size: 1.2rem; /* Slightly smaller logo text */
-    }
-
-    /* Hamburger menu button adjustments if needed */
-    .menu-toggle {
-        font-size: 1.6rem; /* If it feels too large */
-        padding: 5px;      /* Ensure it's easy to tap */
-    }
-
-
-    nav ul li {
-        margin-left: 0; /* Centered items don't need left margin from desktop */
+        font-size: 1.2rem; 
     }
     
-    nav ul li a {
-        padding: 10px; /* Slightly reduce padding inside mobile nav links if needed */
+    /* Hamburger menu (now hidden by bottom nav, but styles kept for consistency if re-enabled) */
+    .menu-toggle {
+        font-size: 1.6rem; 
+        padding: 5px;      
+    }
+    /* Top nav UL (now hidden by bottom nav) */
+    header nav ul li {
+        margin-left: 0; 
+    }
+    header nav ul li a {
+        padding: 10px; 
     }
 
+
     header .container {
-        padding: 0 10px; /* Reduce container padding */
+        padding: 0 10px; 
     }
 
     .section-title {
-        font-size: 1.7rem; /* Further reduce section titles */
-        margin-bottom: 30px; /* Adjust margin */
+        font-size: 1.7rem; 
+        margin-bottom: 30px; 
     }
     .section-title::after {
-        width: 60px; /* Shorter underline */
+        width: 60px; 
         height: 3px;
         margin-top: 8px;
     }
 
-
     .facility-card img.icon {
-        width: 60px; /* Smaller icons */
+        width: 60px; 
         height: 60px;
         margin-bottom: 10px;
     }
@@ -945,63 +906,62 @@ footer {
     }
 
     .gallery-section h3 {
-        font-size: 1.3rem; /* Further reduce gallery sub-titles */
+        font-size: 1.3rem; 
     }
     
     .image-grid-container {
-        height: 180px; /* Adjust gallery image container height */
+        height: 180px; 
     }
 
     /* Modal Controls on small screens */
     .close-modal,
     .prev-modal,
     .next-modal {
-        font-size: 28px; /* Slightly smaller control icons */
-        padding: 8px;    /* Smaller padding, thus smaller touch target but less intrusive */
+        font-size: 28px; 
+        padding: 8px;    
     }
     .close-modal {
-        top: 10px;       /* Adjust position */
+        top: 10px;       
         right: 15px;
     }
     .prev-modal {
-        left: 10px;      /* Adjust position */
+        left: 10px;      
     }
     .next-modal {
-        right: 10px;     /* Adjust position */
+        right: 10px;     
     }
     .modal-content {
-        max-width: 95%; /* Allow a bit more width for image */
+        max-width: 95%; 
     }
-
 
     .form-group input,
     .form-group textarea,
     .submit-btn {
-        font-size: 0.9rem; /* Smaller form text */
+        font-size: 0.9rem; 
     }
     .form-group label {
         font-size: 0.85rem;
     }
 
     .submit-btn {
-        padding: 10px 18px; /* Adjust button padding */
-        width: 100%; /* Make button full width for easier tapping */
+        padding: 10px 18px; 
+        width: 100%; 
     }
     
     .contact-form-section,
     .contact-info-section {
-        padding: 20px; /* Reduce padding in contact sections */
+        padding: 20px; 
     }
 
     #map-embed {
-        height: 250px; /* Reduce map height */
+        height: 250px; 
     }
     
     .contact-info-section p {
-        font-size: 0.9rem; /* Smaller contact info text */
+        font-size: 0.9rem; 
     }
     .contact-info-section p i {
-        font-size: 1rem; /* Smaller icons in contact info */
+        font-size: 1rem; 
     }
 
     /* Footer adjustments for very small screens */
@@ -1012,8 +972,8 @@ footer {
         font-size: 0.85rem;
     }
     .social-links a {
-        font-size: 1.5rem; /* Smaller social icons */
-        width: 32px;       /* Adjust size */
+        font-size: 1.5rem; 
+        width: 32px;       
         height: 32px;
     }
     .footer-bottom p {
@@ -1031,4 +991,17 @@ footer {
         font-size: 0.9rem;
     }
 
+    /* Bottom Nav specific adjustments for very small screens */
+    .bottom-nav-link {
+        font-size: 0.65rem; 
+    }
+    .bottom-nav-link i {
+        font-size: 1.3rem; 
+    }
+    .bottom-nav-bar {
+        height: 60px; 
+    }
+    body {
+        padding-bottom: 60px; /* Match height if changed */
+    }
 }

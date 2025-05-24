@@ -1,57 +1,85 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Common Elements ---
-    // Mobile Menu Toggle
+    // Mobile Menu Toggle (for top nav, if re-enabled or for wider mobile screens without bottom nav)
     const menuToggle = document.querySelector('.menu-toggle');
-    const navUl = document.querySelector('nav ul');
-    if (menuToggle && navUl) {
+    const topNavUl = document.querySelector('header nav ul'); // More specific selector
+    if (menuToggle && topNavUl) {
         menuToggle.addEventListener('click', () => {
-            navUl.classList.toggle('active');
+            topNavUl.classList.toggle('active');
         });
     }
 
-    // Active Nav Link
+    // Active Nav Link Logic
     const pathSegments = window.location.pathname.split('/');
-    let currentPageFile = pathSegments.pop(); // Get the last segment (file name)
-    if (currentPageFile === '' || currentPageFile === pathSegments.pop() /* for paths ending in / */) {
-        currentPageFile = 'index.html'; // Default to index.html if it's the root
+    let currentPageFile = pathSegments.pop() || 'index.html'; // Get the last segment (file name) or default
+    if (currentPageFile === '' && pathSegments.length > 0 && pathSegments[pathSegments.length -1] !== '') { // handles cases like /folder/
+        currentPageFile = 'index.html';
+    } else if (currentPageFile === '') { // handles root path /
+         currentPageFile = 'index.html';
     }
 
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentPageFile) {
+
+    // For Top Header Navigation
+    const topNavLinks = document.querySelectorAll('header nav ul li a');
+    topNavLinks.forEach(link => {
+        const linkHref = link.getAttribute('href');
+        // Check if the link's href ends with the current page file name
+        if (linkHref && (linkHref === currentPageFile || linkHref.endsWith('/' + currentPageFile))) {
             link.classList.add('active');
         } else {
-            link.classList.remove('active'); // Good practice to remove active from others
+            link.classList.remove('active');
+        }
+    });
+
+    // For Bottom Mobile Navigation
+    const bottomNavLinks = document.querySelectorAll('.bottom-nav-bar .bottom-nav-link');
+    bottomNavLinks.forEach(link => {
+        const linkPage = link.dataset.page; // Using data-page attribute
+        // Or, if you prefer using href: const linkHref = link.getAttribute('href');
+        if (linkPage && (linkPage === currentPageFile || linkPage.endsWith('/' + currentPageFile))) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
         }
     });
 
     // --- Home Page Specific ---
-    const resultsSliderContainer = document.querySelector('.results-slider'); // Get the container
+    const resultsSliderContainer = document.querySelector('.results-slider');
     if (resultsSliderContainer) {
         const resultsTrack = resultsSliderContainer.querySelector('.results-track');
         if (resultsTrack && resultsTrack.children.length > 0) {
             const originalCards = Array.from(resultsTrack.children);
-            const cardWidth = originalCards[0].offsetWidth + 30; // card width + its right margin (15px + 15px from CSS)
-            let visibleCards = Math.floor(resultsSliderContainer.offsetWidth / cardWidth);
-            let totalCardsInView = originalCards.length; // Initially
+            let cardWidth; // To be calculated
+            let visibleCards;
+            let totalCardsInView = originalCards.length;
+            let currentIndex = 0;
+            let intervalId;
 
-            // Clone cards for infinite loop only if needed
+            function calculateCardWidth() {
+                if (originalCards.length > 0) {
+                    const currentCard = originalCards[0];
+                    const computedStyle = window.getComputedStyle(currentCard);
+                    const marginLeft = parseFloat(computedStyle.marginLeft);
+                    const marginRight = parseFloat(computedStyle.marginRight);
+                    cardWidth = currentCard.offsetWidth + marginLeft + marginRight;
+                    visibleCards = Math.floor(resultsSliderContainer.offsetWidth / cardWidth);
+                }
+            }
+            calculateCardWidth(); // Initial calculation
+
+
             if (originalCards.length > visibleCards) {
                 originalCards.forEach(card => {
                     const clone = card.cloneNode(true);
                     resultsTrack.appendChild(clone);
                 });
-                totalCardsInView = originalCards.length * 2; // Now double the cards
+                totalCardsInView = originalCards.length * 2;
             }
-
-            let currentIndex = 0;
-            let intervalId; // To store the interval ID
 
             function slideResults() {
                 if (originalCards.length === 0 || originalCards.length <= visibleCards) {
-                    // If no cards or all cards are visible, no need to slide or loop
-                    if (intervalId) clearInterval(intervalId); // Stop if it was running
-                    resultsTrack.style.transform = `translateX(0px)`; // Ensure it's at the start
+                    if (intervalId) clearInterval(intervalId);
+                    resultsTrack.style.transform = `translateX(0px)`;
                     return;
                 }
 
@@ -59,59 +87,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultsTrack.style.transition = 'transform 0.5s ease-in-out';
                 resultsTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
 
-                // If we've slid past the original set and are now showing a clone that matches the start
                 if (currentIndex >= originalCards.length) {
-                    // After the transition ends, silently jump back to the beginning
                     setTimeout(() => {
-                        resultsTrack.style.transition = 'none'; // No transition for the jump
+                        resultsTrack.style.transition = 'none';
                         currentIndex = 0;
                         resultsTrack.style.transform = `translateX(0px)`;
-                        // Force reflow to apply the reset immediately
                         void resultsTrack.offsetWidth;
-                    }, 500); // Match transition duration
+                    }, 500);
                 }
             }
 
-            // Only start sliding if there are more cards than can be shown
             if (originalCards.length > visibleCards) {
-                intervalId = setInterval(slideResults, 3000); // Slide every 3 seconds
-
-                // Optional: Pause on hover
+                intervalId = setInterval(slideResults, 3000);
                 resultsSliderContainer.addEventListener('mouseenter', () => clearInterval(intervalId));
                 resultsSliderContainer.addEventListener('mouseleave', () => {
-                    if (originalCards.length > visibleCards) { // Re-check condition before restarting
+                    if (originalCards.length > visibleCards) {
                         intervalId = setInterval(slideResults, 3000);
                     }
                 });
             }
 
-            // Recalculate on resize
-            const currentCard = resultsTrack.children[0];
-            const computedStyle = window.getComputedStyle(currentCard);
-            const marginLeft = parseFloat(computedStyle.marginLeft);
-            const marginRight = parseFloat(computedStyle.marginRight);
-            cardWidth = currentCard.offsetWidth + marginLeft + marginRight;
             window.addEventListener('resize', () => {
-                visibleCards = Math.floor(resultsSliderContainer.offsetWidth / cardWidth);
-                // Potentially re-initialize or adjust slider logic if needed on resize,
-                // for this example, we'll just let it continue, but complex scenarios might need more.
-                // If it was sliding, and now all cards are visible, stop it.
+                calculateCardWidth(); // Recalculate on resize
+
                 if (originalCards.length <= visibleCards) {
                     if (intervalId) clearInterval(intervalId);
                     resultsTrack.style.transition = 'none';
                     resultsTrack.style.transform = `translateX(0px)`;
                     currentIndex = 0;
-                } else if (!intervalId && originalCards.length > 0) { // If it wasn't sliding but now should
+                } else if (!intervalId && originalCards.length > 0 && originalCards.length > visibleCards) {
                     intervalId = setInterval(slideResults, 3000);
                 }
             });
         }
     }
+
     // --- Gallery Page Specific ---
     const galleryGrids = document.querySelectorAll('.image-grid-container');
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
-    const closeModal = document.querySelector('.close-modal');
+    const closeModalBtn = document.querySelector('.close-modal'); // Renamed for clarity
     const prevModalBtn = document.querySelector('.prev-modal');
     const nextModalBtn = document.querySelector('.next-modal');
 
@@ -127,17 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentImgIdx = 0;
 
         function slideGallery() {
-            if (images.length <= 1) return; // Don't slide if 1 or 0 images
+            if (images.length <= 1) return;
             currentImgIdx = (currentImgIdx + 1) % images.length;
             grid.style.transform = `translateX(-${currentImgIdx * 100}%)`;
         }
         if (images.length > 1) {
-            setInterval(slideGallery, 2000); // Auto slide every 2 seconds
+            setInterval(slideGallery, 2000);
         }
 
         images.forEach((img, index) => {
             img.addEventListener('click', () => {
-                currentGalleryImages = images.map(i => i.src); // Get sources from this specific gallery
+                currentGalleryImages = images.map(i => i.src);
                 currentImageIndex = index;
                 openModal(img.src);
             });
@@ -159,8 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (closeModal) {
-        closeModal.onclick = () => {
+    if (closeModalBtn) {
+        closeModalBtn.onclick = () => {
             if (modal) modal.style.display = "none";
         }
     }
@@ -178,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Close modal on outside click
     if (modal) {
         window.onclick = (event) => {
             if (event.target == modal) {
@@ -192,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            // Basic validation (can be expanded)
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
@@ -206,8 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Here you would typically send the data to a server
-            // For this example, we'll just log it and show a success message
             console.log('Form Submitted:', { name, email, message });
             alert('Thank you for your message! We will get back to you soon.');
             contactForm.reset();
