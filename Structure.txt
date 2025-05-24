@@ -1,39 +1,51 @@
 school-website/
-├── home.html
+├── index.html
 ├── services.html
 ├── gallery.html
+├── results.html        // New results page
+├── notice.html         // New notice page
 ├── about.html
-├── contact.html
+├── contact.html        // Still exists, but linked differently (e.g., from notice page, footer)
 ├── css/
 │   └── style.css
 ├── js/
 │   └── script.js
-└── images/
-    ├── banner.jpg          // Placeholder for home banner
-    ├── student1.jpg        // Placeholder
-    ├── student2.jpg        // Placeholder
-    ├── student3.jpg        // Placeholder
-    ├── student4.jpg        // Placeholder
-    ├── facility-teacher.png // Placeholder icon
-    ├── facility-playground.png // Placeholder icon
-    ├── facility-lab.png    // Placeholder icon
-    ├── facility-bus.png    // Placeholder icon
-    ├── principal.jpg    
-    ├── gallery/
-    │   ├── annual/
-    │   │   ├── 1.jpg
-    │   │   ├── 2.jpg
-    │   │   └── 3.jpg
-    │   ├── sports/
-    │   │   ├── 1.jpg
-    │   │   ├── 2.jpg
-    │   │   └── 3.jpg
-    │   ├── classrooms/
-    │   │   ├── 1.jpg
-    │   │   ├── 2.jpg
-    │   │   └── 3.jpg
-    │   └── events/
-    │   │   ├── 1.jpg
-    │   │   ├── 2.jpg
-    │   │   └── 3.jpg
-    └── logo.png            // Placeholder school logo
+├── images/
+│   ├── banner.jpg
+│   ├── student1.jpg
+│   ├── student2.jpg
+│   ├── student3.jpg
+│   ├── student4.jpg
+│   ├── facility-teacher.png
+│   ├── facility-playground.png
+│   ├── facility-lab.png
+│   ├── facility-bus.png
+│   ├── principal.jpg
+│   ├── logo.png
+│   ├── gallery/
+│   │   ├── annual/
+│   │   │   ├── 1.jpg
+│   │   │   ├── 2.jpg
+│   │   │   └── 3.jpg
+│   │   ├── sports/
+│   │   │   ├── 1.jpg
+│   │   │   ├── 2.jpg
+│   │   │   └── 3.jpg
+│   │   ├── classrooms/
+│   │   │   ├── 1.jpg
+│   │   │   ├── 2.jpg
+│   │   │   └── 3.jpg
+│   │   └── events/
+│   │   │   ├── 1.jpg
+│   │   │   ├── 2.jpg
+│   │   │   └── 3.jpg
+│   └── notice/           // New folder for notice images
+│       ├── exam_schedule.jpg      // Example placeholder
+│       ├── sports_day_postponed.jpg // Example placeholder
+│       └── science_exhibition.jpg // Example placeholder
+│
+├── results/                // New folder for results data
+│   └── results.json        // JSON file for student results
+│
+└── data/                   // New folder for general data files
+    └── notices.json        // JSON file for notices
