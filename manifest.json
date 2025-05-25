@@ -107,7 +107,7 @@
             "short_name": "Results",
             "description": "View Result of school Tests",
             "url": "/school/results.html",
-            "icons": [{ "src": "images/icons/shortcut-gallery-96x96.png", "sizes": "96x96" }]
+            "icons": [{ "src": "images/icons/shortcut-results-96x96.png", "sizes": "96x96" }]
         },
         {
             "name": "School Gallery",
