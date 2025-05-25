@@ -43,10 +43,7 @@ https://klsuthar.github.io/school/
 │   │   │   ├── 2.jpg
 │   │   │   └── 3.jpg
 │   │   └── staff/
-│   │   │   ├── teacher1.jpg
-│   │   │   ├── teacher2.jpg
-│   │   │   └── teacher3.jpg
-│   │   │   └── teacher4.jpg
+│   │   │   └──  teacher1.jpg
 │   ├── notice/
 │   │   ├── exam_schedule.jpg
 │   │   ├── sports_day_postponed.jpg
