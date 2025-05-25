@@ -1,5 +1,6 @@
 /* css/style.css */
 
+/* --- Variables --- */
 :root {
     --primary-orange: #F57C00;
     --accent-yellow-orange: #FFB300;
@@ -11,7 +12,7 @@
     --border-color: #e0e0e0;
     --shadow-color: rgba(0, 0, 0, 0.08);
 
-    /* Specific element colors for better control */
+    /* Specific element colors */
     --header-bg: var(--dark-grey-logo);
     --header-text: var(--text-light);
     --nav-link-hover-bg: var(--primary-orange);
@@ -29,23 +30,22 @@
 
     --button-primary-bg: var(--primary-orange);
     --button-primary-text: var(--text-light);
-    --button-primary-hover-bg: #E65100;
+    --button-primary-hover-bg: #E65100; /* Darker orange for hover */
 
-    /* Variables for results cards */
-    --results-card-bg: #fdf6e3;
+    --results-card-bg: #fdf6e3; /* For home page results slider cards */
     --results-card-border-color: #f5e7c4;
     --results-card-strong-border-color: #e6ddc5;
 }
 
-/* Basic Reset & Global Styles */
+/* --- Basic Reset & Global Styles --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--background-light);
@@ -55,7 +55,7 @@ body {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 20px 0; /* Vertical padding only, horizontal handled by element or section */
 }
 
 a {
@@ -74,10 +74,7 @@ img {
     display: block;
 }
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
     margin-bottom: 1rem;
     color: var(--text-dark);
     font-weight: 600;
@@ -93,7 +90,7 @@ section {
     margin-bottom: 40px;
     color: var(--section-title-color);
     position: relative;
-    display: inline-block;
+    display: inline-block; /* To allow centering of ::after */
     font-weight: 700;
 }
 
@@ -107,7 +104,31 @@ section {
     border-radius: 2px;
 }
 
-/* Header */
+.section-subtitle { /* Used on staff page */
+    font-size: 1.15rem;
+    color: #555;
+    margin-top: -25px; /* Pull closer to title if title has large bottom margin */
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* Accessibility Helper */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* --- Header --- */
 header {
     background-color: var(--header-bg);
     color: var(--header-text);
@@ -116,15 +137,14 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    -webkit-app-region: drag;
-    /* PWA: Make the entire header draggable */
+    -webkit-app-region: drag; /* PWA: Make header draggable */
 }
 
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 20px; /* Horizontal padding for header content */
 }
 
 .logo {
@@ -133,14 +153,12 @@ header .container {
     display: flex;
     align-items: center;
     -webkit-app-region: no-drag;
-    /* PWA: Make logo clickable */
 }
 
 .logo img {
     height: 45px;
     margin-right: 12px;
     -webkit-app-region: no-drag;
-    /* PWA: Make logo image clickable */
 }
 
 header nav ul {
@@ -151,7 +169,6 @@ header nav ul {
 header nav ul li {
     margin-left: 30px;
     -webkit-app-region: no-drag;
-    /* PWA: Make nav items clickable */
 }
 
 header nav ul li a {
@@ -161,16 +178,17 @@ header nav ul li a {
     padding: 8px 15px;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
-    position: relative;
-    /* For notice indicator positioning */
+    position: relative; /* For notice indicator */
     -webkit-app-region: no-drag;
-    /* PWA: Make nav links clickable */
 }
 
-header nav ul li a:hover {
+header nav ul li a:hover,
+header nav ul li a:focus { /* Added :focus for keyboard accessibility */
     background-color: var(--nav-link-hover-bg);
     color: var(--nav-link-hover-text);
     text-decoration: none;
+    outline: 2px solid var(--accent-yellow-orange); /* Focus indicator */
+    outline-offset: 2px;
 }
 
 header nav ul li a.active {
@@ -181,143 +199,35 @@ header nav ul li a.active {
 }
 
 .menu-toggle {
-    display: none;
+    display: none; /* Shown in media query */
     font-size: 1.8rem;
     color: var(--header-text);
     background: none;
     border: none;
     cursor: pointer;
     -webkit-app-region: no-drag;
-    /* PWA: Make menu toggle clickable */
 }
 
-/* Notice Indicator Badge in Header Nav */
-#nav-notice-link {
-    /* ID for the specific <a> tag wrapping "Notice" */
-    position: relative;
-}
-
+/* Notice Indicator (Shared by Header and Bottom Nav) */
 .notice-indicator-badge {
-    display: inline-block;
-    /* Initially hidden by JS */
+    /* display: none; /* Initially hidden by JS, then set to inline-block */
     position: absolute;
     width: 10px;
     height: 10px;
     background-color: red;
     border-radius: 50%;
     border: 1px solid white;
-    /* Optional for better visibility against dark header */
-    /* Adjust positioning to look good next to the text "Notice" */
-    top: 6px;
-    right: 0px;
+    top: 6px; /* Default top */
+    right: 0px; /* Default right */
 }
 
+/* --- Main Content Sections --- */
 
-/* Footer */
-footer {
-    background-color: var(--footer-bg);
-    color: var(--footer-text);
-    padding: 50px 0 30px;
-    text-align: center;
-}
-
-.footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.footer-section {
-    flex: 1;
-    min-width: 250px;
-    margin-bottom: 20px;
-}
-
-.footer-section h4 {
-    color: var(--footer-heading);
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 8px;
-}
-
-.footer-section ul li a {
-    color: var(--footer-text);
-    transition: color 0.3s;
-}
-
-.footer-section ul li a:hover {
-    color: var(--footer-link-hover);
-    text-decoration: none;
-}
-
-.social-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.social-links a {
-    color: var(--footer-text);
-    font-size: 1.8rem;
-    transition: color 0.3s, transform 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    text-decoration: none;
-}
-
-.social-links a:hover {
-    color: var(--footer-link-hover);
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px) scale(1.1);
-}
-
-.footer-bottom {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #495057;
-    font-size: 0.9rem;
-}
-
-/* Cards (General) */
-.card {
-    background: var(--background-card);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px var(--shadow-color);
-    padding: 25px;
-    margin: 15px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid var(--border-color);
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-}
-
-/* Home Page Specific */
+/* Home Page: Banner */
 .home-banner {
-    height: calc(100vh - 70px);
-    /* 70px is a typical header height */
+    height: calc(100vh - 70px); /* Assuming header height ~70px */
     min-height: 450px;
     background-image: url('../images/banner.jpg');
-    /* Make sure path is relative to CSS */
     background-size: cover;
     background-position: center;
     display: flex;
@@ -325,10 +235,10 @@ footer {
     align-items: center;
     text-align: center;
     color: var(--text-light);
-    position: relative;
+    position: relative; /* For overlay */
 }
 
-.home-banner::before {
+.home-banner::before { /* Overlay */
     content: '';
     position: absolute;
     top: 0;
@@ -339,7 +249,7 @@ footer {
 }
 
 .banner-content {
-    position: relative;
+    position: relative; /* Above overlay */
     z-index: 1;
     padding: 20px;
 }
@@ -347,16 +257,17 @@ footer {
 .banner-content h1 {
     font-size: 3.8rem;
     margin-bottom: 15px;
-    color: var(--text-light);
+    color: var(--text-light); /* Overrides global h1 color */
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
     font-weight: 700;
 }
 
 .banner-content p {
     font-size: 1.6rem;
-    color: #e0e0e0;
+    color: #e0e0e0; /* Lighter text on banner */
 }
 
+/* Home Page: Results Highlights Slider */
 .results-slider {
     overflow: hidden;
     width: 100%;
@@ -366,12 +277,12 @@ footer {
 
 .results-track {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out; /* JS handles transform */
 }
 
-.result-card {
-    flex: 0 0 auto;
-    width: 300px;
+.result-card { /* Specific to home page slider */
+    flex: 0 0 auto; /* Prevent shrinking/growing */
+    width: 300px; /* Fixed width for calculation */
     margin: 0 15px;
     background-color: var(--results-card-bg);
     border: 2px solid var(--results-card-strong-border-color);
@@ -400,7 +311,6 @@ footer {
 
 .result-card h3 {
     font-size: 1.35rem;
-    color: var(--text-dark);
     margin-bottom: 7px;
     font-weight: 600;
 }
@@ -411,11 +321,10 @@ footer {
     margin-bottom: 4px;
     line-height: 1.5;
 }
+.result-card p:last-of-type { margin-bottom: 0; }
 
-.result-card p:last-of-type {
-    margin-bottom: 0;
-}
 
+/* Home Page: Facilities */
 .facilities-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -423,23 +332,21 @@ footer {
     margin-top: 30px;
 }
 
-.facility-card {
+.facility-card { /* Uses .card styles too */
     text-align: center;
     padding: 20px;
 }
 
-.facility-card img.icon {
+.facility-card img.icon { /* More specific than just .icon if .icon is generic */
     width: 100px;
     height: 100px;
     margin: 0 auto 20px;
-    object-fit: cover;
-    /* Changed from contain for better fill if icons vary */
-    border-radius: 8px;
+    object-fit: contain; /* Usually better for icons to not crop */
+    border-radius: 8px; /* If icons have backgrounds */
 }
 
 .facility-card h3 {
     font-size: 1.25rem;
-    color: var(--text-dark);
     margin-bottom: 10px;
     font-weight: 600;
 }
@@ -450,7 +357,25 @@ footer {
     line-height: 1.5;
 }
 
-/* Services Page */
+
+/* --- General Card Styles --- */
+.card {
+    background: var(--background-card);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    padding: 25px;
+    margin: 15px; /* Or use gap in grid/flex parent */
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+
+/* --- Services Page --- */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -458,41 +383,33 @@ footer {
     margin-top: 30px;
 }
 
-.service-card {
-    /* This already has .card class, so some styles are inherited */
+.service-card { /* Uses .card styles, extends them */
     display: flex;
     flex-direction: column;
-    text-align: left;
-    padding: 0;
-    /* Override general card padding if image is edge-to-edge */
+    text-align: left; /* Overrides general card text-align if it was center */
+    padding: 0; /* Image container might be edge-to-edge */
 }
 
 .service-card-image-container {
     width: 100%;
     height: 180px;
-    /* Or aspect-ratio: 16/9; */
     overflow: hidden;
-    border-top-left-radius: 10px;
-    /* Match card's border-radius */
-    border-top-right-radius: 10px;
+    border-top-left-radius: inherit; /* Inherit from .card */
+    border-top-right-radius: inherit;
 }
 
-.service-card img.icon {
-    /* Renamed from facility-card img.icon to avoid conflict */
+.service-card img.icon { /* Specific to service card icons */
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block;
+    object-fit: cover; /* Or 'contain' if icons shouldn't be cropped */
 }
 
 .service-card-content {
     padding: 20px;
-    /* Padding for the text content below image */
 }
 
 .service-card-content h3 {
     font-size: 1.4rem;
-    color: var(--text-dark);
     margin-bottom: 10px;
     font-weight: 600;
 }
@@ -503,12 +420,12 @@ footer {
     line-height: 1.6;
 }
 
-/* Gallery Page */
+/* --- Gallery Page --- */
 .gallery-section {
     margin-bottom: 50px;
 }
 
-.gallery-section h3 {
+.gallery-section h3 { /* Titles like "Annual Day" */
     font-size: 2rem;
     text-align: left;
     color: var(--dark-grey-logo);
@@ -517,102 +434,89 @@ footer {
     padding-bottom: 10px;
 }
 
-.image-grid-container {
+.image-grid-container { /* Slideshow viewport */
     overflow: hidden;
     position: relative;
     height: 280px;
-    /* Adjust as needed */
     border-radius: 8px;
     box-shadow: 0 4px 12px var(--shadow-color);
 }
 
-.image-grid {
+.image-grid { /* Inner container that slides */
     display: flex;
     height: 100%;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out; /* JS handles transform */
 }
 
 .image-grid img {
-    width: 100%;
-    /* Each image takes full width of container for slide */
+    width: 100%; /* Full width of container for slide effect */
     height: 100%;
     object-fit: cover;
     cursor: pointer;
-    flex-shrink: 0;
-    /* Prevent images from shrinking */
+    flex-shrink: 0; /* Prevent images from shrinking */
 }
 
-/* Modal for Fullscreen Image */
+/* Gallery Modal */
 .modal {
-    display: none;
+    display: none; /* Shown by JS */
     position: fixed;
     z-index: 1001;
-    /* Higher than header */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: auto; /* If image is very tall/wide on small screens */
     background-color: rgba(0, 0, 0, 0.92);
 }
 
-.modal-content {
+.modal-content { /* The image itself */
     margin: auto;
     display: block;
     width: auto;
-    /* Let image determine width up to max */
     max-width: 90%;
     max-height: 90vh;
-    /* Ensure it fits vertically */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.close-modal,
-.prev-modal,
-.next-modal {
+.modal .close-modal, /* Changed from span to button in HTML */
+.modal .prev-modal,
+.modal .next-modal {
     position: absolute;
     color: var(--text-light);
     font-size: 35px;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
-    transition: 0.3s;
+    transition: color 0.3s, background-color 0.3s;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 50%;
+    border: none; /* For button reset */
+    line-height: 0.7; /* Better vertical centering for text symbols */
 }
 
-.close-modal:hover,
-.prev-modal:hover,
-.next-modal:hover {
+.modal .close-modal:hover,
+.modal .prev-modal:hover,
+.modal .next-modal:hover,
+.modal .close-modal:focus, /* Added focus states */
+.modal .prev-modal:focus,
+.modal .next-modal:focus {
     color: var(--accent-yellow-orange);
     background-color: rgba(0, 0, 0, 0.5);
+    outline: 2px solid var(--accent-yellow-orange);
+    outline-offset: 1px;
 }
 
-.close-modal {
-    top: 20px;
-    right: 30px;
-    line-height: 0.5;
-    /* Helps align '×' better */
-}
+.modal .close-modal { top: 20px; right: 30px; }
+.modal .prev-modal { top: 50%; left: 30px; transform: translateY(-50%); }
+.modal .next-modal { top: 50%; right: 30px; transform: translateY(-50%); }
 
-.prev-modal {
-    top: 50%;
-    left: 30px;
-    transform: translateY(-50%);
-}
 
-.next-modal {
-    top: 50%;
-    right: 30px;
-    transform: translateY(-50%);
-}
-
-/* About Us Page */
-.about-section {
+/* --- About Us Page --- */
+.about-section { /* Used for history, mission, principal, achievements */
     padding: 30px;
     background-color: var(--background-card);
     border-radius: 10px;
@@ -629,12 +533,11 @@ footer {
     font-size: 1.8rem;
 }
 
-.principal-message {
+.principal-message { /* Specific layout for principal's section */
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allows image and text to wrap on smaller screens */
     gap: 30px;
-    align-items: center;
-    /* Vertically align items if they wrap */
+    align-items: flex-start; /* Align items to the top */
 }
 
 .principal-message img {
@@ -643,21 +546,144 @@ footer {
     object-fit: cover;
     border-radius: 50%;
     border: 5px solid var(--primary-orange);
-    margin-right: 30px;
-    /* Only applies if not wrapped */
     flex-shrink: 0;
-    /* Prevent image from shrinking */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .principal-message-text {
-    flex: 1;
-    /* Allow text to take remaining space */
-    min-width: 250px;
-    /* Ensure text block has some width if image is large */
+    flex: 1; /* Takes remaining space */
+    min-width: 250px; /* Prevents text from becoming too narrow */
 }
 
-/* Contact Us Page */
+/* About Us: Staff Gallery Link Section */
+.staff-gallery-link-section {
+    text-align: center;
+    padding: 30px;
+    /* background-color: #f9f9f9; /* Optional light background */
+}
+
+.staff-gallery-link-section h2 {
+    margin-bottom: 15px;
+}
+
+.staff-gallery-link-section p {
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+    color: #555;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-primary.btn-view-staff { /* Button to staff page */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary.btn-view-staff:hover,
+.btn-primary.btn-view-staff:focus {
+    background-color: var(--button-primary-hover-bg);
+    transform: translateY(-2px);
+    text-decoration: none;
+    outline: 2px solid var(--accent-yellow-orange);
+    outline-offset: 2px;
+}
+
+
+/* --- Staff Page --- */
+#staff-gallery-page .section-title {
+    margin-bottom: 15px; /* Reduced for closer subtitle */
+}
+/* .section-subtitle is defined globally */
+
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    margin-top: 30px;
+}
+
+.staff-card { /* Uses .card styles, extends them */
+    background: var(--background-card);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    padding: 0; /* Padding applied to .staff-info */
+    overflow: hidden; /* Clip image container */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+}
+
+.staff-card:hover { /* Overrides general .card:hover for more lift */
+    transform: translateY(-10px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.staff-image-container {
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio for square images */
+    position: relative;
+    background-color: #f0f0f0; /* Placeholder bg */
+    overflow: hidden;
+}
+
+.staff-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.staff-card:hover .staff-image-container img {
+    transform: scale(1.08);
+}
+
+.staff-info {
+    padding: 25px 20px;
+    flex-grow: 1; /* Ensures info section fills card if heights differ */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.staff-info h3 {
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.staff-info .staff-role {
+    font-size: 1.05rem;
+    color: var(--primary-orange);
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.staff-info .staff-degree {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* --- Contact Us Page --- */
 .contact-container {
     display: flex;
     flex-wrap: wrap;
@@ -668,15 +694,14 @@ footer {
 .contact-info-section {
     flex: 1;
     min-width: 300px;
-    /* Ensure sections don't get too narrow */
     padding: 30px;
     background-color: var(--background-card);
     border-radius: 10px;
     box-shadow: 0 4px 12px var(--shadow-color);
 }
 
-.contact-form-section h3,
-.contact-info-section h3 {
+.contact-form-section h3, /* "Send Us a Message" */
+.contact-info-section h3 { /* "Contact Information", "Find Us Here" */
     color: var(--primary-orange);
     margin-bottom: 25px;
     font-size: 1.6rem;
@@ -690,10 +715,10 @@ footer {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: var(--text-dark);
 }
 
-.form-group input,
+.form-group input[type="text"],
+.form-group input[type="email"],
 .form-group textarea {
     width: 100%;
     padding: 12px;
@@ -703,20 +728,20 @@ footer {
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.form-group input:focus,
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
 .form-group textarea:focus {
     border-color: var(--primary-orange);
     box-shadow: 0 0 0 0.2rem rgba(245, 124, 0, 0.25);
-    /* Bootstrap-like focus */
     outline: none;
 }
 
 .form-group textarea {
-    min-height: 130px;
+    min-height: 130px; /* Default, can be overridden by rows attribute */
     resize: vertical;
 }
 
-.submit-btn {
+.submit-btn { /* Shared with .btn-primary.btn-view-staff basically */
     display: inline-block;
     background-color: var(--button-primary-bg);
     color: var(--button-primary-text);
@@ -729,30 +754,31 @@ footer {
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.submit-btn:hover {
+.submit-btn:hover,
+.submit-btn:focus {
     background-color: var(--button-primary-hover-bg);
     transform: translateY(-2px);
-    text-decoration: none;
+    text-decoration: none; /* If it was an <a> styled as button */
+    outline: 2px solid var(--accent-yellow-orange);
+    outline-offset: 2px;
 }
 
-.contact-info-section p {
+.contact-info-section address p { /* More specific than just p */
     margin-bottom: 15px;
     display: flex;
-    /* For aligning icon and text */
-    align-items: center;
+    align-items: flex-start; /* Align icon with first line of multi-line text */
     font-size: 1.05rem;
 }
 
-.contact-info-section p i {
+.contact-info-section address p i {
     margin-right: 12px;
     color: var(--primary-orange);
-    width: 24px;
-    /* Give icon a fixed width for alignment */
+    width: 24px; /* Fixed width for alignment */
     font-size: 1.2rem;
-    /* Icon size */
+    margin-top: 0.15em; /* Slight adjustment for better vertical alignment */
 }
 
-.contact-info-section p strong {
+.contact-info-section address p strong {
     color: var(--text-dark);
 }
 
@@ -762,11 +788,11 @@ footer {
     border: 0;
     border-radius: 8px;
     margin-top: 25px;
-    filter: grayscale(30%) contrast(1.1) brightness(0.95);
-    /* Subtle map styling */
+    filter: grayscale(20%) contrast(1.05); /* Subtle map style */
 }
 
-/* Results Page Specific Styles */
+
+/* --- Results Page --- */
 .results-filter-container {
     display: flex;
     flex-wrap: wrap;
@@ -779,21 +805,13 @@ footer {
     box-shadow: 0 2px 10px var(--shadow-color);
 }
 
-.results-filter-container .form-group {
-    /* Reusing form-group for consistency */
+.results-filter-container .form-group { /* Reusing .form-group */
     margin-bottom: 0;
-    /* Override default form-group margin */
     flex: 1;
     min-width: 200px;
 }
 
-.results-filter-container label {
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: block;
-    color: var(--text-dark);
-}
-
+/* .results-filter-container label is covered by .form-group label */
 .results-filter-container select {
     width: 100%;
     padding: 10px;
@@ -802,22 +820,34 @@ footer {
     font-size: 1rem;
     background-color: #fff;
     cursor: pointer;
+    appearance: none; /* For custom arrow, if desired */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 0.9em;
+    padding-right: 2.5rem; /* Space for arrow */
 }
 
 .results-filter-container select:disabled {
     background-color: #e9ecef;
-    /* Bootstrap disabled style */
     cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.results-filter-container select:focus {
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 0.2rem rgba(245, 124, 0, 0.25);
+    outline: none;
 }
 
 #results-table-container {
     margin-top: 30px;
-    overflow-x: auto;
-    /* Important for responsiveness of table */
+    overflow-x: auto; /* For table responsiveness */
     background-color: var(--background-card);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 15px var(--shadow-color);
+    min-height: 100px; /* Prevent collapse if no results message is short */
 }
 
 .results-table {
@@ -825,7 +855,6 @@ footer {
     border-collapse: collapse;
     text-align: left;
     font-size: 0.9rem;
-    /* Slightly smaller for more data */
 }
 
 .results-table th,
@@ -840,60 +869,42 @@ footer {
     color: var(--text-light);
     font-weight: 600;
     text-transform: capitalize;
-    /* Capitalize header text */
 }
 
 .results-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
-    /* Light zebra striping */
+    background-color: #f8f9fa; /* Zebra striping */
 }
 
 .results-table tbody tr:hover {
     background-color: #e9ecef;
-    /* Hover effect */
 }
 
-/* Specific column styling */
-.results-table .rank-column {
-    text-align: center;
-    font-weight: bold;
-}
+.results-table .rank-column { text-align: center; font-weight: bold; }
+.results-table .percentage-column,
+.results-table .total-column { font-weight: bold; text-align: right; }
+.results-table .name-column { min-width: 150px; }
 
-.results-table .percentage-column {
-    font-weight: bold;
-    text-align: right;
-}
-
-.results-table .total-column {
-    font-weight: bold;
-    text-align: right;
-}
-
-.results-table .name-column {
-    min-width: 150px;
-    /* Ensure name column has enough space */
-}
-
-
-.no-results-message {
-    padding: 20px;
+.no-results-message, /* Shared by results and notices */
+.loading-notices,
+.no-notices-message {
+    padding: 30px 20px;
     text-align: center;
     font-style: italic;
     color: #6c757d;
-    /* Muted color */
+    font-size: 1.1rem;
 }
 
-/* Notice Page Styles */
+
+/* --- Notice Board Page --- */
 .notice-top-links {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
     margin-bottom: 40px;
-    text-align: center;
 }
 
-.btn-notice-page-link {
+.btn-notice-page-link { /* Links like "About Us", "Contact Us" on notice page */
     display: inline-block;
     padding: 12px 25px;
     background-color: var(--primary-orange);
@@ -904,23 +915,23 @@ footer {
     font-size: 1rem;
     transition: background-color 0.3s, transform 0.2s;
     min-width: 150px;
-    /* Ensure buttons have a decent width */
 }
 
-.btn-notice-page-link:hover {
+.btn-notice-page-link:hover,
+.btn-notice-page-link:focus {
     background-color: var(--button-primary-hover-bg);
     color: var(--text-light);
-    /* Ensure text color remains on hover */
     text-decoration: none;
     transform: translateY(-2px);
+    outline: 2px solid var(--accent-yellow-orange);
+    outline-offset: 2px;
 }
 
-#notices-container {
+#notices-container { /* Grid for notices */
     display: grid;
-    /* Using grid for easy single column layout */
     gap: 30px;
-    grid-template-columns: 1fr;
-    /* Single column */
+    grid-template-columns: 1fr; /* Single column layout */
+    min-height: 100px; /* Prevent collapse if no results message is short */
 }
 
 .notice-card {
@@ -930,9 +941,7 @@ footer {
     padding: 25px;
     text-align: left;
     border-left: 6px solid var(--primary-orange);
-    /* Accent border */
-    position: relative;
-    /* For the 'NEW' badge positioning */
+    position: relative; /* For 'NEW' badge */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -943,15 +952,13 @@ footer {
 
 .notice-card.new-notice {
     border-left-color: var(--accent-yellow-orange);
-    /* Different border for new notices */
 }
 
-.new-badge {
+.new-badge { /* "NEW" on notice cards */
     position: absolute;
     top: 15px;
     right: 15px;
-    background-color: #dc3545;
-    /* Bootstrap danger red */
+    background-color: #dc3545; /* Bootstrap danger red */
     color: white;
     padding: 4px 10px;
     font-size: 0.8rem;
@@ -961,11 +968,9 @@ footer {
     letter-spacing: 0.5px;
 }
 
-.notice-card h3 {
+.notice-card h3 { /* Notice title */
     font-size: 1.6rem;
-    color: var(--text-dark);
     margin-top: 0;
-    /* Reset margin if needed */
     margin-bottom: 8px;
 }
 
@@ -973,7 +978,7 @@ footer {
     font-size: 0.85rem;
     color: #555;
     margin-bottom: 15px;
-    display: block;
+    display: block; /* Or flex with icon */
     font-style: italic;
 }
 
@@ -985,795 +990,371 @@ footer {
     font-size: 1rem;
     line-height: 1.7;
     color: #333;
-    /* Darker grey for readability */
     margin-bottom: 15px;
-    /* Space before image if present */
 }
-
-.notice-card .notice-description p {
-    /* If description contains <p> tags */
-    margin-bottom: 1em;
-}
-
-.notice-card .notice-description p:last-child {
-    margin-bottom: 0;
-}
+.notice-card .notice-description p { margin-bottom: 1em; }
+.notice-card .notice-description p:last-child { margin-bottom: 0; }
 
 .notice-card .notice-image-container {
     margin-top: 20px;
     text-align: center;
-    /* Center image within its container */
 }
 
 .notice-card .notice-image {
     max-width: 100%;
     height: auto;
     max-height: 300px;
-    /* Limit image height */
     object-fit: contain;
-    /* Ensure whole image is visible */
     border-radius: 6px;
     border: 1px solid var(--border-color);
-    /* Subtle border around image */
 }
 
-.loading-notices,
-.no-notices-message {
+
+/* --- Refresh Button & Status (Shared by Notices & Results) --- */
+.refresh-section {
     text-align: center;
+    margin: 20px 0 30px; /* Vertical margin */
+}
+
+.btn-refresh-data {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 28px;
+    background-color: var(--button-primary-bg);
+    color: var(--text-light);
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    min-width: 180px;
+}
+
+.btn-refresh-data:hover,
+.btn-refresh-data:focus {
+    background-color: var(--button-primary-hover-bg);
+    color: var(--text-light);
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    outline: 2px solid var(--accent-yellow-orange);
+    outline-offset: 2px;
+}
+
+.btn-refresh-data:disabled {
+    background-color: #FFCC80; /* Lighter orange */
+    color: #A1887F; /* Muted text */
+    opacity: 0.8;
+    cursor: not-allowed;
+    transform: translateY(0);
+    box-shadow: none;
+}
+.btn-refresh-data i { font-size: 1em; line-height: 1; }
+
+.refresh-status-message {
+    display: block;
+    margin-top: 12px;
+    font-size: 0.95em;
+    color: var(--text-dark);
+    min-height: 1.3em; /* Prevent layout shift */
     font-style: italic;
-    color: #6c757d;
-    padding: 30px 20px;
-    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 
-/* Bottom Navigation Bar for Mobile */
+/* --- Footer --- */
+footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 50px 0 30px;
+    text-align: center; /* Default for footer sections if not overridden */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+    text-align: left; /* Align text left within each footer section */
+}
+@media (max-width: 768px) { /* Center on mobile if stacked */
+    .footer-section { text-align: center; }
+}
+
+
+.footer-section h4 {
+    color: var(--footer-heading);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 8px; }
+.footer-section ul li a {
+    color: var(--footer-text);
+    transition: color 0.3s;
+}
+.footer-section ul li a:hover,
+.footer-section ul li a:focus {
+    color: var(--footer-link-hover);
+    text-decoration: none;
+    outline: 1px dotted var(--footer-link-hover);
+    outline-offset: 1px;
+}
+.footer-section address p { margin-bottom: 8px; } /* Spacing for address lines */
+.footer-section address a { color: var(--footer-text); }
+.footer-section address a:hover,
+.footer-section address a:focus {
+    color: var(--footer-link-hover);
+    text-decoration: underline;
+    outline: 1px dotted var(--footer-link-hover);
+    outline-offset: 1px;
+}
+
+
+.social-links {
+    display: flex;
+    gap: 15px; /* Replaces margin on <a> */
+    margin-top: 10px;
+}
+/* Center social links if footer-section is centered (mobile) */
+@media (max-width: 768px) {
+    .social-links { justify-content: center; }
+}
+
+
+.social-links a {
+    color: var(--footer-text);
+    font-size: 1.8rem;
+    transition: color 0.3s, transform 0.3s, background-color 0.3s;
+    display: inline-flex; /* For centering icon */
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+.social-links a:hover,
+.social-links a:focus {
+    color: var(--footer-link-hover);
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px) scale(1.1);
+    outline: 2px solid var(--footer-link-hover);
+    outline-offset: 1px;
+}
+
+.footer-bottom {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #495057;
+    font-size: 0.9rem;
+}
+
+/* --- Bottom Navigation Bar (Mobile) --- */
 .bottom-nav-bar {
-    display: none;
-    /* Hidden by default, shown in media query */
+    display: none; /* Shown by media query */
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     background-color: var(--header-bg);
-    /* Match header for consistency */
     color: var(--header-text);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     z-index: 999;
-    /* Below header, above page content */
     height: 65px;
-    /* Standard height */
     align-items: stretch;
-    /* Ensure links stretch to fill height */
 }
 
 .bottom-nav-link {
     flex-grow: 1;
-    /* Distribute space equally */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 8px 5px;
-    /* Vertical and horizontal padding */
     color: var(--header-text);
     text-decoration: none;
     font-size: 0.7rem;
-    /* Small text for labels */
     transition: background-color 0.2s, color 0.2s;
-    border-top: 3px solid transparent;
-    /* For active state indication */
-    position: relative;
-    /* For notice indicator */
+    position: relative; /* For notice indicator */
 }
 
-.bottom-nav-link i {
+.bottom-nav-link i { /* Icon */
     font-size: 1.4rem;
-    /* Icon size */
     margin-bottom: 4px;
-    /* Space between icon and text */
 }
 
-.bottom-nav-link:hover {
+.bottom-nav-link:hover,
+.bottom-nav-link:focus {
     background-color: rgba(255, 255, 255, 0.1);
-    /* Subtle hover */
     color: var(--text-light);
-    /* Ensure text remains light */
     text-decoration: none;
+    outline: 2px solid var(--accent-yellow-orange);
+    outline-offset: -2px; /* Inside for bottom nav */
 }
 
-.bottom-nav-link.active {
-    /* border-top-color: var(--primary-orange); Remove top border for color change */
-    color: var(--primary-orange);
-    /* Active link color */
-}
-
-/* Ensure icon and text also get the active color */
+.bottom-nav-link.active,
 .bottom-nav-link.active i,
 .bottom-nav-link.active .bottom-nav-text {
-    color: var(--primary-orange);
+    color: var(--primary-orange); /* Active link color */
 }
 
 /* Notice Indicator for Bottom Nav */
 .bottom-nav-link .notice-indicator-badge {
-    /* More specific for bottom nav */
-    display: inline-block;
-    /* Controlled by JS, same as header one */
-    position: absolute;
     top: 6px;
-    /* Adjust for optimal placement above/near icon */
-    right: 18px;
-    /* Adjust based on icon and text layout */
-    /* If text is wider, might need to be further left (larger right value) */
+    right: 18px; /* Adjust based on icon/text layout */
     width: 8px;
     height: 8px;
-    background-color: red;
-    border-radius: 50%;
-    border: 1px solid var(--header-bg);
-    /* Match bottom nav bg for contrast */
+    border-color: var(--header-bg); /* Contrast against badge bg */
 }
 
 
-/* Responsive Design */
+/* --- Responsive Design --- */
 @media (max-width: 768px) {
-    .logo {
-        font-size: 1.5rem;
-    }
+    .logo { font-size: 1.5rem; }
+    .logo img { height: 35px; }
 
-    .logo img {
-        height: 35px;
-    }
+    /* Hide top navigation and show bottom nav */
+    header nav ul, header .menu-toggle { display: none !important; }
+    .bottom-nav-bar { display: flex; }
+    body { padding-bottom: 65px; } /* Space for bottom nav */
+    header .container { justify-content: flex-start; } /* Align logo left */
 
-    /* Hide top navigation and menu toggle when bottom nav is active */
-    header nav ul {
-        display: none !important;
-        /* Force hide */
-    }
+    /* Footer stacking */
+    .footer-content { flex-direction: column; align-items: center; }
+    /* .footer-section text-align:center already set above */
 
-    header .menu-toggle {
-        display: none !important;
-        /* Force hide */
-    }
+    .home-banner { height: 60vh; min-height: 400px; }
+    .banner-content h1 { font-size: 2.8rem; }
+    .banner-content p { font-size: 1.3rem; }
 
-    .bottom-nav-bar {
-        display: flex;
-        /* Show bottom nav on smaller screens */
-    }
+    .result-card { width: 250px; } /* Home page slider cards */
+    .facility-card img.icon { width: 80px; height: 80px; }
+    .image-grid-container { height: 220px; } /* Gallery slideshow height */
 
-    body {
-        padding-bottom: 65px;
-        /* Add padding to body to prevent content overlap by bottom nav */
-    }
+    .principal-message { flex-direction: column; text-align: center; }
+    .principal-message img { margin-right: 0; margin-bottom: 20px; width: 180px; height: 180px; }
+    .contact-container { flex-direction: column; }
 
-    /* Adjust header layout if needed when top nav is hidden */
-    header .container {
-        justify-content: flex-start;
-        /* Align logo to the left */
-    }
+    .section-title { font-size: 2rem; }
+    .gallery-section h3 { font-size: 1.6rem; }
+    .notice-card h3 { font-size: 1.4rem; }
+    .notice-card .notice-description { font-size: 0.95rem; }
 
-
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer-section {
-        text-align: center;
-    }
-
-    .home-banner {
-        height: 60vh;
-        /* Adjust banner height */
-        min-height: 400px;
-    }
-
-    .banner-content h1 {
-        font-size: 2.8rem;
-    }
-
-    .banner-content p {
-        font-size: 1.3rem;
-    }
-
-    .result-card {
-        width: 250px;
-        /* Smaller result cards */
-    }
-
-    .facility-card img.icon {
-        width: 80px;
-        height: 80px;
-    }
-
-    .image-grid-container {
-        height: 220px;
-    }
-
-    .principal-message {
-        flex-direction: column;
-        /* Stack image and text */
-        text-align: center;
-    }
-
-    .principal-message img {
-        margin-right: 0;
-        /* Remove right margin when stacked */
-        margin-bottom: 20px;
-        /* Add space below image */
-        width: 180px;
-        height: 180px;
-    }
-
-    .contact-container {
-        flex-direction: column;
-        /* Stack contact sections */
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .gallery-section h3 {
-        font-size: 1.6rem;
-    }
-
-    .notice-card h3 {
-        font-size: 1.4rem;
-    }
-
-    .notice-card .notice-description {
-        font-size: 0.95rem;
-    }
+    /* Staff page responsive */
+    .staff-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .staff-info h3 { font-size: 1.5rem; }
 }
 
 @media (max-width: 576px) {
+    .results-filter-container { flex-direction: column; gap: 15px; }
+    .results-filter-container .form-group { min-width: 100%; }
+    .results-table { font-size: 0.8rem; }
+    .results-table th, .results-table td { padding: 8px; }
 
-    /* Further adjustments for very small screens */
-    .results-filter-container {
-        flex-direction: column;
-        gap: 15px;
-    }
+    .banner-content h1 { font-size: 2.2rem; }
+    .banner-content p { font-size: 1.1rem; }
 
-    .results-filter-container .form-group {
-        min-width: 100%;
-        /* Full width filters */
-    }
+    .btn-refresh-data { font-size: 0.95rem; padding: 10px 20px; min-width: 160px; gap: 8px; }
+    .refresh-section { margin-bottom: 25px; margin-top: 15px; }
 
-    .results-table {
-        font-size: 0.8rem;
-        /* Even smaller table font */
-    }
-
-    .results-table th,
-    .results-table td {
-        padding: 8px;
-        /* Reduce padding in table cells */
-    }
+    .staff-grid { grid-template-columns: 1fr; } /* Single column for staff cards */
+    .staff-info h3 { font-size: 1.4rem; }
 }
 
 @media (max-width: 480px) {
-    .banner-content h1 {
-        font-size: 2.0rem;
-    }
+    .logo img { height: 30px; }
+    .logo { font-size: 1.2rem; }
+    header .container { padding: 0 10px; }
 
-    .banner-content p {
-        font-size: 1.0rem;
-    }
+    .section-title { font-size: 1.7rem; margin-bottom: 30px; }
+    .section-title::after { width: 60px; height: 3px; margin-top: 8px; }
+    .section-subtitle { font-size: 1rem; margin-bottom: 30px; }
 
-    .result-card {
-        width: calc(90% - 20px);
-        /* Make result cards take most of the width */
-        margin: 0 10px;
-    }
+    .result-card { width: calc(90% - 20px); margin: 0 10px; } /* Home page slider */
+    .facility-card img.icon { width: 60px; height: 60px; margin-bottom: 10px; }
+    .facility-card h3 { font-size: 1.1rem; }
+    .facility-card p { font-size: 0.8rem; }
 
-    .logo img {
-        height: 30px;
-    }
+    .gallery-section h3 { font-size: 1.3rem; }
+    .image-grid-container { height: 180px; }
+    .modal .close-modal, .modal .prev-modal, .modal .next-modal { font-size: 28px; padding: 8px; }
+    .modal .close-modal { top: 10px; right: 15px; }
+    .modal .prev-modal { left: 10px; }
+    .modal .next-modal { right: 10px; }
+    .modal-content { max-width: 95%; }
 
-    .logo {
-        font-size: 1.2rem;
-    }
-
-    /*
-    .menu-toggle {
-        font-size: 1.6rem;
-        padding: 5px;
-    }
-    */
-
-    header .container {
-        padding: 0 10px;
-        /* Reduce header padding */
-    }
-
-    .section-title {
-        font-size: 1.7rem;
-        margin-bottom: 30px;
-    }
-
-    .section-title::after {
-        width: 60px;
-        height: 3px;
-        margin-top: 8px;
-    }
-
-    .facility-card img.icon {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 10px;
-    }
-
-    .facility-card h3 {
-        font-size: 1.1rem;
-    }
-
-    .facility-card p {
-        font-size: 0.8rem;
-    }
-
-    .gallery-section h3 {
-        font-size: 1.3rem;
-    }
-
-    .image-grid-container {
-        height: 180px;
-    }
-
-    .close-modal,
-    .prev-modal,
-    .next-modal {
-        font-size: 28px;
-        padding: 8px;
-    }
-
-    .close-modal {
-        top: 10px;
-        right: 15px;
-    }
-
-    .prev-modal {
-        left: 10px;
-    }
-
-    .next-modal {
-        right: 10px;
-    }
-
-    .modal-content {
-        max-width: 95%;
-    }
-
-    .form-group input,
+    .form-group input[type="text"],
+    .form-group input[type="email"],
     .form-group textarea,
-    .submit-btn {
-        font-size: 0.9rem;
-    }
+    .submit-btn { font-size: 0.9rem; }
+    .form-group label { font-size: 0.85rem; }
+    .submit-btn { padding: 10px 18px; width: 100%; } /* Full width submit */
+    .contact-form-section, .contact-info-section { padding: 20px; }
+    #map-embed { height: 250px; }
+    .contact-info-section address p { font-size: 0.9rem; }
+    .contact-info-section address p i { font-size: 1rem; }
 
-    .form-group label {
-        font-size: 0.85rem;
-    }
+    .footer-section h4 { font-size: 1.1rem; }
+    .footer-section p, .footer-section ul li a, .footer-section address a { font-size: 0.85rem; }
+    .social-links a { font-size: 1.5rem; width: 32px; height: 32px; }
+    .footer-bottom p { font-size: 0.8rem; }
 
-    .submit-btn {
-        padding: 10px 18px;
-        width: 100%;
-        /* Full width submit button */
-    }
+    .principal-message img { width: 150px; height: 150px; }
+    .about-section h2 { font-size: 1.5rem; }
+    .about-section p, .about-section ul li { font-size: 0.9rem; }
 
-    .contact-form-section,
-    .contact-info-section {
-        padding: 20px;
-    }
+    .bottom-nav-link { font-size: 0.65rem; }
+    .bottom-nav-link i { font-size: 1.3rem; }
+    .bottom-nav-bar { height: 60px; }
+    body { padding-bottom: 60px; }
 
-    #map-embed {
-        height: 250px;
-    }
+    .notice-top-links { flex-direction: column; gap: 15px; }
+    .btn-notice-page-link { width: 100%; }
+    .notice-card h3 { font-size: 1.25rem; }
+    .new-badge { font-size: 0.7rem; padding: 3px 7px; top: 10px; right: 10px; }
+    .notice-indicator-badge { /* Header nav */ top: 4px; right: -4px; width: 8px; height: 8px; }
+    .bottom-nav-link .notice-indicator-badge { top: 5px; right: 15px; width: 7px; height: 7px; }
 
-    .contact-info-section p {
-        font-size: 0.9rem;
-    }
-
-    .contact-info-section p i {
-        font-size: 1rem;
-    }
-
-    .footer-section h4 {
-        font-size: 1.1rem;
-    }
-
-    .footer-section p,
-    .footer-section ul li a {
-        font-size: 0.85rem;
-    }
-
-    .social-links a {
-        font-size: 1.5rem;
-        width: 32px;
-        height: 32px;
-    }
-
-    .footer-bottom p {
-        font-size: 0.8rem;
-    }
-
-    .principal-message img {
-        width: 150px;
-        height: 150px;
-    }
-
-    .about-section h2 {
-        font-size: 1.5rem;
-    }
-
-    .about-section p,
-    .about-section ul li {
-        font-size: 0.9rem;
-    }
-
-    /* Bottom Nav specific adjustments for very small screens */
-    .bottom-nav-link {
-        font-size: 0.65rem;
-        /* Even smaller text for bottom nav */
-    }
-
-    .bottom-nav-link i {
-        font-size: 1.3rem;
-        /* Slightly smaller icons */
-    }
-
-    .bottom-nav-bar {
-        height: 60px;
-        /* Slightly shorter bottom nav */
-    }
-
-    body {
-        padding-bottom: 60px;
-        /* Match height if changed */
-    }
-
-    /* Notice Page Small Screen Adjustments */
-    .notice-top-links {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .btn-notice-page-link {
-        width: 100%;
-        /* Full width notice page links */
-    }
-
-    .notice-card h3 {
-        font-size: 1.25rem;
-    }
-
-    .new-badge {
-        font-size: 0.7rem;
-        padding: 3px 7px;
-        top: 10px;
-        right: 10px;
-    }
-
-    .notice-indicator-badge {
-        /* Header notice indicator on small screens */
-        top: 4px;
-        right: -4px;
-        width: 8px;
-        height: 8px;
-    }
-
-    .bottom-nav-link .notice-indicator-badge {
-        /* Bottom nav indicator on small screens */
-        top: 5px;
-        right: 15px;
-        width: 7px;
-        height: 7px;
-    }
+    .staff-info h3 { font-size: 1.3rem; }
+    .staff-info .staff-role { font-size: 0.95rem; }
+    .staff-info .staff-degree { font-size: 0.85rem; }
 }
 
-/* Refresh Button and Status Styles */
-.refresh-section {
-    text-align: center;
-    margin-bottom: 30px;
-    /* Increased bottom margin */
-    margin-top: 20px;
-    /* Increased top margin */
-}
-
-.btn-refresh-data {
-    display: inline-flex;
-    /* To align icon and text */
-    align-items: center;
-    justify-content: center;
-    /* Helps center content if width is constrained */
-    gap: 10px;
-    /* Space between icon and text */
-    padding: 12px 28px;
-    /* Increased padding for a larger button */
-    background-color: var(--primary-orange);
-    /* Using your primary orange */
-    color: var(--text-light);
-    /* Light text for good contrast */
-    border: none;
-    /* Removing default border */
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.05rem;
-    /* Slightly larger font */
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    /* Subtle shadow for depth */
-    min-width: 180px;
-    /* Give it a decent minimum width */
-}
-
-.btn-refresh-data:hover {
-    background-color: var(--button-primary-hover-bg);
-    /* Your defined hover color */
-    color: var(--text-light);
-    text-decoration: none;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Enhanced shadow on hover */
-}
-
-.btn-refresh-data:disabled {
-    background-color: #FFCC80;
-    /* A lighter, muted orange for disabled state (var(--accent-yellow-orange) might be too bright) */
-    color: #A1887F;
-    /* Muted text color for disabled state */
-    opacity: 0.8;
-    /* Slightly more opaque than default */
-    cursor: not-allowed;
-    transform: translateY(0);
-    box-shadow: none;
-    /* No shadow when disabled */
-}
-
-.btn-refresh-data i {
-    font-size: 1em;
-    /* Icon size relative to button font size */
-    line-height: 1;
-    /* Ensure icon aligns well vertically */
-}
-
-.refresh-status-message {
-    display: block;
-    margin-top: 12px;
-    /* Increased space for status message */
-    font-size: 0.95em;
-    /* Slightly larger status message */
-    color: var(--text-dark);
-    min-height: 1.3em;
-    /* Prevent layout shift */
-    font-style: italic;
-    font-weight: 500;
-    /* Make it a bit more prominent */
-}
-
-/* Responsive adjustments for refresh button if needed */
-@media (max-width: 480px) {
-    .btn-refresh-data {
-        font-size: 0.95rem;
-        /* Adjusted for smaller screens */
-        padding: 10px 20px;
-        /* Adjusted padding */
-        min-width: 160px;
-        gap: 8px;
-    }
-
-    .refresh-section {
-        margin-bottom: 25px;
-        margin-top: 15px;
+/* --- Desktop Specific Grid Layouts (Overrides for larger screens) --- */
+@media (min-width: 769px) { /* Apply after mobile styles for staff grid */
+    .staff-grid {
+        grid-template-columns: repeat(2, 1fr); /* Default 2 columns for tablet+ */
     }
 }
-
-/* About Us Page - Staff Gallery Link Section */
-.staff-gallery-link-section {
-    text-align: center;
-    /* Center the content of this section */
-    padding: 30px;
-    /* Add some padding */
-    /* background-color: #f9f9f9; /* Optional: Light background for distinction */
-    /* border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color); */
-}
-
-.staff-gallery-link-section h2 {
-    margin-bottom: 15px;
-    /* Space below the heading */
-}
-
-.staff-gallery-link-section p {
-    margin-bottom: 25px;
-    /* Space below the paragraph */
-    font-size: 1.05rem;
-    color: #555;
-    max-width: 700px;
-    /* Constrain width of text for readability */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.btn-primary.btn-view-staff {
-    /* Make this button styled like your submit button */
-    display: inline-flex;
-    /* For icon alignment */
-    align-items: center;
-    gap: 8px;
-    /* Space between text and icon */
-    background-color: var(--button-primary-bg);
-    color: var(--button-primary-text);
-    padding: 12px 30px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-decoration: none;
-    /* Remove underline from link */
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn-primary.btn-view-staff:hover {
-    background-color: var(--button-primary-hover-bg);
-    transform: translateY(-2px);
-    text-decoration: none;
-    /* Ensure no underline on hover */
-}
-
-#staff-gallery-page .section-title { /* Ensuring consistent section title styling */
-    font-size: 2.5rem;
-    margin-bottom: 15px; /* Reduced margin for subtitle to be closer */
-    color: var(--section-title-color);
-    position: relative;
-    display: inline-block;
-    font-weight: 700;
-}
-
-#staff-gallery-page .section-title::after { /* Ensuring consistent section title underline */
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background-color: var(--section-title-underline);
-    margin: 10px auto 0;
-    border-radius: 2px;
-}
-
-#staff-gallery-page .section-subtitle {
-    font-size: 1.15rem; /* Slightly larger for better readability */
-    color: #555; /* Darker grey for better contrast */
-    margin-top: 5px; /* Adjusted to be closer to title if title has its own bottom margin */
-    margin-bottom: 50px; /* Increased space before the grid */
-    max-width: 800px; /* Limit width for better readability on wide screens */
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-}
-
-.staff-grid {
-    display: grid;
-    /* Default for mobile, will be overridden for larger screens */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px; /* Increased gap for better separation */
-    margin-top: 30px;
-}
-
-.staff-card {
-    /* Inherits .card styling from global styles if applied in HTML, which it is */
-    background: var(--background-card);
-    border-radius: 12px; /* Slightly more pronounced rounding */
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
-    text-align: center;
-    padding: 0; /* Crucial: padding is applied to .staff-info instead */
-    overflow: hidden; /* Ensures rounded corners clip the image container */
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.35s ease;
-    border: 1px solid var(--border-color); /* Subtle border */
-}
-
-.staff-card:hover {
-    transform: translateY(-10px); /* More noticeable lift */
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12); /* More pronounced shadow on hover */
-}
-
-.staff-image-container {
-    width: 100%;
-    padding-top: 100%; /* 1:1 Aspect Ratio */
-    position: relative;
-    background-color: #f0f0f0; /* Fallback color */
-    overflow: hidden; /* Ensure image stays within bounds, important for object-fit */
-}
-
-.staff-image-container img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Fill the container, crop if necessary */
-    object-position: center; /* Center the image content */
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother zoom transition */
-}
-
-.staff-card:hover .staff-image-container img {
-    transform: scale(1.08); /* Slightly more zoom on hover */
-}
-
-.staff-info {
-    padding: 25px 20px; /* Generous padding for text content */
-    flex-grow: 1; /* Allows info section to expand if card heights differ slightly */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center text content vertically if there's extra space */
-}
-
-.staff-info h3 {
-    font-size: 1.6rem; /* Larger name for PC */
-    color: var(--text-dark);
-    margin-top: 0;
-    margin-bottom: 10px; /* More space below name */
-    font-weight: 600;
-}
-
-.staff-info .staff-role {
-    font-size: 1.05rem; /* Clearer role text */
-    color: var(--primary-orange);
-    font-weight: 600;
-    margin-bottom: 8px; /* More space below role */
-    letter-spacing: 0.5px; /* Subtle letter spacing for role */
-}
-
-.staff-info .staff-degree {
-    font-size: 0.95rem; /* Clearer degree text */
-    color: #444; /* Slightly darker for better readability */
-    font-style: normal; /* Removing italics for a cleaner look, personal preference */
-    line-height: 1.5;
-}
-
-/* --- Desktop Specific Grid Layout --- */
-/* Apply these styles for screens wider than, say, 992px (typical 'lg' breakpoint) */
 @media (min-width: 992px) {
     .staff-grid {
-        /* For PC, a 3-column layout often looks good, or 4 if cards are not too wide */
-        grid-template-columns: repeat(3, 1fr);
-        gap: 40px; /* Slightly larger gap on PC */
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on larger desktops */
+        gap: 40px;
     }
-
-    .staff-info h3 {
-        font-size: 1.7rem;
-    }
-    .staff-info .staff-role {
-        font-size: 1.1rem;
-    }
-    .staff-info .staff-degree {
-        font-size: 1rem;
-    }
+    .staff-info h3 { font-size: 1.7rem; }
+    .staff-info .staff-role { font-size: 1.1rem; }
+    .staff-info .staff-degree { font-size: 1rem; }
 }
 
-/* Further refinement for very wide screens if desired */
 @media (min-width: 1200px) {
-    #staff-gallery-page .container { /* Allow container to be slightly wider on large screens */
-        max-width: 1140px;
-    }
-    /* If you still want 3 columns but with more space around, the above is fine.
-       If you want 4 columns on very wide screens: */
-    /*
-    .staff-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+    #staff-gallery-page .container { max-width: 1140px; }
+    /* Optional: 4 columns for staff on very wide screens if desired
+    .staff-grid { grid-template-columns: repeat(4, 1fr); }
     */
-}
-
-/* Tablet Optimizations (optional, but good practice) */
-@media (min-width: 768px) and (max-width: 991.98px) {
-    .staff-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
-        gap: 30px;
-    }
-    .staff-info h3 {
-        font-size: 1.5rem;
-    }
 }

@@ -1,6 +1,6 @@
 https://klsuthar.github.io/school/
-├── manifest.json         // New: PWA Web App Manifest
-├── sw.js                 // New: PWA Service Worker
+├── manifest.json
+├── sw.js
 ├── index.html
 ├── services.html
 ├── gallery.html
@@ -42,22 +42,28 @@ https://klsuthar.github.io/school/
 │   │   │   ├── 1.jpg
 │   │   │   ├── 2.jpg
 │   │   │   └── 3.jpg
-│   │   └── staff/
-│   │   │   └──  teacher1.jpg
+│   ├── staff/  // Corrected from gallery/staff/ as per your original staff.html image paths
+│   │   └── teacher1.jpg // (And potentially other teacher images teacher2.jpg, etc.)
 │   ├── notice/
 │   │   ├── exam_schedule.jpg
 │   │   ├── sports_day_postponed.jpg
 │   │   └── science_exhibition.jpg
-│   └── icons/                // New: PWA Icons
-│       ├── icon-72x72.png
-│       ├── icon-96x96.png
-│       ├── icon-128x128.png
-│       ├── icon-144x144.png
-│       ├── icon-152x152.png
-│       ├── icon-192x192.png  
-│       ├── icon-384x384.png
-│       ├── icon-512x512.png
-│       └── apple-touch-icon.png 
+│   ├── icons/
+│   │   ├── icon-72x72.png
+│   │   ├── icon-96x96.png
+│   │   ├── icon-128x128.png
+│   │   ├── icon-144x144.png
+│   │   ├── icon-152x152.png
+│   │   ├── icon-192x192.png  // (Consider making this maskable)
+│   │   ├── icon-384x384.png
+│   │   ├── icon-512x512.png  // (Consider making this maskable)
+│   │   ├── apple-touch-icon.png // (e.g., 180x180)
+│   │   ├── shortcut-notice-96x96.png  // New: For manifest shortcut
+│   │   └── shortcut-gallery-96x96.png // New: For manifest shortcut
+│   └── screenshots/             // New: For manifest screenshots
+│       ├── screenshot1.png      // (e.g., 1080x1920, mobile view)
+│       ├── screenshot2.png      // (e.g., 1080x1920, mobile view)
+│       └── screenshot3-wide.png // (e.g., 1920x1080, desktop view)
 │
 ├── results/
 │   └── results.json

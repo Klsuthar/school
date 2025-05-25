@@ -21,11 +21,11 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="images/logo.png" alt="School Logo">
+                <img src="images/logo.png" alt="Springfield Academy Logo">
                 Springfield Academy
             </div>
-            <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
-            <nav>
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">☰</button>
+            <nav id="main-navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
@@ -44,83 +44,85 @@
     </header>
 
     <main>
-        <section id="staff-gallery-page">
+        <section id="staff-gallery-page" aria-labelledby="staff-gallery-title">
             <div class="container">
-                <h1 class="section-title">Meet Our Dedicated Staff</h1>
+                <h1 id="staff-gallery-title" class="section-title">Meet Our Dedicated Staff</h1>
                 <p class="section-subtitle">The passionate individuals shaping the future at Springfield Academy.</p>
 
                 <div class="staff-grid">
                     <!-- Staff Card 1 -->
-                    <div class="staff-card card">
+                    <article class="staff-card card" aria-labelledby="staff-name-kanhaiya">
                         <div class="staff-image-container">
-                            <img src="images/staff/teacher1.jpg" alt="Mr. Kanhaiya lal">
+                            <img src="images/staff/teacher1.jpg" alt="Photo of Mr. Kanhaiya Lal">
                         </div>
                         <div class="staff-info">
-                            <h3>Mr. Kanhaiya Lal</h3>
+                            <h3 id="staff-name-kanhaiya">Mr. Kanhaiya Lal</h3>
                             <p class="staff-role">Mathematics Expert</p>
                             <p class="staff-degree">B.Sc. (Mathematics), B.Ed.</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Staff Card 2 -->
-                    <div class="staff-card card">
+                    <article class="staff-card card" aria-labelledby="staff-name-priya">
                         <div class="staff-image-container">
-                            <img src="images/staff/teacher1.jpg" alt="Ms. Priya Kaur">
+                            <img src="images/staff/teacher1.jpg" alt="Photo of Ms. Priya Kaur">
+                            <!-- Note: Using teacher1.jpg for all. Ideally, unique images. -->
                         </div>
                         <div class="staff-info">
-                            <h3>Ms. Priya Kaur</h3>
+                            <h3 id="staff-name-priya">Ms. Priya Kaur</h3>
                             <p class="staff-role">Senior Science Teacher</p>
                             <p class="staff-degree">M.Sc. (Physics), M.Ed.</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Staff Card 3 -->
-                    <div class="staff-card card">
+                    <article class="staff-card card" aria-labelledby="staff-name-sunita">
                         <div class="staff-image-container">
-                             <img src="images/staff/teacher1.jpg" alt="Mrs. Sunita Devi">
+                             <img src="images/staff/teacher1.jpg" alt="Photo of Mrs. Sunita Devi">
                         </div>
                         <div class="staff-info">
-                            <h3>Mrs. Sunita Devi</h3>
+                            <h3 id="staff-name-sunita">Mrs. Sunita Devi</h3>
                             <p class="staff-role">English Literature Head</p>
                             <p class="staff-degree">M.A. (English Lit.), B.Ed.</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Staff Card 4 -->
-                    <div class="staff-card card">
+                    <article class="staff-card card" aria-labelledby="staff-name-rahul">
                         <div class="staff-image-container">
-                             <img src="images/staff/teacher1.jpg" alt="Mr. Rahul Verma">
+                             <img src="images/staff/teacher1.jpg" alt="Photo of Mr. Rahul Verma">
                         </div>
                         <div class="staff-info">
-                            <h3>Mr. Rahul Verma</h3>
+                            <h3 id="staff-name-rahul">Mr. Rahul Verma</h3>
                             <p class="staff-role">Arts & Craft Coordinator</p>
                             <p class="staff-degree">B.F.A (Fine Arts), Dip. in Education</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Staff Card 5 -->
-                    <div class="staff-card card">
+                    <article class="staff-card card" aria-labelledby="staff-name-meena">
                         <div class="staff-image-container">
-                             <img src="images/staff/teacher1.jpg" alt="Ms. Meena Kumari">
+                             <img src="images/staff/teacher1.jpg" alt="Photo of Ms. Meena Kumari">
                         </div>
                         <div class="staff-info">
-                            <h3>Ms. Meena Kumari</h3>
+                            <h3 id="staff-name-meena">Ms. Meena Kumari</h3>
                             <p class="staff-role">Librarian</p>
                             <p class="staff-degree">M.Lib.Sc. (Library Science)</p>
                         </div>
-                    </div>
+                    </article>
 
                      <!-- Staff Card 6 -->
-                    <div class="staff-card card">
+                    <article class="staff-card card" aria-labelledby="staff-name-vijay">
                         <div class="staff-image-container">
-                             <img src="images/staff/teacher1.jpg" alt="Mr. Vijay Singh">
+                             <img src="images/staff/teacher1.jpg" alt="Photo of Mr. Vijay Singh">
                         </div>
                         <div class="staff-info">
-                            <h3>Mr. Vijay Singh</h3>
+                            <h3 id="staff-name-vijay">Mr. Vijay Singh</h3>
                             <p class="staff-role">Sports Coach</p>
                             <p class="staff-degree">B.P.Ed (Physical Education)</p>
                         </div>
-                    </div>
+                    </article>
+                    <!-- Add more staff cards as needed, following the same pattern -->
                 </div>
             </div>
         </section>
@@ -131,16 +133,18 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Contact Info</h4>
-                    <p>Dhadheru Godaran, Churu, Rajasthan</p>
-                    <p>Phone: +91 9001375139</p>
-                    <p>Email: info@springfieldacademy.edu</p>
+                    <address>
+                        <p>Dhadheru Godaran, Churu, Rajasthan</p>
+                        <p>Phone: <a href="tel:+919001375139">+91 9001375139</a></p>
+                        <p>Email: <a href="mailto:info@springfieldacademy.edu">info@springfieldacademy.edu</a></p>
+                    </address>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="staff.html">Our Staff</a></li> <!-- Added link -->
+                        <li><a href="staff.html">Our Staff</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
                         <li><a href="results.html">Results</a></li>
@@ -151,38 +155,41 @@
                 <div class="footer-section">
                     <h4>Connect With Us</h4>
                      <div class="social-links">
-                        <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Visit our Facebook page" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Visit our Twitter profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Visit our Instagram profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Visit our LinkedIn profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2023 Springfield Academy. All Rights Reserved.</p>
+                <p>© <span id="current-year">2023</span> Springfield Academy. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <nav class="bottom-nav-bar">
+    <nav class="bottom-nav-bar" aria-label="Mobile bottom navigation">
         <a href="index.html" class="bottom-nav-link" data-page="index.html" aria-label="Home">
-            <i class="fas fa-home"></i><span class="bottom-nav-text">Home</span>
+            <i class="fas fa-home" aria-hidden="true"></i><span class="bottom-nav-text">Home</span>
         </a>
         <a href="services.html" class="bottom-nav-link" data-page="services.html" aria-label="Services">
-            <i class="fas fa-shapes"></i><span class="bottom-nav-text">Services</span>
+            <i class="fas fa-shapes" aria-hidden="true"></i><span class="bottom-nav-text">Services</span>
         </a>
         <a href="gallery.html" class="bottom-nav-link" data-page="gallery.html" aria-label="Gallery">
-            <i class="fas fa-images"></i><span class="bottom-nav-text">Gallery</span>
+            <i class="fas fa-images" aria-hidden="true"></i><span class="bottom-nav-text">Gallery</span>
         </a>
         <a href="results.html" class="bottom-nav-link" data-page="results.html" aria-label="Results">
-            <i class="fas fa-award"></i><span class="bottom-nav-text">Results</span>
+            <i class="fas fa-award" aria-hidden="true"></i><span class="bottom-nav-text">Results</span>
         </a>
-        <a href="notice.html" class="bottom-nav-link" data-page="notice.html" aria-label="Notice">
-            <i class="fas fa-bullhorn"></i><span class="bottom-nav-text">Notice</span>
+        <a href="notice.html" class="bottom-nav-link" data-page="notice.html" aria-label="Notice board">
+            <i class="fas fa-bullhorn" aria-hidden="true"></i><span class="bottom-nav-text">Notice</span>
         </a>
     </nav>
 
     <script src="js/script.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services - Springfield Academy</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#3A3A3A"> 
-    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png"> 
+    <meta name="theme-color" content="#3A3A3A">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Springfield">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -21,11 +21,11 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="images/logo.png" alt="School Logo">
+                <img src="images/logo.png" alt="Springfield Academy Logo">
                 Springfield Academy
             </div>
-            <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
-            <nav>
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">☰</button>
+            <nav id="main-navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
@@ -44,81 +44,84 @@
     </header>
 
     <main>
-        <section id="school-services">
+        <section id="school-services" aria-labelledby="school-services-title">
             <div class="container">
-                <h1 class="section-title">Our Services</h1>
+                <h1 id="school-services-title" class="section-title">Our Services</h1>
                 <div class="services-grid">
                     <!-- Service Card 1 -->
-                    <div class="service-card card">
+                    <article class="service-card card" aria-labelledby="service-extracurricular-title">
                         <div class="service-card-image-container">
-                            <img src="images/facility-teacher.png" alt="Extracurricular Icon" class="icon">
+                            <img src="images/facility-teacher.png" alt="Icon representing extracurricular activities like arts and sports" class="icon">
                         </div>
                         <div class="service-card-content">
-                            <h3>Extracurricular Activities</h3>
+                            <h3 id="service-extracurricular-title">Extracurricular Activities</h3>
                             <p>Wide range of clubs and activities including sports, arts, music, and debate to foster
                                 holistic development.</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Service Card 2 -->
-                    <div class="service-card card">
+                    <article class="service-card card" aria-labelledby="service-scholarship-title">
                         <div class="service-card-image-container">
-                            <img src="images/facility-lab.png" alt="Scholarship Icon" class="icon">
+                            <img src="images/facility-lab.png" alt="Icon representing academic achievement and scholarships" class="icon">
                         </div>
                         <div class="service-card-content">
-                            <h3>Scholarship Programs</h3>
+                            <h3 id="service-scholarship-title">Scholarship Programs</h3>
                             <p>Merit-based and need-based scholarships available to support deserving students in their
                                 academic journey.</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Service Card 3 -->
-                    <div class="service-card card">
+                    <article class="service-card card" aria-labelledby="service-coaching-title">
                         <div class="service-card-image-container">
-                            <img src="images/facility-bus.png" alt="Coaching Icon" class="icon">
+                            <img src="images/facility-bus.png" alt="Icon representing specialized coaching and transport" class="icon">
+                            <!-- Consider if this icon truly represents coaching. Might need a more specific one. -->
                         </div>
                         <div class="service-card-content">
-                            <h3>Specialized Coaching</h3>
+                            <h3 id="service-coaching-title">Specialized Coaching</h3>
                             <p>Targeted coaching classes for competitive exams and advanced subjects to help students
                                 excel.</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Service Card 4 -->
-                    <div class="service-card card">
+                    <article class="service-card card" aria-labelledby="service-counseling-title">
                         <div class="service-card-image-container">
-                            <img src="images/facility-playground.png" alt="Counseling Icon" class="icon">
+                            <img src="images/facility-playground.png" alt="Icon representing guidance and career counseling" class="icon">
+                             <!-- Consider if this icon truly represents counseling. Might need a more specific one. -->
                         </div>
                         <div class="service-card-content">
-                            <h3>Career Counseling</h3>
+                            <h3 id="service-counseling-title">Career Counseling</h3>
                             <p>Guidance and support for students to explore career paths and make informed decisions
                                 about their future.</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Service Card 5 -->
-                    <div class="service-card card">
+                    <article class="service-card card" aria-labelledby="service-library-title">
                         <div class="service-card-image-container">
-                            <img src="images/facility-teacher.png" alt="Library Icon" class="icon">
+                            <img src="images/facility-teacher.png" alt="Icon representing a library and learning resources" class="icon">
+                            <!-- Consider if this icon truly represents library. Might need a more specific one. -->
                         </div>
                         <div class="service-card-content">
-                            <h3>Well-Stocked Library</h3>
+                            <h3 id="service-library-title">Well-Stocked Library</h3>
                             <p>A vast collection of books, journals, and digital resources to support learning and
                                 research.</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Service Card 6 -->
-                    <div class="service-card card">
+                    <article class="service-card card" aria-labelledby="service-labs-title">
                         <div class="service-card-image-container">
-                            <img src="images/facility-lab.png" alt="Science Lab Icon" class="icon">
+                            <img src="images/facility-lab.png" alt="Icon representing science laboratories" class="icon">
                         </div>
                         <div class="service-card-content">
-                            <h3>Advanced Science Labs</h3>
+                            <h3 id="service-labs-title">Advanced Science Labs</h3>
                             <p>Fully equipped physics, chemistry, and biology labs for practical learning experiences.
                             </p>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -129,9 +132,11 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Contact Info</h4>
-                    <p>Dhadheru Godaran, Churu, Rajasthan</p>
-                    <p>Phone: +91 9001375139</p>
-                    <p>Email: info@springfieldacademy.edu</p>
+                    <address>
+                        <p>Dhadheru Godaran, Churu, Rajasthan</p>
+                        <p>Phone: <a href="tel:+919001375139">+91 9001375139</a></p>
+                        <p>Email: <a href="mailto:info@springfieldacademy.edu">info@springfieldacademy.edu</a></p>
+                    </address>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
@@ -143,43 +148,47 @@
                         <li><a href="results.html">Results</a></li>
                         <li><a href="notice.html">Notice</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="staff.html">Our Staff</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Connect With Us</h4>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Visit our Facebook page" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Visit our Twitter profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Visit our Instagram profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Visit our LinkedIn profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2023 Springfield Academy. All Rights Reserved.</p>
+                <p>© <span id="current-year">2023</span> Springfield Academy. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-        <nav class="bottom-nav-bar">
+    <nav class="bottom-nav-bar" aria-label="Mobile bottom navigation">
         <a href="index.html" class="bottom-nav-link" data-page="index.html" aria-label="Home">
-            <i class="fas fa-home"></i><span class="bottom-nav-text">Home</span>
+            <i class="fas fa-home" aria-hidden="true"></i><span class="bottom-nav-text">Home</span>
         </a>
         <a href="services.html" class="bottom-nav-link" data-page="services.html" aria-label="Services">
-            <i class="fas fa-shapes"></i><span class="bottom-nav-text">Services</span> <!-- Changed Icon -->
+            <i class="fas fa-shapes" aria-hidden="true"></i><span class="bottom-nav-text">Services</span>
         </a>
         <a href="gallery.html" class="bottom-nav-link" data-page="gallery.html" aria-label="Gallery">
-            <i class="fas fa-images"></i><span class="bottom-nav-text">Gallery</span>
+            <i class="fas fa-images" aria-hidden="true"></i><span class="bottom-nav-text">Gallery</span>
         </a>
         <a href="results.html" class="bottom-nav-link" data-page="results.html" aria-label="Results">
-            <i class="fas fa-award"></i><span class="bottom-nav-text">Results</span> <!-- Changed Icon -->
+            <i class="fas fa-award" aria-hidden="true"></i><span class="bottom-nav-text">Results</span>
         </a>
-        <a href="notice.html" class="bottom-nav-link" data-page="notice.html" aria-label="Notice">
-            <i class="fas fa-bullhorn"></i><span class="bottom-nav-text">Notice</span>
+        <a href="notice.html" class="bottom-nav-link" data-page="notice.html" aria-label="Notice board">
+            <i class="fas fa-bullhorn" aria-hidden="true"></i><span class="bottom-nav-text">Notice</span>
         </a>
     </nav>
 
     <script src="js/script.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>

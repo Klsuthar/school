@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery - Springfield Academy</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#3A3A3A"> 
-    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png"> 
+    <meta name="theme-color" content="#3A3A3A">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Springfield">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -21,11 +21,11 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="images/logo.png" alt="School Logo">
+                <img src="images/logo.png" alt="Springfield Academy Logo">
                 Springfield Academy
             </div>
-            <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
-            <nav>
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">☰</button>
+            <nav id="main-navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
@@ -44,50 +44,50 @@
     </header>
 
     <main>
-        <section id="gallery-page">
+        <section id="gallery-page" aria-labelledby="gallery-page-title">
             <div class="container">
-                <h1 class="section-title">Our Gallery</h1>
+                <h1 id="gallery-page-title" class="section-title">Our Gallery</h1>
 
-                <div class="gallery-section">
-                    <h3>Annual Day Celebrations</h3>
-                    <div class="image-grid-container">
+                <div class="gallery-section" aria-labelledby="annual-day-title">
+                    <h3 id="annual-day-title">Annual Day Celebrations</h3>
+                    <div class="image-grid-container" role="region" aria-label="Annual Day Image Slideshow">
                         <div class="image-grid">
-                            <img src="images/gallery/annual/1.jpg" alt="Annual Day Image 1">
-                            <img src="images/gallery/annual/2.jpg" alt="Annual Day Image 2">
-                            <img src="images/gallery/annual/3.jpg" alt="Annual Day Image 3">
+                            <img src="images/gallery/annual/1.jpg" alt="Students performing during Annual Day celebrations.">
+                            <img src="images/gallery/annual/2.jpg" alt="Guests and audience at the Annual Day event.">
+                            <img src="images/gallery/annual/3.jpg" alt="Prize distribution ceremony on Annual Day.">
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-section">
-                    <h3>Sports Meet</h3>
-                    <div class="image-grid-container">
+                <div class="gallery-section" aria-labelledby="sports-meet-title">
+                    <h3 id="sports-meet-title">Sports Meet</h3>
+                    <div class="image-grid-container" role="region" aria-label="Sports Meet Image Slideshow">
                         <div class="image-grid">
-                            <img src="images/gallery/sports/1.jpg" alt="Sports Image 1">
-                            <img src="images/gallery/sports/2.jpg" alt="Sports Image 2">
-                            <img src="images/gallery/sports/3.jpg" alt="Sports Image 3">
+                            <img src="images/gallery/sports/1.jpg" alt="Students participating in a race at the Sports Meet.">
+                            <img src="images/gallery/sports/2.jpg" alt="Team event during the school Sports Meet.">
+                            <img src="images/gallery/sports/3.jpg" alt="Winners on the podium at the Sports Meet.">
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-section">
-                    <h3>Classroom Activities</h3>
-                    <div class="image-grid-container">
+                <div class="gallery-section" aria-labelledby="classroom-activities-title">
+                    <h3 id="classroom-activities-title">Classroom Activities</h3>
+                    <div class="image-grid-container" role="region" aria-label="Classroom Activities Image Slideshow">
                         <div class="image-grid">
-                            <img src="images/gallery/classrooms/1.jpg" alt="Classroom Image 1">
-                            <img src="images/gallery/classrooms/2.jpg" alt="Classroom Image 2">
-                            <img src="images/gallery/classrooms/3.jpg" alt="Classroom Image 3">
+                            <img src="images/gallery/classrooms/1.jpg" alt="Interactive learning session in a classroom.">
+                            <img src="images/gallery/classrooms/2.jpg" alt="Students engaged in a group project in class.">
+                            <img src="images/gallery/classrooms/3.jpg" alt="Teacher guiding students during a classroom activity.">
                         </div>
                     </div>
                 </div>
 
-                <div class="gallery-section">
-                    <h3>Special Events</h3>
-                    <div class="image-grid-container">
+                <div class="gallery-section" aria-labelledby="special-events-title">
+                    <h3 id="special-events-title">Special Events</h3>
+                    <div class="image-grid-container" role="region" aria-label="Special Events Image Slideshow">
                         <div class="image-grid">
-                            <img src="images/gallery/events/1.jpg" alt="Event Image 1">
-                            <img src="images/gallery/events/2.jpg" alt="Event Image 2">
-                            <img src="images/gallery/events/3.jpg" alt="Event Image 3">
+                            <img src="images/gallery/events/1.jpg" alt="Students at a science exhibition event.">
+                            <img src="images/gallery/events/2.jpg" alt="Cultural program organized as a special school event.">
+                            <img src="images/gallery/events/3.jpg" alt="Community service event by Springfield Academy students.">
                         </div>
                     </div>
                 </div>
@@ -95,11 +95,14 @@
             </div>
         </section>
 
-        <div id="imageModal" class="modal">
-            <span class="close-modal">×</span>
-            <img class="modal-content" id="modalImage" alt="Fullscreen Gallery Image">
-            <a class="prev-modal">❮</a>
-            <a class="next-modal">❯</a>
+        <div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalImageTitle" style="display: none;">
+            <!-- It's good practice to have a title for the modal, even if visually hidden, for screen readers.
+                 JS can populate #modalImageTitle with the alt text or a generic title. -->
+            <h4 id="modalImageTitle" class="visually-hidden">Image Viewer</h4>
+            <button class="close-modal" aria-label="Close image viewer">×</button>
+            <img class="modal-content" id="modalImage" alt=""> <!-- Alt text should be set by JavaScript -->
+            <button class="prev-modal" aria-label="Previous image">❮</button>
+            <button class="next-modal" aria-label="Next image">❯</button>
         </div>
     </main>
 
@@ -108,9 +111,11 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Contact Info</h4>
-                    <p>Dhadheru Godaran, Churu, Rajasthan</p>
-                    <p>Phone: +91 9001375139</p>
-                    <p>Email: info@springfieldacademy.edu</p>
+                    <address>
+                        <p>Dhadheru Godaran, Churu, Rajasthan</p>
+                        <p>Phone: <a href="tel:+919001375139">+91 9001375139</a></p>
+                        <p>Email: <a href="mailto:info@springfieldacademy.edu">info@springfieldacademy.edu</a></p>
+                    </address>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
@@ -120,45 +125,49 @@
                         <li><a href="services.html">Services</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
                         <li><a href="results.html">Results</a></li>
-                        <li><a href="notice.html">Notice</a></li> <!-- NEW -->
-                        <li><a href="contact.html">Contact Us</a></li> <!-- Can stay in footer -->
+                        <li><a href="notice.html">Notice</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="staff.html">Our Staff</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Connect With Us</h4>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Visit our Facebook page" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Visit our Twitter profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Visit our Instagram profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Visit our LinkedIn profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2023 Springfield Academy. All Rights Reserved.</p>
+                <p>© <span id="current-year">2023</span> Springfield Academy. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
-    <!-- Add this before the closing </body> tag in each HTML file -->
-        <nav class="bottom-nav-bar">
+
+    <nav class="bottom-nav-bar" aria-label="Mobile bottom navigation">
         <a href="index.html" class="bottom-nav-link" data-page="index.html" aria-label="Home">
-            <i class="fas fa-home"></i><span class="bottom-nav-text">Home</span>
+            <i class="fas fa-home" aria-hidden="true"></i><span class="bottom-nav-text">Home</span>
         </a>
         <a href="services.html" class="bottom-nav-link" data-page="services.html" aria-label="Services">
-            <i class="fas fa-shapes"></i><span class="bottom-nav-text">Services</span> <!-- Changed Icon -->
+            <i class="fas fa-shapes" aria-hidden="true"></i><span class="bottom-nav-text">Services</span>
         </a>
         <a href="gallery.html" class="bottom-nav-link" data-page="gallery.html" aria-label="Gallery">
-            <i class="fas fa-images"></i><span class="bottom-nav-text">Gallery</span>
+            <i class="fas fa-images" aria-hidden="true"></i><span class="bottom-nav-text">Gallery</span>
         </a>
         <a href="results.html" class="bottom-nav-link" data-page="results.html" aria-label="Results">
-            <i class="fas fa-award"></i><span class="bottom-nav-text">Results</span> <!-- Changed Icon -->
+            <i class="fas fa-award" aria-hidden="true"></i><span class="bottom-nav-text">Results</span>
         </a>
-        <a href="notice.html" class="bottom-nav-link" data-page="notice.html" aria-label="Notice">
-            <i class="fas fa-bullhorn"></i><span class="bottom-nav-text">Notice</span>
+        <a href="notice.html" class="bottom-nav-link" data-page="notice.html" aria-label="Notice board">
+            <i class="fas fa-bullhorn" aria-hidden="true"></i><span class="bottom-nav-text">Notice</span>
         </a>
     </nav>
 
     <script src="js/script.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>

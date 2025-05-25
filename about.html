@@ -21,11 +21,11 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img src="images/logo.png" alt="School Logo">
+                <img src="images/logo.png" alt="Springfield Academy Logo">
                 Springfield Academy
             </div>
-            <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
-            <nav>
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">☰</button>
+            <nav id="main-navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
@@ -44,21 +44,21 @@
     </header>
 
     <main>
-        <section id="about-us-page">
+        <section id="about-us-page" aria-labelledby="about-us-title">
             <div class="container">
-                <h1 class="section-title">About Springfield Academy</h1>
+                <h1 id="about-us-title" class="section-title">About Springfield Academy</h1>
 
-                <div class="about-section">
-                    <h2>Our History</h2>
+                <article class="about-section" aria-labelledby="our-history-title">
+                    <h2 id="our-history-title">Our History</h2>
                     <p>Founded in 1985, Springfield Academy started as a small community school with a vision to provide
                         quality education accessible to all. Over the decades, we have grown into a renowned
                         institution, consistently upholding our commitment to academic excellence and holistic student
                         development. Our journey has been marked by continuous improvement, adapting to new educational
                         methodologies while staying true to our core values.</p>
-                </div>
+                </article>
 
-                <div class="about-section">
-                    <h2>Mission, Vision, and Values</h2>
+                <article class="about-section" aria-labelledby="mission-vision-title">
+                    <h2 id="mission-vision-title">Mission, Vision, and Values</h2>
                     <p><strong>Mission:</strong> To empower students with knowledge, skills, and values to become
                         responsible global citizens and lifelong learners.</p>
                     <p><strong>Vision:</strong> To be a leading educational institution recognized for fostering
@@ -72,12 +72,12 @@
                         <li>Collaboration: Working together to achieve common goals.</li>
                         <li>Innovation: Embracing creativity and continuous improvement.</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="about-section principal-message">
-                    <img src="images/principal.jpg" alt="Principal Photo">
+                <article class="about-section principal-message" aria-labelledby="principal-message-title">
+                    <img src="images/principal.jpg" alt="Photo of Dr. Eleanor Vance, Principal of Springfield Academy">
                     <div class="principal-message-text">
-                        <h2>Principal's Message</h2>
+                        <h2 id="principal-message-title">Principal's Message</h2>
                         <p>"Welcome to Springfield Academy! It is my privilege to lead an institution that is deeply
                             committed to nurturing young minds. We believe that every child is unique and possesses a
                             universe of potential. Our dedicated team of educators works tirelessly to create a
@@ -86,21 +86,18 @@
                             forward to partnering with you in your child's educational journey."</p>
                         <p><strong>- Dr. Eleanor Vance, Principal</strong></p>
                     </div>
-                </div>
+                </article>
 
-                <!-- START: Added Staff Gallery Link Section -->
-                <div class="about-section staff-gallery-link-section">
-                    <h2>Meet Our Dedicated Staff</h2>
+                <section class="about-section staff-gallery-link-section" aria-labelledby="meet-our-staff-title">
+                    <h2 id="meet-our-staff-title">Meet Our Dedicated Staff</h2>
                     <p>Our team of experienced and passionate educators is the backbone of Springfield Academy. They are committed to providing the best learning experience for our students.</p>
                     <a href="staff.html" class="btn-primary btn-view-staff">
-                        View Our Staff Gallery <i class="fas fa-arrow-right"></i>
+                        View Our Staff Gallery <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
-                </div>
-                <!-- END: Added Staff Gallery Link Section -->
+                </section>
 
-
-                <div class="about-section">
-                    <h2>Our Achievements</h2>
+                <article class="about-section" aria-labelledby="our-achievements-title">
+                    <h2 id="our-achievements-title">Our Achievements</h2>
                     <ul>
                         <li>Consistently ranked among the top 10 schools in the region for academic performance.</li>
                         <li>National champions in Inter-School Debate Competition (2022).</li>
@@ -108,8 +105,7 @@
                         <li>Awarded "Green School Campus" for environmental initiatives.</li>
                         <li>Over 95% university placement rate for graduating students.</li>
                     </ul>
-                </div>
-
+                </article>
             </div>
         </section>
     </main>
@@ -119,16 +115,18 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Contact Info</h4>
-                    <p>Dhadheru Godaran, Churu, Rajasthan</p>
-                    <p>Phone: +91 9001375139</p>
-                    <p>Email: info@springfieldacademy.edu</p>
+                    <address>
+                        <p>Dhadheru Godaran, Churu, Rajasthan</p>
+                        <p>Phone: <a href="tel:+919001375139">+91 9001375139</a></p>
+                        <p>Email: <a href="mailto:info@springfieldacademy.edu">info@springfieldacademy.edu</a></p>
+                    </address>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="staff.html">Our Staff</a></li> <!-- Added link -->
+                        <li><a href="staff.html">Our Staff</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
                         <li><a href="results.html">Results</a></li>
@@ -139,38 +137,41 @@
                 <div class="footer-section">
                     <h4>Connect With Us</h4>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Visit our Facebook page" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Visit our Twitter profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Visit our Instagram profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Visit our LinkedIn profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2023 Springfield Academy. All Rights Reserved.</p>
+                <p>© <span id="current-year">2023</span> Springfield Academy. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <nav class="bottom-nav-bar">
+    <nav class="bottom-nav-bar" aria-label="Mobile bottom navigation">
         <a href="index.html" class="bottom-nav-link" data-page="index.html" aria-label="Home">
-            <i class="fas fa-home"></i><span class="bottom-nav-text">Home</span>
+            <i class="fas fa-home" aria-hidden="true"></i><span class="bottom-nav-text">Home</span>
         </a>
         <a href="services.html" class="bottom-nav-link" data-page="services.html" aria-label="Services">
-            <i class="fas fa-shapes"></i><span class="bottom-nav-text">Services</span>
+            <i class="fas fa-shapes" aria-hidden="true"></i><span class="bottom-nav-text">Services</span>
         </a>
         <a href="gallery.html" class="bottom-nav-link" data-page="gallery.html" aria-label="Gallery">
-            <i class="fas fa-images"></i><span class="bottom-nav-text">Gallery</span>
+            <i class="fas fa-images" aria-hidden="true"></i><span class="bottom-nav-text">Gallery</span>
         </a>
         <a href="results.html" class="bottom-nav-link" data-page="results.html" aria-label="Results">
-            <i class="fas fa-award"></i><span class="bottom-nav-text">Results</span>
+            <i class="fas fa-award" aria-hidden="true"></i><span class="bottom-nav-text">Results</span>
         </a>
-        <a href="notice.html" class="bottom-nav-link" data-page="notice.html" aria-label="Notice">
-            <i class="fas fa-bullhorn"></i><span class="bottom-nav-text">Notice</span>
+        <a href="notice.html" class="bottom-nav-link" data-page="notice.html" aria-label="Notice board">
+            <i class="fas fa-bullhorn" aria-hidden="true"></i><span class="bottom-nav-text">Notice</span>
         </a>
     </nav>
 
     <script src="js/script.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>
