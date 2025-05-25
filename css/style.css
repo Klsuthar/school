@@ -1472,71 +1472,308 @@ footer {
 /* Refresh Button and Status Styles */
 .refresh-section {
     text-align: center;
-    margin-bottom: 30px; /* Increased bottom margin */
-    margin-top: 20px; /* Increased top margin */
+    margin-bottom: 30px;
+    /* Increased bottom margin */
+    margin-top: 20px;
+    /* Increased top margin */
 }
 
 .btn-refresh-data {
-    display: inline-flex; /* To align icon and text */
+    display: inline-flex;
+    /* To align icon and text */
     align-items: center;
-    justify-content: center; /* Helps center content if width is constrained */
-    gap: 10px; /* Space between icon and text */
-    padding: 12px 28px; /* Increased padding for a larger button */
-    background-color: var(--primary-orange); /* Using your primary orange */
-    color: var(--text-light); /* Light text for good contrast */
-    border: none; /* Removing default border */
+    justify-content: center;
+    /* Helps center content if width is constrained */
+    gap: 10px;
+    /* Space between icon and text */
+    padding: 12px 28px;
+    /* Increased padding for a larger button */
+    background-color: var(--primary-orange);
+    /* Using your primary orange */
+    color: var(--text-light);
+    /* Light text for good contrast */
+    border: none;
+    /* Removing default border */
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 1.05rem; /* Slightly larger font */
+    font-size: 1.05rem;
+    /* Slightly larger font */
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
-    min-width: 180px; /* Give it a decent minimum width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    /* Subtle shadow for depth */
+    min-width: 180px;
+    /* Give it a decent minimum width */
 }
 
 .btn-refresh-data:hover {
-    background-color: var(--button-primary-hover-bg); /* Your defined hover color */
+    background-color: var(--button-primary-hover-bg);
+    /* Your defined hover color */
     color: var(--text-light);
     text-decoration: none;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow on hover */
 }
 
 .btn-refresh-data:disabled {
-    background-color: #FFCC80; /* A lighter, muted orange for disabled state (var(--accent-yellow-orange) might be too bright) */
-    color: #A1887F; /* Muted text color for disabled state */
-    opacity: 0.8; /* Slightly more opaque than default */
+    background-color: #FFCC80;
+    /* A lighter, muted orange for disabled state (var(--accent-yellow-orange) might be too bright) */
+    color: #A1887F;
+    /* Muted text color for disabled state */
+    opacity: 0.8;
+    /* Slightly more opaque than default */
     cursor: not-allowed;
     transform: translateY(0);
-    box-shadow: none; /* No shadow when disabled */
+    box-shadow: none;
+    /* No shadow when disabled */
 }
 
 .btn-refresh-data i {
-    font-size: 1em; /* Icon size relative to button font size */
-    line-height: 1; /* Ensure icon aligns well vertically */
+    font-size: 1em;
+    /* Icon size relative to button font size */
+    line-height: 1;
+    /* Ensure icon aligns well vertically */
 }
 
 .refresh-status-message {
     display: block;
-    margin-top: 12px; /* Increased space for status message */
-    font-size: 0.95em; /* Slightly larger status message */
+    margin-top: 12px;
+    /* Increased space for status message */
+    font-size: 0.95em;
+    /* Slightly larger status message */
     color: var(--text-dark);
-    min-height: 1.3em; /* Prevent layout shift */
+    min-height: 1.3em;
+    /* Prevent layout shift */
     font-style: italic;
-    font-weight: 500; /* Make it a bit more prominent */
+    font-weight: 500;
+    /* Make it a bit more prominent */
 }
 
 /* Responsive adjustments for refresh button if needed */
 @media (max-width: 480px) {
     .btn-refresh-data {
-        font-size: 0.95rem; /* Adjusted for smaller screens */
-        padding: 10px 20px; /* Adjusted padding */
+        font-size: 0.95rem;
+        /* Adjusted for smaller screens */
+        padding: 10px 20px;
+        /* Adjusted padding */
         min-width: 160px;
         gap: 8px;
     }
+
     .refresh-section {
         margin-bottom: 25px;
         margin-top: 15px;
+    }
+}
+
+/* About Us Page - Staff Gallery Link Section */
+.staff-gallery-link-section {
+    text-align: center;
+    /* Center the content of this section */
+    padding: 30px;
+    /* Add some padding */
+    /* background-color: #f9f9f9; /* Optional: Light background for distinction */
+    /* border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color); */
+}
+
+.staff-gallery-link-section h2 {
+    margin-bottom: 15px;
+    /* Space below the heading */
+}
+
+.staff-gallery-link-section p {
+    margin-bottom: 25px;
+    /* Space below the paragraph */
+    font-size: 1.05rem;
+    color: #555;
+    max-width: 700px;
+    /* Constrain width of text for readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-primary.btn-view-staff {
+    /* Make this button styled like your submit button */
+    display: inline-flex;
+    /* For icon alignment */
+    align-items: center;
+    gap: 8px;
+    /* Space between text and icon */
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    /* Remove underline from link */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary.btn-view-staff:hover {
+    background-color: var(--button-primary-hover-bg);
+    transform: translateY(-2px);
+    text-decoration: none;
+    /* Ensure no underline on hover */
+}
+
+#staff-gallery-page .section-title { /* Ensuring consistent section title styling */
+    font-size: 2.5rem;
+    margin-bottom: 15px; /* Reduced margin for subtitle to be closer */
+    color: var(--section-title-color);
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+}
+
+#staff-gallery-page .section-title::after { /* Ensuring consistent section title underline */
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: var(--section-title-underline);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+#staff-gallery-page .section-subtitle {
+    font-size: 1.15rem; /* Slightly larger for better readability */
+    color: #555; /* Darker grey for better contrast */
+    margin-top: 5px; /* Adjusted to be closer to title if title has its own bottom margin */
+    margin-bottom: 50px; /* Increased space before the grid */
+    max-width: 800px; /* Limit width for better readability on wide screens */
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.staff-grid {
+    display: grid;
+    /* Default for mobile, will be overridden for larger screens */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px; /* Increased gap for better separation */
+    margin-top: 30px;
+}
+
+.staff-card {
+    /* Inherits .card styling from global styles if applied in HTML, which it is */
+    background: var(--background-card);
+    border-radius: 12px; /* Slightly more pronounced rounding */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* Softer, more modern shadow */
+    text-align: center;
+    padding: 0; /* Crucial: padding is applied to .staff-info instead */
+    overflow: hidden; /* Ensures rounded corners clip the image container */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.35s ease;
+    border: 1px solid var(--border-color); /* Subtle border */
+}
+
+.staff-card:hover {
+    transform: translateY(-10px); /* More noticeable lift */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12); /* More pronounced shadow on hover */
+}
+
+.staff-image-container {
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    position: relative;
+    background-color: #f0f0f0; /* Fallback color */
+    overflow: hidden; /* Ensure image stays within bounds, important for object-fit */
+}
+
+.staff-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill the container, crop if necessary */
+    object-position: center; /* Center the image content */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother zoom transition */
+}
+
+.staff-card:hover .staff-image-container img {
+    transform: scale(1.08); /* Slightly more zoom on hover */
+}
+
+.staff-info {
+    padding: 25px 20px; /* Generous padding for text content */
+    flex-grow: 1; /* Allows info section to expand if card heights differ slightly */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center text content vertically if there's extra space */
+}
+
+.staff-info h3 {
+    font-size: 1.6rem; /* Larger name for PC */
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: 10px; /* More space below name */
+    font-weight: 600;
+}
+
+.staff-info .staff-role {
+    font-size: 1.05rem; /* Clearer role text */
+    color: var(--primary-orange);
+    font-weight: 600;
+    margin-bottom: 8px; /* More space below role */
+    letter-spacing: 0.5px; /* Subtle letter spacing for role */
+}
+
+.staff-info .staff-degree {
+    font-size: 0.95rem; /* Clearer degree text */
+    color: #444; /* Slightly darker for better readability */
+    font-style: normal; /* Removing italics for a cleaner look, personal preference */
+    line-height: 1.5;
+}
+
+/* --- Desktop Specific Grid Layout --- */
+/* Apply these styles for screens wider than, say, 992px (typical 'lg' breakpoint) */
+@media (min-width: 992px) {
+    .staff-grid {
+        /* For PC, a 3-column layout often looks good, or 4 if cards are not too wide */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px; /* Slightly larger gap on PC */
+    }
+
+    .staff-info h3 {
+        font-size: 1.7rem;
+    }
+    .staff-info .staff-role {
+        font-size: 1.1rem;
+    }
+    .staff-info .staff-degree {
+        font-size: 1rem;
+    }
+}
+
+/* Further refinement for very wide screens if desired */
+@media (min-width: 1200px) {
+    #staff-gallery-page .container { /* Allow container to be slightly wider on large screens */
+        max-width: 1140px;
+    }
+    /* If you still want 3 columns but with more space around, the above is fine.
+       If you want 4 columns on very wide screens: */
+    /*
+    .staff-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    */
+}
+
+/* Tablet Optimizations (optional, but good practice) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .staff-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+        gap: 30px;
+    }
+    .staff-info h3 {
+        font-size: 1.5rem;
     }
 }

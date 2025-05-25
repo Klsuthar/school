@@ -8,6 +8,7 @@ https://klsuthar.github.io/school/
 ├── notice.html
 ├── about.html
 ├── contact.html
+├── staff.html
 ├── css/
 │   └── style.css
 ├── js/
@@ -41,6 +42,11 @@ https://klsuthar.github.io/school/
 │   │   │   ├── 1.jpg
 │   │   │   ├── 2.jpg
 │   │   │   └── 3.jpg
+│   │   └── staff/
+│   │   │   ├── teacher1.jpg
+│   │   │   ├── teacher2.jpg
+│   │   │   └── teacher3.jpg
+│   │   │   └── teacher4.jpg
 │   ├── notice/
 │   │   ├── exam_schedule.jpg
 │   │   ├── sports_day_postponed.jpg
