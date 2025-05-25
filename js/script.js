@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextModalBtn = modal ? modal.querySelector('.next-modal') : null;
 
         let currentGalleryImages = [];
-        let currentImageAlts = [];
+        let currentGalleryAlts = [];
         let currentImageIndexInModal = 0;
 
         document.querySelectorAll('#gallery-page .image-grid-container').forEach(gridContainer => {
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function openImageModal(src, altText) {
             if (modal && modalImg && modalTitle) {
-                modal.style.display = "block";
+                modal.classList.add('active'); // Use class to trigger CSS transition
                 modalImg.src = src;
                 modalImg.alt = altText;
                 modalTitle.textContent = altText; // For screen readers
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function closeImageModal() {
             if (modal) {
-                modal.style.display = "none";
+                modal.classList.remove('active'); // Use class to trigger CSS transition
                 document.body.style.overflow = '';
             }
         }
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (event.target === modal) closeImageModal();
             });
             window.addEventListener('keydown', (event) => {
-                if (modal.style.display === 'block') {
+                if (modal.classList.contains('active')) { // Check class instead of style.display
                     if (event.key === 'Escape') closeImageModal();
                     if (event.key === 'ArrowLeft' && prevModalBtn && currentGalleryImages.length > 1) prevModalBtn.click();
                     if (event.key === 'ArrowRight' && nextModalBtn && currentGalleryImages.length > 1) nextModalBtn.click();
