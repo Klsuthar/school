@@ -80,7 +80,7 @@
             "sizes": "1080x1920",
             "type": "image/png",
             "form_factor": "narrow",
-            "label": "Gallery view on mobile"
+            "label": "Result view on mobile"
         },
         {
             "src": "images/screenshots/screenshot3-wide.png",
